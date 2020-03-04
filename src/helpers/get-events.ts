@@ -40,7 +40,8 @@ interface ShiftCalResponse {
   events: Event[];
 }
 
-interface MappedEvent {
+export interface MappedEvent {
+  updated: string;
   title: string;
   venue: string;
   date: string;
@@ -69,6 +70,7 @@ function getTimeForDesc(start: string, end?: string): string {
 
 function mapEvents(events: Event[]): Array<MappedEvent> {
   const res = events.map(({ title, venue, date, time, endtime }) => ({
+    updated: new Date().toLocaleString(),
     title,
     venue,
     date,
@@ -78,13 +80,11 @@ function mapEvents(events: Event[]): Array<MappedEvent> {
 }
 
 const baseUrl = 'https://www.shift2bikes.org/api/events.php';
-function getEvents(start: string, end: string): Promise<MappedEvent[]> {
+function getEvents(start = '2020-03-05', end = '2020-03-15'): Promise<MappedEvent[]> {
   return axios
     .get(`${baseUrl}?startdate=${start}&enddate=${end}`)
     .then(({ data }: AxiosResponse<ShiftCalResponse>) => {
-      const events = mapEvents(data.events);
-      console.log('fetched events. count: ', events.length);
-      return events;
+      return mapEvents(data.events);
     })
     .catch((err: Error) => {
       console.error(err);
