@@ -37,8 +37,8 @@ class CustomMap extends Component<MapProps, MapState> {
           <Circle center={position} radius={400}>
             <Popup>You are here!</Popup>
           </Circle>
-          {points.map((point: MappedEvent) => (
-            <div key={point.id}>
+          {points.map((point: MappedEvent, idx: number) => (
+            <div key={idx + point.id}>
               <Marker position={[point.latitude, point.longitude] as LatLngTuple}>
                 <Popup>{point.title}</Popup>
               </Marker>

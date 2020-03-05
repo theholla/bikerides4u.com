@@ -11,7 +11,7 @@
 .push {
   margin-left: auto;
 }
-.logo {
+#logo {
   text-transform: uppercase;
   font-weight: 800;
 }
