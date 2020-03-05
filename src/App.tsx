@@ -1,10 +1,17 @@
 import React from 'react';
+import NavBar from './components/NavBar';
 import Events from './components/Events';
+import Map from './components/Map';
+import './App.css';
 
 function App(): JSX.Element {
   return (
-    <div>
-      <Events />
+    <div className="root">
+      <NavBar />
+      <div className="content">
+        <Events />
+        <Map />
+      </div>
     </div>
   );
 }

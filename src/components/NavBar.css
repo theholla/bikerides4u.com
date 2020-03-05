@@ -1,0 +1,17 @@
+.nav-bar {
+  background-color: #333;
+  display: flex;
+  justify-content: flex-end;
+}
+.nav-bar-item {
+  font-family: 'Greycliff', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: white;
+  padding: 15px;
+}
+.push {
+  margin-left: auto;
+}
+.logo {
+  text-transform: uppercase;
+  font-weight: 800;
+}

@@ -7,7 +7,7 @@ interface EventListProps {
 }
 function EventList({ events }: EventListProps): JSX.Element {
   return (
-    <div className="grid-container">
+    <div className="events-list">
       {events.map(({ title, venue, date, times, updated }, idx) => (
         <Event title={title} venue={venue} date={date} updated={updated} times={times} key={title + idx} />
       ))}

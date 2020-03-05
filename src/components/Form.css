@@ -1,0 +1,12 @@
+.controls-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
+}
+.item {
+  padding: 15px;
+}
+.location-input {
+  height: 3em;
+  width: 100%;
+}

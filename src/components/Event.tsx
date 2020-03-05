@@ -4,7 +4,7 @@ import { MappedEvent } from '../helpers/get-events';
 function Event(props: MappedEvent): JSX.Element {
   const { title, date, venue, times, updated } = props;
   return (
-    <div className="grid-item">
+    <div className="event">
       <div>
         <em>{title}</em>
       </div>

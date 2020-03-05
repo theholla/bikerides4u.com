@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.content {
+  display: flex;
+  height: 100vh;
+}
+.control-pane {
+}
+.map-pane {
+  flex-grow: 9;
+  background-color: aquamarine;
+}
+.events-content-area {
+  display: flex;
+  flex-direction: column;
+}
+.events-list {
+  height: 100vh;
+  overflow: auto;
+}
+.event {
+  padding: 15px;
+}
