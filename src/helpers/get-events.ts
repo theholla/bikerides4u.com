@@ -10,8 +10,8 @@ interface Event {
   organizer: string;
   details: string;
   time: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   hideemail: string; // stringified number
   timedetails?: string;
   locdetails?: string;
@@ -50,6 +50,9 @@ type Coordinate = {
 };
 
 export interface MappedEvent {
+  id: string;
+  latitude: number;
+  longitude: number;
   updated: string;
   title: string;
   venue: string;
@@ -96,7 +99,8 @@ function getLatLon(address: string): Coordinate {
 function mapEvents(address: string, events: Event[]): Array<MappedEvent> {
   const userCoords = getLatLon(address);
   const res = events
-    .map(({ title, venue, date, latitude, longitude, time, endtime }) => ({
+    .map(({ id, title, venue, date, latitude, longitude, time, endtime }) => ({
+      id,
       updated: new Date().toLocaleString(),
       latitude,
       longitude,

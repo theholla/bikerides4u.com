@@ -9,6 +9,8 @@ function EventList({ events }: EventListProps): JSX.Element {
   return (
     <div className="events-list">
       {events.map(({ title, venue, date, times, updated, distance }, idx) => (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
         <Event
           title={title}
           venue={venue}
