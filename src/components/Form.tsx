@@ -39,7 +39,7 @@ class Form extends Component<{}, FormState> {
             value={this.state.location}
             name="address"
             className="location-input"
-            placeholder="Enter street address"
+            placeholder="Portland, Oregon"
           />
         </div>
         <div className="bottom-row item">

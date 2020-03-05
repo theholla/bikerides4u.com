@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { getDistance } from 'geolib';
 import testData from '../test-data.json';
 
 interface Event {
@@ -9,6 +10,8 @@ interface Event {
   organizer: string;
   details: string;
   time: string;
+  latitude: string;
+  longitude: string;
   hideemail: string; // stringified number
   timedetails?: string;
   locdetails?: string;
@@ -41,12 +44,18 @@ interface ShiftCalResponse {
   events: Event[];
 }
 
+type Coordinate = {
+  latitude: number;
+  longitude: number;
+};
+
 export interface MappedEvent {
   updated: string;
   title: string;
   venue: string;
   date: string;
   times: string;
+  distance: number;
 }
 
 function transformTime(hhmmss: string): string {
@@ -69,24 +78,45 @@ function getTimeForDesc(start: string, end?: string): string {
   return time;
 }
 
-function mapEvents(events: Event[]): Array<MappedEvent> {
-  const res = events.map(({ title, venue, date, time, endtime }) => ({
-    updated: new Date().toLocaleString(),
-    title,
-    venue,
-    date,
-    times: getTimeForDesc(time, endtime),
-  }));
+const convert = {
+  metersToMiles: (meters: number): number => meters * 0.00062137,
+  metersToFeet: (meters: number): number => meters * 3.2808,
+};
+
+function formatNumber(number: number): number {
+  return Number(convert.metersToMiles(number).toFixed(2));
+}
+
+function getLatLon(address: string): Coordinate {
+  console.log(address);
+  // FIXME: get lat/lon from address
+  return { latitude: 45.504738, longitude: -122.675275 };
+}
+
+function mapEvents(address: string, events: Event[]): Array<MappedEvent> {
+  const userCoords = getLatLon(address);
+  const res = events
+    .map(({ title, venue, date, latitude, longitude, time, endtime }) => ({
+      updated: new Date().toLocaleString(),
+      latitude,
+      longitude,
+      distance: formatNumber(getDistance(userCoords, { latitude, longitude }, 0.1)),
+      title,
+      venue,
+      date,
+      times: getTimeForDesc(time, endtime),
+    }))
+    .sort((a, b) => a.distance - b.distance);
   return res;
 }
 
 const baseUrl = 'https://www.shift2bikes.org/api/events.php';
-function getEvents(start = '2020-03-05', end = '2020-03-15'): Promise<MappedEvent[]> {
+function getEvents(address = '', start = '2020-03-05', end = '2020-03-15'): Promise<MappedEvent[]> {
   // return axios
   //   .get(`${baseUrl}?startdate=${start}&enddate=${end}`)
   return Promise.resolve(testData as any)
     .then(({ data }: AxiosResponse<ShiftCalResponse>) => {
-      return mapEvents(data.events);
+      return mapEvents(address, data.events);
     })
     .catch((err: Error) => {
       console.error(err);

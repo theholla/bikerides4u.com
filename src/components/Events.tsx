@@ -7,6 +7,7 @@ const POLL_INTERVAL = 2000;
 
 interface EventsState {
   events: MappedEvent[];
+  address: string;
 }
 class Events extends Component<{}, EventsState> {
   timerID: any = '';
@@ -15,19 +16,20 @@ class Events extends Component<{}, EventsState> {
     super(props);
     this.state = {
       events: [],
+      address: '', // FIXME: get address from form
     };
   }
 
   componentDidMount(): void {
-    this.timerID = setInterval(() => this.getEvents(), POLL_INTERVAL);
+    this.timerID = setInterval(() => this.getSortedEvents(), POLL_INTERVAL);
   }
 
   componentWillUnmount(): void {
     clearInterval(this.timerID);
   }
 
-  getEvents(): Promise<void> {
-    return getEvents().then(events => this.setState({ events }));
+  getSortedEvents(): Promise<void> {
+    return getEvents(this.state.address).then(events => this.setState({ events }));
   }
 
   render(): JSX.Element {

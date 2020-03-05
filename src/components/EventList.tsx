@@ -8,8 +8,16 @@ interface EventListProps {
 function EventList({ events }: EventListProps): JSX.Element {
   return (
     <div className="events-list">
-      {events.map(({ title, venue, date, times, updated }, idx) => (
-        <Event title={title} venue={venue} date={date} updated={updated} times={times} key={title + idx} />
+      {events.map(({ title, venue, date, times, updated, distance }, idx) => (
+        <Event
+          title={title}
+          venue={venue}
+          date={date}
+          updated={updated}
+          times={times}
+          distance={distance}
+          key={title + idx}
+        />
       ))}
     </div>
   );
