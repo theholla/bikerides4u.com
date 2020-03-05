@@ -7,6 +7,21 @@ h1 {
   color: white;
   padding: 10px;
 }
-.event {
-  padding: 5px;
+.grid-container {
+  grid-template-columns: auto auto auto auto;
+  display: grid;
+  grid-gap: 20px;
+}
+.grid-item {
+  padding: 10px;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100px;
+}
+.flex-child {
+  width: 100px;
+  height: 100px;
+  margin: auto;
 }

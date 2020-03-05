@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import testData from '../test-data.json';
 
 interface Event {
   id: string;
@@ -81,8 +82,9 @@ function mapEvents(events: Event[]): Array<MappedEvent> {
 
 const baseUrl = 'https://www.shift2bikes.org/api/events.php';
 function getEvents(start = '2020-03-05', end = '2020-03-15'): Promise<MappedEvent[]> {
-  return axios
-    .get(`${baseUrl}?startdate=${start}&enddate=${end}`)
+  // return axios
+  //   .get(`${baseUrl}?startdate=${start}&enddate=${end}`)
+  return Promise.resolve(testData as any)
     .then(({ data }: AxiosResponse<ShiftCalResponse>) => {
       return mapEvents(data.events);
     })
