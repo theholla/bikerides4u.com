@@ -91,8 +91,7 @@ function formatNumber(number: number): number {
 }
 
 function getLatLon(address: string): Coordinate {
-  console.log(address);
-  // FIXME: get lat/lon from address
+  // TODO: Get lat/long from user's geolocation
   return { latitude: 45.504738, longitude: -122.675275 };
 }
 
@@ -115,7 +114,8 @@ function mapEvents(address: string, events: Event[]): Array<MappedEvent> {
 }
 
 const baseUrl = 'https://www.shift2bikes.org/api/events.php';
-function getEvents(address = '', start = '2020-03-05', end = '2020-03-15'): Promise<MappedEvent[]> {
+function getEvents(address = '', start = '2020-03-31', end = '2020-05-15'): Promise<MappedEvent[]> {
+  // not hitting actual Shift API for now bc I don't want to accidentally DDoS them
   // return axios
   //   .get(`${baseUrl}?startdate=${start}&enddate=${end}`)
   return Promise.resolve(testData as any)

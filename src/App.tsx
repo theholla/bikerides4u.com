@@ -12,7 +12,8 @@ interface AppState {
   events: MappedEvent[];
   address: string;
 }
-// FIXME: lat/long should be typed into form and pass down into components
+
+// TODO: Get lat/long from user's geolocation
 class App extends Component<{}, AppState> {
   timerID: any = '';
 
@@ -20,7 +21,7 @@ class App extends Component<{}, AppState> {
     super(props);
     this.state = {
       events: [],
-      address: '', // FIXME: get address from form
+      address: '', // TODO: Get search address from input form
     };
   }
 

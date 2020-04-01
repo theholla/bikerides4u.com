@@ -23,7 +23,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "ignorePatterns": ["node_modules", "dist"],
+  "ignorePatterns": ["build", "node_modules"],
   "rules": {
     "prettier/prettier": "error",
     "react/prop-types": ["warn"]
