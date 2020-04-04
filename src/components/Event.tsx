@@ -1,7 +1,7 @@
 import React from 'react';
 import { MappedEvent } from '../helpers/get-events';
 
-function Event(props: MappedEvent): JSX.Element {
+export function Event(props: MappedEvent): JSX.Element {
   const { title, date, venue, times, updated, distance } = props;
   return (
     <div className="event">
@@ -16,5 +16,3 @@ function Event(props: MappedEvent): JSX.Element {
     </div>
   );
 }
-
-export default Event;

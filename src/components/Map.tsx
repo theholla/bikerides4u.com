@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import { MappedEvent } from '../helpers/get-events';
 
@@ -13,7 +13,7 @@ interface MapState {
   longitude: number;
   zoom: number;
 }
-class CustomMap extends Component<MapProps, MapState> {
+export class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps) {
     const { latitude, longitude } = props;
     super(props);
@@ -29,7 +29,7 @@ class CustomMap extends Component<MapProps, MapState> {
     const position = [latitude, longitude] as LatLngTuple;
     return (
       <div className="map-pane" id="map">
-        <Map center={position} zoom={zoom} className="map">
+        <LeafletMap center={position} zoom={zoom} className="map">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
             url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
@@ -44,10 +44,8 @@ class CustomMap extends Component<MapProps, MapState> {
               </Marker>
             </div>
           ))}
-        </Map>
+        </LeafletMap>
       </div>
     );
   }
 }
-
-export default CustomMap;

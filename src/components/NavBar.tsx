@@ -1,18 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
-function NavBar(): JSX.Element {
+export function NavBar(): JSX.Element {
   return (
     <div className="nav-bar">
-      <div className="nav-bar-item" id="logo">
+      <Link to="/" className="nav-bar-item link" id="logo">
         Bike Rides 4U
-      </div>
-      <div className="nav-bar-item push">How it works</div>
-      <div className="nav-bar-item">Search</div>
-      <div className="nav-bar-item">Trips</div>
-      <div className="nav-bar-item">(--) Holla #</div>
+      </Link>
+      <Link to="/featured" className="nav-bar-item link push">
+        Featured Events
+      </Link>
+      <Link to="/community" className="nav-bar-item link">
+        Community
+      </Link>
+      <Link to="/about" className="nav-bar-item link">
+        About
+      </Link>
     </div>
   );
 }
-
-export default NavBar;

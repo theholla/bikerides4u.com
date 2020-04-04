@@ -1,59 +1,31 @@
-import React, { Component } from 'react';
-import NavBar from './components/NavBar';
-import Form from './components/Form';
-import EventList from './components/EventList';
-import Map from './components/Map';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { NavBar } from './components';
+import { About, Community, Featured, Home } from './pages';
 import './App.css';
-import getEvents, { MappedEvent } from './helpers/get-events';
 
-const POLL_INTERVAL = 2000;
-
-interface AppState {
-  events: MappedEvent[];
-  address: string;
-}
-
-// TODO: Get lat/long from user's geolocation
-class App extends Component<{}, AppState> {
-  timerID: any = '';
-
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      events: [],
-      address: '', // TODO: Get search address from input form
-    };
-  }
-
-  componentDidMount(): void {
-    this.timerID = setInterval(() => this.getSortedEvents(), POLL_INTERVAL);
-  }
-
-  componentWillUnmount(): void {
-    clearInterval(this.timerID);
-  }
-
-  getSortedEvents(): Promise<void> {
-    return getEvents(this.state.address).then(events => this.setState({ events }));
-  }
-
-  render(): JSX.Element {
-    return (
+function App(): JSX.Element {
+  return (
+    <Router>
       <div className="root">
         <NavBar />
-        <div className="content">
-          <div className="control-pane">
-            <Form />
-            <div className="events-content-area">
-              <div>{this.state.events.length} rides</div>
-              <EventList events={this.state.events} />
-            </div>
-          </div>
-          <Map latitude={45.504738} longitude={-122.675275} points={this.state.events} />
-        </div>
+        <Switch>
+          <Route path="/featured">
+            <Featured />
+          </Route>
+          <Route path="/community">
+            <Community />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    );
-  }
+    </Router>
+  );
 }
 
 export default App;

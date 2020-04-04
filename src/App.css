@@ -3,27 +3,28 @@
   flex-direction: column;
   overflow: hidden;
 }
-.content {
-  display: flex;
-  height: 100vh;
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #333333;
 }
-.control-pane {
+
+.link {
+  text-decoration: none;
 }
-.map-pane {
-  flex-grow: 9;
-  background-color: aquamarine;
-}
-.map {
-  height: 100%;
-}
-.events-content-area {
+
+.page-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.events-list {
-  height: 100vh;
-  overflow: auto;
-}
-.event {
-  padding: 15px;
+
+.page-content {
+  width: 75vw;
 }

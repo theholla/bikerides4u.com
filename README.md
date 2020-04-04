@@ -9,14 +9,13 @@ Complete:
 - [x] Fetch bike fun data from Shift2Bikes API (or test source) on a regular cadence
 - [x] Use websockets to update list of events in realtime
 - [x] Display events from list on map with some meta
+- [x] Implement routing
 
 To be implemented:
 
 - [] Get lat/long from user's geolocation
 - [] Get search address from input form
 - [] Get start/end date filters from input form
-- [] Decide on & implement actual nav bar features (are currently placeholders)
-- [] Use AR to point to exact start location in streetview
 
 ## Usage
 

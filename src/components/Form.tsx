@@ -6,7 +6,7 @@ interface FormState {
   startDate: string;
   endDate: string;
 }
-class Form extends Component<{}, FormState> {
+export class Form extends Component<{}, FormState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -56,5 +56,3 @@ class Form extends Component<{}, FormState> {
     );
   }
 }
-
-export default Form;

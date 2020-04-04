@@ -1,11 +1,11 @@
 import React from 'react';
-import Event from './Event';
+import { Event } from '.';
 import { MappedEvent } from '../helpers/get-events';
 
 interface EventListProps {
   events: MappedEvent[];
 }
-function EventList({ events }: EventListProps): JSX.Element {
+export function EventList({ events }: EventListProps): JSX.Element {
   return (
     <div className="events-list">
       {events.map(({ title, venue, date, times, updated, distance }, idx) => (
@@ -24,4 +24,3 @@ function EventList({ events }: EventListProps): JSX.Element {
     </div>
   );
 }
-export default EventList;
