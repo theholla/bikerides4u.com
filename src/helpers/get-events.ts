@@ -51,12 +51,24 @@ export interface MappedEvent {
   latLng: Coordinate;
   updated: string;
   title: string;
+  details: string;
   venue: string;
   date: string;
+  friendlyDate: string;
   times: string;
   distance: number;
 }
 
+export const defaultCoords = {
+  latitude: 45.504738,
+  longitude: -122.675275,
+};
+
+export function getEventKey(date: string, id: string): string {
+  return `${date}-${id}`;
+}
+
+// hhmmss = hh:mm:ss, ie 18:30:00
 function transformTime(hhmmss: string): string {
   const [hour, minute] = hhmmss.substring(0, 5).split(':');
   const period = parseInt(hour) >= 12 ? 'PM' : 'AM';
@@ -92,9 +104,13 @@ function getCoordsFromAddress(address: string): Coordinate {
   return { latitude: 45.504738 + Math.random() * 0.05, longitude: -122.675275 + Math.random() * 0.07 };
 }
 
+function getFriendlyDate(date: string): string {
+  return new Date(date).toLocaleDateString();
+}
+
 function mapEvents(userLoc: Coordinate, events: Event[]): Array<MappedEvent> {
   return events
-    .map(({ id, title, venue, date, address, time, endtime }) => {
+    .map(({ id, title, details, venue, date, address, time, endtime }) => {
       const latLng = getCoordsFromAddress(address);
       return {
         id,
@@ -102,8 +118,10 @@ function mapEvents(userLoc: Coordinate, events: Event[]): Array<MappedEvent> {
         latLng,
         distance: formatNumber(getDistance(userLoc, latLng, 0.1)),
         title,
+        details,
         venue,
         date,
+        friendlyDate: getFriendlyDate(date),
         times: getTimeForDesc(time, endtime),
       };
     })

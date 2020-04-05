@@ -1,18 +1,21 @@
 import React from 'react';
 import { MappedEvent } from '../helpers/get-events';
 
-export function Event(props: MappedEvent): JSX.Element {
-  const { title, date, venue, times, updated, distance } = props;
+interface Handlers {
+  handleListItemClick: (id: string) => void;
+}
+export function Event(props: MappedEvent & Handlers): JSX.Element {
+  const { id, title, date, venue, times, updated, distance, handleListItemClick } = props;
   return (
-    <div className="event">
-      <div>
-        <em>{title}</em>
+    <div onClick={(): void => handleListItemClick(id)}>
+      <div className="event">
+        <div className="event-title">{title}</div>
+        <div className="event-venue">{venue}</div>
+        <div className="event-times">{times}</div>
+        <div className="event-date">{date}</div>
+        <div className="event-distance-to push">{distance} miles</div>
+        <div className="refreshed">data refreshed {updated}</div>
       </div>
-      <div>{date}</div>
-      <div>{venue}</div>
-      <div>{times}</div>
-      <div>{distance} mi</div>
-      <div>updated: {updated}</div>
     </div>
   );
 }

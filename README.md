@@ -12,15 +12,16 @@ To enable realtime updates, change `REACT_APP_REALTIME_MODE` to `true` in `.env`
 
 Complete:
 
-- [x] Fetch bike fun data from Shift2Bikes API (or test source) on a regular cadence
-- [x] Update list of events in realtime
-- [x] Display events from list on map with some meta
+- [x] Fetch bike fun data from Shift2Bikes API on a regular cadence
+- [x] Display events from list on map (poc: use random location data)
 - [x] Implement routing
 - [x] Implement realtime mode flag
+- [x] Center map on lat/long from user's geolocation
 
 To be implemented:
 
-- [] Get lat/long from user's geolocation
+- [~] Fire map marker click when user clicks on event in list
+- [] Display actual event location on map (will probably need api key / to implement a backend)
 - [] Get search address from input form
 - [] Get start/end date filters from input form
 - [] Display weather icon next to ride for expected weather
@@ -35,8 +36,6 @@ npm start
 App will be visible on http://localhost:3000/
 
 ## Current UI
-
-Design inspiration from Getaround's website.
 
 ![screen capture of app](/misc/screencap.png)
 

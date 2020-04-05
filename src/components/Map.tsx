@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
-import { MappedEvent } from '../helpers/get-events';
+import { MappedEvent, defaultCoords, getEventKey } from '../helpers/get-events';
 import './Map.css';
 
+const zoom = 13;
 interface MapProps {
+  selectedEventId?: string;
   latitude: number;
   longitude: number;
   points: MappedEvent[];
 }
-interface MapState {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-export class Map extends Component<MapProps, MapState> {
+export class Map extends Component<MapProps, {}> {
   constructor(props: MapProps) {
-    const { latitude, longitude } = props;
     super(props);
-    this.state = {
-      latitude,
-      longitude,
-      zoom: 13,
-    };
   }
+
   render(): JSX.Element {
-    const { latitude, longitude, zoom } = this.state;
-    const { points } = this.props;
+    const { latitude, longitude, points, selectedEventId } = this.props;
     const position = [latitude, longitude] as LatLngTuple;
+
     return (
       <div className="map-pane" id="map">
         <LeafletMap center={position} zoom={zoom} className="map">
@@ -35,13 +27,24 @@ export class Map extends Component<MapProps, MapState> {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
             url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
           ></TileLayer>
-          <Circle center={position} radius={400}>
-            <Popup>You are here!</Popup>
-          </Circle>
-          {points.map((point: MappedEvent, idx: number) => (
-            <div key={idx + point.id}>
+          {latitude !== defaultCoords.latitude && (
+            <Circle center={position} radius={400}>
+              <Popup>You are here!</Popup>
+            </Circle>
+          )}
+          {points.map((point: MappedEvent) => (
+            <div key={getEventKey(point.date, point.id)}>
               <Marker position={[point.latLng.latitude, point.latLng.longitude] as LatLngTuple}>
-                <Popup>{point.title}</Popup>
+                {/** FIXME: need to set some property...not isOpen..not sure what */}
+                <Popup isOpen={selectedEventId === point.id}>
+                  <p>
+                    <div>{point.title}</div>
+                    <div>{point.venue}</div>
+                    <div>{point.times}</div>
+                    <div>{point.friendlyDate}</div>
+                  </p>
+                  <p>{point.details}</p>
+                </Popup>
               </Marker>
             </div>
           ))}

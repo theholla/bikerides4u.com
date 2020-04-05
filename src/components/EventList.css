@@ -2,19 +2,43 @@
   display: flex;
   flex-direction: column;
   max-width: 25vw;
+  border-right: 1px solid #c3c3c3;
 }
 .event-list-meta {
   display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-.ride-count {
-  font-size: xx-large;
+  background-color: #f7f7f7;
+  color: #888;
+  padding: 7px 10px;
 }
 .event-list {
+  border-top: 1px solid #c3c3c3;
   height: 100vh;
   overflow: auto;
+  position: relative;
+  background: white;
 }
 .event {
+  display: flex;
+  flex-direction: column;
+  line-height: 18px;
   padding: 15px;
+}
+.event-datetime {
+  display: flex;
+  flex-direction: row;
+}
+.event-title {
+  font-weight: 500;
+}
+.event-date {
+}
+.event-venue {
+}
+.event-times {
+}
+.event-distance-to {
+  color: #ff8d00;
+}
+.refreshed {
+  font-size: 14px;
 }

@@ -1,0 +1,37 @@
+.controls-form {
+  background-color: #f7f7f7;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 1px solid #c3c3c3;
+}
+.location {
+  padding: 0 10px 10px 10px;
+  margin-top: 10px;
+}
+.location-input {
+  font-size: 14px;
+  width: 100%;
+}
+.date-inputs {
+  font-size: 14px;
+  padding: 0 10px 10px 10px;
+  display: flex;
+}
+.start-inputs {
+  float: left;
+  flex-grow: 1;
+}
+.end-inputs {
+  flex-grow: 1;
+}
+.date-label {
+  display: block;
+}
+.date-input {
+  display: block;
+}
+.field {
+  line-height: 3;
+}
+.ride-update-cadence {
+  font-size: 14px;
+}

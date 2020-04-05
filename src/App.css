@@ -1,3 +1,7 @@
+body {
+  line-height: 22px;
+}
+
 .root {
   display: flex;
   flex-direction: column;
