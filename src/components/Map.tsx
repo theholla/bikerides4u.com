@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import { MappedEvent } from '../helpers/get-events';
+import './Map.css';
 
 interface MapProps {
   latitude: number;
@@ -39,7 +40,7 @@ export class Map extends Component<MapProps, MapState> {
           </Circle>
           {points.map((point: MappedEvent, idx: number) => (
             <div key={idx + point.id}>
-              <Marker position={[point.latitude, point.longitude] as LatLngTuple}>
+              <Marker position={[point.latLng.latitude, point.latLng.longitude] as LatLngTuple}>
                 <Popup>{point.title}</Popup>
               </Marker>
             </div>

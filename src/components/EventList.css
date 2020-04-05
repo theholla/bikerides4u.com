@@ -1,0 +1,20 @@
+.events-content-area {
+  display: flex;
+  flex-direction: column;
+  max-width: 25vw;
+}
+.event-list-meta {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.ride-count {
+  font-size: xx-large;
+}
+.event-list {
+  height: 100vh;
+  overflow: auto;
+}
+.event {
+  padding: 15px;
+}

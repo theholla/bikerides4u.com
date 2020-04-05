@@ -1,0 +1,7 @@
+.map-pane {
+  flex-grow: 9;
+  background-color: aquamarine;
+}
+.map {
+  height: 100%;
+}

@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import { EventList, Form, Map } from '../components';
-import getEvents, { MappedEvent } from '../helpers/get-events';
+import getEvents, { Coordinate, MappedEvent } from '../helpers/get-events';
 import './Home.css';
 
-const POLL_INTERVAL = 2000;
+enum cadence {
+  EVERY_2_SECONDS = 2000,
+  EVERY_1_HOUR = 3600000,
+}
+enum cadenceFriendlyStrings {
+  EVERY_2_SECONDS = 'every two seconds',
+  EVERY_1_HOUR = 'every hour',
+}
+const REALTIME_MODE = process.env.REACT_APP_REALTIME_MODE === 'true';
+const POLL_INTERVAL = REALTIME_MODE ? cadence.EVERY_2_SECONDS : cadence.EVERY_1_HOUR;
+const CADENCE = REALTIME_MODE ? cadenceFriendlyStrings.EVERY_2_SECONDS : cadenceFriendlyStrings.EVERY_1_HOUR;
+
+// TODO: Get lat/long for mapCenter from user's geolocation
+const defaultCoords = {
+  latitude: 45.504738,
+  longitude: -122.675275,
+};
 
 interface HomeState {
   events: MappedEvent[];
-  address: string;
+  mapCenter: Coordinate;
 }
 
-// TODO: Get lat/long from user's geolocation
+// TODO: Get search address from input form, update mapCenter after that
 export class Home extends Component<{}, HomeState> {
   timerID?: NodeJS.Timeout;
 
@@ -18,12 +34,14 @@ export class Home extends Component<{}, HomeState> {
     super(props);
     this.state = {
       events: [],
-      address: '', // TODO: Get search address from input form
+      mapCenter: defaultCoords,
     };
   }
 
   componentDidMount(): void {
-    this.timerID = setInterval(() => this.getSortedEvents(), POLL_INTERVAL);
+    this.getSortedEvents().then(() => {
+      this.timerID = setInterval(() => this.getSortedEvents(), POLL_INTERVAL);
+    });
   }
 
   componentWillUnmount(): void {
@@ -31,20 +49,18 @@ export class Home extends Component<{}, HomeState> {
   }
 
   getSortedEvents(): Promise<void> {
-    return getEvents(this.state.address).then(events => this.setState({ events }));
+    return getEvents(this.state.mapCenter).then(events => this.setState({ events }));
   }
 
   render(): JSX.Element {
+    const { mapCenter, events } = this.state;
     return (
       <div className="content">
         <div>
           <Form />
-          <div className="events-content-area">
-            <div>{this.state.events.length} rides</div>
-            <EventList events={this.state.events} />
-          </div>
+          <EventList cadence={CADENCE} events={events} />
         </div>
-        <Map latitude={45.504738} longitude={-122.675275} points={this.state.events} />
+        <Map latitude={mapCenter.latitude} longitude={mapCenter.longitude} points={events} />
       </div>
     );
   }

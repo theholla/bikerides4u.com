@@ -2,21 +2,3 @@
   display: flex;
   height: 100vh;
 }
-.map-pane {
-  flex-grow: 9;
-  background-color: aquamarine;
-}
-.map {
-  height: 100%;
-}
-.events-content-area {
-  display: flex;
-  flex-direction: column;
-}
-.events-list {
-  height: 100vh;
-  overflow: auto;
-}
-.event {
-  padding: 15px;
-}
