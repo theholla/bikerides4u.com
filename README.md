@@ -8,23 +8,35 @@ This web app has the ability to display ride updates in near-realtime. This func
 
 To enable realtime updates, change `REACT_APP_REALTIME_MODE` to `true` in `.env` before running the app.
 
-## Features
+## MVP
 
 Complete:
 
-- [x] Fetch bike fun data from Shift2Bikes API on a regular cadence
-- [x] Display events from list on map (poc: use random location data)
+- [x] Regularly fetch bike fun data from Shift2Bikes API
+- [x] Display rides in list and on map (poc: use random location data)
+- [x] Center map on lat/long from user's geolocation
 - [x] Implement routing
 - [x] Implement realtime mode flag
-- [x] Center map on lat/long from user's geolocation
 
-To be implemented:
+TODO:
 
-- [~] Fire map marker click when user clicks on event in list
-- [] Display actual event location on map (will probably need api key / to implement a backend)
-- [] Get search address from input form
-- [] Get start/end date filters from input form
-- [] Display weather icon next to ride for expected weather
+- [~] Fire map marker click when user clicks on ride in list
+- [] Add ride filter: start date
+- [] Add ride filter: day of week checkbox
+- [] Display actual ride locations on map (will probably need api key / to implement a backend)
+
+## Cool ideas for later
+
+- Add ride filters: organizer, audience, location name, area (PDX/Vancouver), duration
+- Add ride filter: time of day (morning / afternoon / evening)
+- Add ride filter: expandable radius in map
+- Make center of map draggable; currently defaults to user location if allowed
+- Display weather icon next to ride for expected weather
+- Find meaningful words in ride description, highlight those somehow (filter? thumbs?)
+
+## Current UI
+
+![screen capture of app](/misc/screencap.png)
 
 ## Local development
 
@@ -34,10 +46,6 @@ npm start
 ```
 
 App will be visible on http://localhost:3000/
-
-## Current UI
-
-![screen capture of app](/misc/screencap.png)
 
 ## About Shift2Bikes
 
