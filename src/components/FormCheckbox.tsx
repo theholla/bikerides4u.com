@@ -1,35 +1,23 @@
 import React from 'react';
 
-interface FormDateFieldProps {
+interface FormCheckboxProps {
   handleChange: (event: React.ChangeEvent<any>) => void;
-  formValue: string;
+  checked: boolean;
   labelText: string;
   id: string;
   name: string;
-  min: string;
-  max: string;
 }
-export function FormDateField({
-  handleChange,
-  labelText,
-  formValue,
-  name,
-  id,
-  min,
-  max,
-}: FormDateFieldProps): JSX.Element {
+export function FormCheckbox({ handleChange, labelText, checked, name, id }: FormCheckboxProps): JSX.Element {
   return (
-    <div className="date-field">
+    <div className="form-checkbox">
       <label htmlFor={id} className="form-label">
         {labelText}
       </label>
       <input
-        type="date"
+        type="checkbox"
         id={id}
         name={name}
-        value={formValue}
-        min={min}
-        max={max}
+        checked={checked}
         onChange={handleChange}
         className="form-input field"
       />

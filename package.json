@@ -48,12 +48,14 @@
     "typescript": "^3.8.3"
   },
   "pre-commit": [
-    "lint"
+    "lint",
+    "test:ci"
   ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "CI=true react-scripts test",
     "lint": "eslint . --ext .js,.ts,.json",
     "eject": "react-scripts eject"
   }

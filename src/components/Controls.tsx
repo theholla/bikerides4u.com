@@ -1,63 +1,110 @@
 import React, { Component } from 'react';
 import './Controls.css';
 import { FormDateField } from '.';
-import { MappedEvent } from '../helpers/get-events';
+import { FetchedData, FormattedEvent, Day, getFriendlyDate } from '../helpers/get-events';
+import { FormCheckbox } from './FormCheckbox';
+
+const daysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
 
 interface ControlsProps {
-  events: MappedEvent[];
-  cadence: string;
+  fetchedData: FetchedData;
+  handleEventsFiltered: (filtered: FormattedEvent[]) => void;
 }
 interface ControlsState {
-  location: string;
-  startDate: string;
-  endDate: string;
+  ridesFrom?: string;
+  ridesUntil?: string;
+  daysOfWeek: { [key in Day]: boolean };
 }
 export class Controls extends Component<ControlsProps, ControlsState> {
   constructor(props: ControlsProps) {
     super(props);
     this.state = {
-      location: '',
-      startDate: '',
-      endDate: '',
+      ridesFrom: '',
+      ridesUntil: '',
+      daysOfWeek: {
+        [Day.Sun]: true,
+        [Day.Mon]: true,
+        [Day.Tu]: true,
+        [Day.Wed]: true,
+        [Day.Thu]: true,
+        [Day.Fri]: true,
+        [Day.Sat]: true,
+      },
     };
   }
 
-  handleLocationChange = (event: React.ChangeEvent<any>): void => {
-    this.setState({ location: event.target.value });
+  handleSelectRidesFrom = (e: React.ChangeEvent<any>): void => {
+    this.setState({ ridesFrom: e.target.value }, this.applyFilters);
   };
 
-  handleStartDateChange = (event: React.ChangeEvent<any>): void => {
-    this.setState({ startDate: event.target.value });
+  handleSelectRidesUntil = (e: React.ChangeEvent<any>): void => {
+    this.setState({ ridesUntil: e.target.value }, this.applyFilters);
   };
 
-  handleEndDateChange = (event: React.ChangeEvent<any>): void => {
-    this.setState({ endDate: event.target.value });
+  handleSelectDay = (e: React.ChangeEvent<any>): void => {
+    this.setState({ daysOfWeek: { ...this.state.daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
   };
 
+  applyFilters = (): void => {
+    const { fetchedData, handleEventsFiltered } = this.props;
+    const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
+    let filtered = fetchedData.events;
+    if (ridesFrom) {
+      filtered = filtered.filter(ride => ride.date.toLocaleString() >= ridesFrom);
+    }
+    if (ridesUntil) {
+      filtered = filtered.filter(ride => ride.date.toLocaleString() <= ridesUntil);
+    }
+    filtered = filtered.filter(ride => !!daysOfWeek[ride.dayOfWeek]);
+    return handleEventsFiltered(filtered);
+  };
+
+  // TODO: improve form's accessibility
   render(): JSX.Element {
-    const { events, cadence } = this.props;
+    const { fetchedData } = this.props;
     return (
-      <div className="controls-form">
-        <div className="location">
-          <input
-            type="text"
-            aria-label="address"
-            onChange={this.handleLocationChange}
-            value={this.state.location}
-            name="address"
-            className="location-input field"
-            placeholder="Enter Street Address"
-          />
-        </div>
-        <div className="date-inputs">
-          <FormDateField handleChange={this.handleStartDateChange} formValue={this.state.startDate} labelText="Start" />
-          <FormDateField handleChange={this.handleEndDateChange} formValue={this.state.endDate} labelText="End" />
-        </div>
-        <div className="event-list-meta">
-          <div className="ride-count">{events.length} rides</div>
-          <div className="ride-update-cadence push">updating {cadence}</div>
-        </div>
-      </div>
+      <form className="controls-form">
+        <section>
+          <h2 className="controls-header">
+            Fetched events from {getFriendlyDate(fetchedData.start)} to {getFriendlyDate(fetchedData.end)}
+          </h2>
+          <div className="filters">
+            <h3 className="filters-header">Apply additional filters:</h3>
+            <div className="date-input-group">
+              <FormDateField
+                id="start-date"
+                handleChange={this.handleSelectRidesFrom}
+                formValue={this.state.ridesFrom || ''}
+                labelText="From"
+                name="start date"
+                min={fetchedData.start}
+                max={fetchedData.end}
+              />
+              <FormDateField
+                id="end-date"
+                handleChange={this.handleSelectRidesUntil}
+                formValue={this.state.ridesUntil || ''}
+                labelText="Until"
+                name="end date"
+                min={fetchedData.start}
+                max={fetchedData.end}
+              />
+            </div>
+            <div className="checkbox-group">
+              {daysOfWeek.map(day => (
+                <FormCheckbox
+                  key={day}
+                  id={day}
+                  handleChange={this.handleSelectDay}
+                  checked={!!this.state.daysOfWeek[day]}
+                  labelText={day}
+                  name={day}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </form>
     );
   }
 }

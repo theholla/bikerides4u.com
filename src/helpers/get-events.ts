@@ -1,22 +1,16 @@
 import axios, { AxiosResponse } from 'axios';
 import { getDistance } from 'geolib';
 
-interface Event {
+// FIXME: this file is getting out of hand, could use cleanup
+
+interface RawEvent {
   id: string;
-  title: string;
   venue: string;
   address: string;
-  organizer: string;
-  details: string;
-  time: string;
   hideemail: string; // stringified number
-  timedetails?: string;
   locdetails?: string;
   eventduration?: string; // stringified number
-  weburl: string;
-  webname: string;
   image?: string;
-  audience: string; // enum
   tinytitle: string;
   printdescr: string;
   datestype: string; // enum, stringified number
@@ -26,37 +20,61 @@ interface Event {
   printphone: boolean;
   printweburl: boolean;
   printcontact: boolean;
-  email?: string;
-  phone?: string;
   contact?: string;
-  date: string; // stringified date ie '2020-05-14'
+  date: YYYYMMDD;
   caldaily_id: string; // stringified number
-  shareable: string; // shareable web link
+  audience: string; // enum
   cancelled: boolean;
+  details: string;
+  email?: string;
+  endtime: string;
   newsflash?: string;
-  endtime?: string;
+  organizer: string;
+  phone?: string;
+  shareable: string; // shareable web link
+  time: string;
+  timedetails?: string;
+  title: string;
+  webname: string;
+  weburl: string;
 }
-
 interface ShiftCalResponse {
-  events: Event[];
+  events: RawEvent[];
 }
 
-export type Coordinate = {
-  latitude: number;
-  longitude: number;
-};
+// these date types do not enforce; they just help me recall what the dates (hopefully) look like
+type YYYYMMDD = string; // date already in PST in format yyyy-mm-dd
+type MDYYYY = string; // date in PST in format m/d/yyyy
+type MDYYYYHMMSSSS = string; // date in PST in format m/d/yyyy h:mm:ssss
 
-export interface MappedEvent {
+export interface FormattedEvent {
   id: string;
-  latLng: Coordinate;
-  updated: string;
+  key: string;
   title: string;
   details: string;
   venue: string;
-  date: string;
-  friendlyDate: string;
+  dayOfWeek: Day;
   times: string;
   distance: number;
+  latLng: Coordinate;
+  date: YYYYMMDD;
+  friendlyDate: MDYYYY;
+  freshAsOf: MDYYYYHMMSSSS;
+}
+
+export type Coordinate = {
+  readonly latitude: number;
+  readonly longitude: number;
+};
+
+export enum Day {
+  Sun = 'Sun',
+  Mon = 'Mon',
+  Tu = 'Tu',
+  Wed = 'Wed',
+  Thu = 'Thu',
+  Fri = 'Fri',
+  Sat = 'Sat',
 }
 
 export const defaultCoords = {
@@ -64,12 +82,13 @@ export const defaultCoords = {
   longitude: -122.675275,
 };
 
-export function getEventKey(date: string, id: string): string {
+function getEventKey(date: YYYYMMDD, id: string): string {
+  // repeating events have the same id so we must store them with additional meta
   return `${date}-${id}`;
 }
 
 // hhmmss = hh:mm:ss, ie 18:30:00
-function transformTime(hhmmss: string): string {
+export function transformTime(hhmmss: string): string {
   const [hour, minute] = hhmmss.substring(0, 5).split(':');
   const period = parseInt(hour) >= 12 ? 'PM' : 'AM';
   let hr = null;
@@ -81,7 +100,7 @@ function transformTime(hhmmss: string): string {
   return `${hr}:${minute} ${period}`;
 }
 
-function getTimeForDesc(start: string, end?: string): string {
+export function getTimeForDesc(start: string, end?: string): string {
   let time = transformTime(start);
   if (end) {
     time += ` - ${transformTime(end)}`;
@@ -104,17 +123,55 @@ function getCoordsFromAddress(address: string): Coordinate {
   return { latitude: 45.504738 + Math.random() * 0.05, longitude: -122.675275 + Math.random() * 0.07 };
 }
 
-function getFriendlyDate(date: string): string {
-  return new Date(date).toLocaleDateString();
+function removeLeadingZero(dateString: string): number {
+  return Number(dateString);
 }
 
-function mapEvents(userLoc: Coordinate, events: Event[]): Array<MappedEvent> {
+export function getISODate(date: Date, plusMilliseconds?: number): YYYYMMDD {
+  if (plusMilliseconds) {
+    return getISODate(new Date(new Date().getTime() + plusMilliseconds));
+  } else {
+    return date.toISOString().split('T')[0];
+  }
+}
+
+// for now assume all users are also in PST
+export function getFriendlyDate(date: YYYYMMDD): MDYYYY {
+  const [year, month, day] = date.split('-');
+  return `${removeLeadingZero(month)}/${removeLeadingZero(day)}/${year}`;
+}
+
+export function getDayOfWeek(date: YYYYMMDD): Day {
+  const day = new Date(`${date} PST`).getDay();
+  // FIXME: this is a bummer.. can I get from idx instead?
+  switch (day) {
+    case 0:
+      return Day.Sun;
+    case 1:
+      return Day.Mon;
+    case 2:
+      return Day.Tu;
+    case 3:
+      return Day.Wed;
+    case 4:
+      return Day.Thu;
+    case 5:
+      return Day.Fri;
+    case 6:
+      return Day.Sat;
+  }
+  console.error(`Cannot find day of week for date; choosing Sun`, { date });
+  return Day.Sun;
+}
+
+function mapEvents(userLoc: Coordinate, events: RawEvent[]): Array<FormattedEvent> {
   return events
     .map(({ id, title, details, venue, date, address, time, endtime }) => {
       const latLng = getCoordsFromAddress(address);
       return {
         id,
-        updated: new Date().toLocaleString(),
+        key: getEventKey(date, id),
+        freshAsOf: new Date().toLocaleString(),
         latLng,
         distance: formatNumber(getDistance(userLoc, latLng, 0.1)),
         title,
@@ -122,26 +179,37 @@ function mapEvents(userLoc: Coordinate, events: Event[]): Array<MappedEvent> {
         venue,
         date,
         friendlyDate: getFriendlyDate(date),
+        dayOfWeek: getDayOfWeek(date),
         times: getTimeForDesc(time, endtime),
       };
     })
     .sort((a, b) => a.distance - b.distance);
 }
 
-function getEvents(userLoc: Coordinate, start = '2020-03-31', end = '2020-05-15'): Promise<MappedEvent[]> {
+export interface FetchedData {
+  events: FormattedEvent[];
+  start: YYYYMMDD;
+  end: YYYYMMDD;
+}
+function getEvents(userLoc: Coordinate, start: YYYYMMDD, end: YYYYMMDD): Promise<FetchedData> {
+  const defaultResponse = {
+    events: [],
+    start,
+    end,
+  };
   const url = `https://www.shift2bikes.org/api/events.php?startdate=${start}&enddate=${end}`;
   return axios
     .get(url)
     .then((events: AxiosResponse<ShiftCalResponse>) => {
       if (!events || !events.data) {
         console.log('No events found for that date range', { start, end });
-        return [];
+        return defaultResponse;
       }
-      return mapEvents(userLoc, events.data.events);
+      return { ...defaultResponse, events: mapEvents(userLoc, events.data.events) };
     })
     .catch((err: Error) => {
       console.error(err);
-      return [];
+      return defaultResponse;
     });
 }
 

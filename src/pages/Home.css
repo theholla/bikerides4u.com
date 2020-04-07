@@ -1,4 +1,7 @@
 .content {
   display: flex;
-  height: 100vh;
+  height: 93vh;
+}
+.control-panel {
+  width: 25vw;
 }

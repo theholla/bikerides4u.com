@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { EventList, Controls, Map } from '../components';
-import getEvents, { Coordinate, MappedEvent, defaultCoords } from '../helpers/get-events';
+import getEvents, { getISODate, FetchedData, Coordinate, FormattedEvent, defaultCoords } from '../helpers/get-events';
 import './Home.css';
 
 enum cadence {
@@ -16,23 +16,25 @@ const POLL_INTERVAL = REALTIME_MODE ? cadence.EVERY_2_SECONDS : cadence.EVERY_5_
 const CADENCE = REALTIME_MODE ? cadenceFriendlyStrings.EVERY_2_SECONDS : cadenceFriendlyStrings.EVERY_5_MINUTES;
 
 interface HomeState {
-  events: MappedEvent[];
+  fetchedData: FetchedData;
+  filteredEvents: FormattedEvent[];
   selectedEventId?: string;
   mapCenter: Coordinate;
 }
-
-// TODO: Get search address from input form, update mapCenter after that
 export class Home extends Component<{}, HomeState> {
   timerID?: NodeJS.Timeout;
 
   constructor(props: {}) {
     super(props);
     this.state = {
-      events: [],
+      fetchedData: {
+        events: [],
+        start: getISODate(new Date()),
+        end: getISODate(new Date(), 3.888e9), // 45 days in milliseconds
+      },
+      filteredEvents: [],
       mapCenter: defaultCoords,
     };
-
-    this.handleEventListItemClick = this.handleEventListItemClick.bind(this);
   }
 
   componentDidMount(): void {
@@ -46,9 +48,14 @@ export class Home extends Component<{}, HomeState> {
     clearInterval(this.timerID as any);
   }
 
-  handleEventListItemClick(id: string): void {
+  handleEventListItemClick = (id: string): void => {
+    console.log('click ', id);
     return this.setState({ selectedEventId: id });
-  }
+  };
+
+  handleEventsFiltered = (filteredEvents: FormattedEvent[]): void => {
+    return this.setState({ filteredEvents });
+  };
 
   setMapCenter(): void {
     if (navigator.geolocation) {
@@ -65,21 +72,26 @@ export class Home extends Component<{}, HomeState> {
   }
 
   getSortedEvents(): Promise<void> {
-    return getEvents(this.state.mapCenter).then(events => this.setState({ events }));
+    return getEvents(this.state.mapCenter, this.state.fetchedData.start, this.state.fetchedData.end).then(fetchedData =>
+      this.setState({
+        fetchedData,
+        filteredEvents: fetchedData.events,
+      })
+    );
   }
 
   render(): JSX.Element {
-    const { events, mapCenter, selectedEventId } = this.state;
+    const { fetchedData, filteredEvents, mapCenter, selectedEventId } = this.state;
     return (
       <div className="content">
-        <div>
-          <Controls cadence={CADENCE} events={events} />
-          <EventList events={events} handleListItemClick={this.handleEventListItemClick} />
+        <div className="control-panel">
+          <Controls fetchedData={fetchedData} handleEventsFiltered={this.handleEventsFiltered} />
+          <EventList cadence={CADENCE} events={filteredEvents} handleListItemClick={this.handleEventListItemClick} />
         </div>
         <Map
           latitude={mapCenter.latitude}
           longitude={mapCenter.longitude}
-          points={events}
+          points={filteredEvents}
           selectedEventId={selectedEventId}
         />
       </div>

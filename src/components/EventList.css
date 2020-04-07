@@ -1,7 +1,6 @@
 .events-content-area {
   display: flex;
   flex-direction: column;
-  max-width: 25vw;
   border-right: 1px solid #c3c3c3;
 }
 .event-list-meta {
@@ -12,7 +11,7 @@
 }
 .event-list {
   border-top: 1px solid #c3c3c3;
-  height: 100vh;
+  height: 62vh;
   overflow: auto;
   position: relative;
   background: white;
@@ -41,4 +40,12 @@
 }
 .refreshed {
   font-size: 14px;
+}
+
+.event-list-empty {
+  text-align: center;
+  padding: 15px;
+}
+.event-list-empty img {
+  max-width: 100%;
 }
