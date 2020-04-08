@@ -1,6 +1,6 @@
 # Shift2Bikes Ride Map
 
-This web app pings the Shift2Bikes calendar API on a regular cadence and displays bike rides on an interactive map. Users can apply filters to find rides that are relevant to them.
+This web app pings the Shift2Bikes calendar API and displays bike rides on an interactive map. Users can apply filters to find rides that are relevant to them.
 
 ## Current UI
 

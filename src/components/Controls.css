@@ -29,6 +29,7 @@
 }
 .filters-header {
   font-size: 14px;
+  text-align: left;
 }
 .form-label {
   display: block;
@@ -52,7 +53,4 @@
 }
 .form-checkbox {
   flex-grow: 1;
-}
-.ride-update-cadence {
-  font-size: 14px;
 }

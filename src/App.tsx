@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NavBar } from './components';
-import { About, Community, Featured, Home } from './pages';
+import { About, Home } from './pages';
 import './App.css';
 
 function App(): JSX.Element {
@@ -10,12 +10,6 @@ function App(): JSX.Element {
       <div className="root">
         <NavBar />
         <Switch>
-          <Route path="/featured">
-            <Featured />
-          </Route>
-          <Route path="/community">
-            <Community />
-          </Route>
           <Route path="/about">
             <About />
           </Route>

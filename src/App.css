@@ -35,5 +35,15 @@ a {
 }
 
 .page-content {
-  width: 75vw;
+  display: flex;
+  flex-direction: column;
+}
+.page-content h1,
+h2,
+h3 {
+  text-align: center;
+}
+.page-content div {
+  max-width: 800px;
+  padding: 5px;
 }
