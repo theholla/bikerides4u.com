@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
-import { FormattedEvent, defaultCoords } from '../helpers/get-events';
+import { Coordinate } from '../helpers/shared-types';
+import { FormattedEvent } from '../helpers/format-events';
 import './Map.css';
 
 const zoom = 13;
 interface MapProps {
+  mapCenter: Coordinate;
   selectedEventId?: string;
-  latitude: number;
-  longitude: number;
   points: FormattedEvent[];
 }
 export class Map extends Component<MapProps, {}> {
   render(): JSX.Element {
-    const { latitude, longitude, points, selectedEventId } = this.props;
-    const position = [latitude, longitude] as LatLngTuple;
+    const { mapCenter, points, selectedEventId } = this.props;
+    const position = [mapCenter.latitude, mapCenter.longitude] as LatLngTuple;
 
     return (
       <div className="map-pane" id="map">
@@ -23,11 +23,7 @@ export class Map extends Component<MapProps, {}> {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
             url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
           ></TileLayer>
-          {latitude !== defaultCoords.latitude && (
-            <Circle center={position} radius={400}>
-              <Popup>You are here!</Popup>
-            </Circle>
-          )}
+          <Circle center={position} radius={400} />
           {points.map((point: FormattedEvent) => (
             <div key={point.key}>
               <Marker position={[point.latLng.latitude, point.latLng.longitude] as LatLngTuple}>
@@ -35,6 +31,7 @@ export class Map extends Component<MapProps, {}> {
                 <Popup isOpen={selectedEventId === point.id}>
                   <div>{point.title}</div>
                   <div>{point.venue}</div>
+                  <div>{point.address}</div>
                   <div>{point.times}</div>
                   <div>{point.friendlyDate}</div>
                   <p>{point.details}</p>

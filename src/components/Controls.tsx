@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './Controls.css';
 import { FormDateField } from '.';
-import { FetchedData, FormattedEvent, Day, getFriendlyDate } from '../helpers/get-events';
+import { FormattedEvent, Day, getFriendlyDate } from '../helpers/format-events';
 import { FormCheckbox } from './FormCheckbox';
 
 const daysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
 
 interface ControlsProps {
-  fetchedData: FetchedData;
+  data: {
+    start: string;
+    end: string;
+    events: FormattedEvent[];
+  };
   handleEventsFiltered: (filtered: FormattedEvent[]) => void;
 }
 interface ControlsState {
@@ -46,9 +50,9 @@ export class Controls extends Component<ControlsProps, ControlsState> {
   };
 
   applyFilters = (): void => {
-    const { fetchedData, handleEventsFiltered } = this.props;
+    const { data, handleEventsFiltered } = this.props;
     const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
-    let filtered = fetchedData.events;
+    let filtered = data.events;
     if (ridesFrom) {
       filtered = filtered.filter(ride => ride.date.toLocaleString() >= ridesFrom);
     }
@@ -61,12 +65,12 @@ export class Controls extends Component<ControlsProps, ControlsState> {
 
   // TODO: improve form's accessibility
   render(): JSX.Element {
-    const { fetchedData } = this.props;
+    const { data } = this.props;
     return (
       <form className="controls-form">
         <section>
           <h2 className="controls-header">
-            Fetched events from {getFriendlyDate(fetchedData.start)} to {getFriendlyDate(fetchedData.end)}
+            Fetched events from {getFriendlyDate(data.start)} to {getFriendlyDate(data.end)}
           </h2>
           <div className="filters">
             <h3 className="filters-header">Apply additional filters:</h3>
@@ -77,8 +81,8 @@ export class Controls extends Component<ControlsProps, ControlsState> {
                 formValue={this.state.ridesFrom || ''}
                 labelText="From"
                 name="start date"
-                min={fetchedData.start}
-                max={fetchedData.end}
+                min={data.start}
+                max={data.end}
               />
               <FormDateField
                 id="end-date"
@@ -86,8 +90,8 @@ export class Controls extends Component<ControlsProps, ControlsState> {
                 formValue={this.state.ridesUntil || ''}
                 labelText="Until"
                 name="end date"
-                min={fetchedData.start}
-                max={fetchedData.end}
+                min={data.start}
+                max={data.end}
               />
             </div>
             <div className="checkbox-group">

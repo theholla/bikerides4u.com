@@ -1,4 +1,4 @@
-import { transformTime, getTimeForDesc, getDayOfWeek, getISODate, Day } from './get-events';
+import { transformTime, getTimeForDesc, getDayOfWeek, getISODate, Day } from './format-events';
 
 // duplicated tests and algorithm from https://github.com/theholla/shift-ics-generator
 // TODO: share code using submodule or even better an npm package
@@ -18,7 +18,7 @@ test('transformTime transforms PM times as expected', () => {
 });
 
 test('getTimeForDesc returns expected duration when only start time provided', () => {
-  expect(getTimeForDesc('09:00:00')).toEqual('9:00 AM');
+  expect(getTimeForDesc('09:00:00', null)).toEqual('9:00 AM');
 });
 
 test('getTimeForDesc returns expected duration for AM start/end', () => {

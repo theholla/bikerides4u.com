@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { EventList, Controls, Map } from '../components';
-import getEvents, { getISODate, FetchedData, Coordinate, FormattedEvent, defaultCoords } from '../helpers/get-events';
+import { Coordinate } from '../helpers/shared-types';
+import { getISODate, FormattedEvent } from '../helpers/format-events';
+import { requestEventsFromBikeRides4UAPI } from '../helpers/get-events';
+import { formatEvents } from '../helpers/format-events';
 import './Home.css';
 
-enum cadence {
-  EVERY_2_SECONDS = 2000,
-  EVERY_5_MINUTES = 300000,
-}
-enum cadenceFriendlyStrings {
-  EVERY_2_SECONDS = 'every two seconds',
-  EVERY_5_MINUTES = 'every five minutes',
-}
-const REALTIME_MODE = process.env.REACT_APP_REALTIME_MODE === 'true';
-const POLL_INTERVAL = REALTIME_MODE ? cadence.EVERY_2_SECONDS : cadence.EVERY_5_MINUTES;
-const CADENCE = REALTIME_MODE ? cadenceFriendlyStrings.EVERY_2_SECONDS : cadenceFriendlyStrings.EVERY_5_MINUTES;
+const SHOULD_USE_LIVE_DATA = process.env.REACT_APP_USE_LIVE_DATA === 'true';
+
+const defaultCoords = {
+  latitude: 45.522723,
+  longitude: -122.656115,
+};
 
 interface HomeState {
-  fetchedData: FetchedData;
+  data: {
+    start: string;
+    end: string;
+    events: FormattedEvent[];
+  };
   filteredEvents: FormattedEvent[];
   selectedEventId?: string;
   mapCenter: Coordinate;
+  loading: boolean;
 }
 export class Home extends Component<{}, HomeState> {
   timerID?: NodeJS.Timeout;
@@ -27,7 +30,8 @@ export class Home extends Component<{}, HomeState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      fetchedData: {
+      loading: true,
+      data: {
         events: [],
         start: getISODate(new Date()),
         end: getISODate(new Date(), 3.888e9), // 45 days in milliseconds
@@ -35,13 +39,12 @@ export class Home extends Component<{}, HomeState> {
       filteredEvents: [],
       mapCenter: defaultCoords,
     };
+
+    this.setMapCenter();
   }
 
   componentDidMount(): void {
-    this.setMapCenter();
-    this.getSortedEvents().then(() => {
-      this.timerID = setInterval(() => this.getSortedEvents(), POLL_INTERVAL);
-    });
+    this.getSortedEvents();
   }
 
   componentWillUnmount(): void {
@@ -72,28 +75,27 @@ export class Home extends Component<{}, HomeState> {
   }
 
   getSortedEvents(): Promise<void> {
-    return getEvents(this.state.mapCenter, this.state.fetchedData.start, this.state.fetchedData.end).then(fetchedData =>
-      this.setState({
-        fetchedData,
-        filteredEvents: fetchedData.events,
-      })
-    );
+    this.setState({ loading: true });
+    return requestEventsFromBikeRides4UAPI(SHOULD_USE_LIVE_DATA, this.state.data.start, this.state.data.end)
+      .then(events => formatEvents(events, this.state.mapCenter))
+      .then(events =>
+        this.setState({
+          data: { ...this.state.data, events },
+          filteredEvents: events,
+          loading: false,
+        })
+      );
   }
 
   render(): JSX.Element {
-    const { fetchedData, filteredEvents, mapCenter, selectedEventId } = this.state;
+    const { data, loading, filteredEvents, mapCenter, selectedEventId } = this.state;
     return (
       <div className="content">
         <div className="control-panel">
-          <Controls fetchedData={fetchedData} handleEventsFiltered={this.handleEventsFiltered} />
-          <EventList cadence={CADENCE} events={filteredEvents} handleListItemClick={this.handleEventListItemClick} />
+          <Controls data={data} handleEventsFiltered={this.handleEventsFiltered} />
+          <EventList loading={loading} events={filteredEvents} handleListItemClick={this.handleEventListItemClick} />
         </div>
-        <Map
-          latitude={mapCenter.latitude}
-          longitude={mapCenter.longitude}
-          points={filteredEvents}
-          selectedEventId={selectedEventId}
-        />
+        <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
       </div>
     );
   }
