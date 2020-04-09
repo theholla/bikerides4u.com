@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "description": "Bike Rides 4U backend",
   "main": "index.js",
-  "scripts": {
-    "start": "tsc --watch",
-    "build": "tsc",
-    "lint": "eslint src --ext .js,.ts,.json",
-    "test": "npm run build && jest dist"
-  },
   "author": "Diana Holland",
   "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.5",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.1",
     "@types/prettier": "^2.0.0",
@@ -30,7 +32,13 @@
     "lint",
     "test"
   ],
-  "dependencies": {
-    "axios": "^0.19.2"
+  "scripts": {
+    "prestart": "npm run build",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "setup": "cp .env.template .env",
+    "lint": "eslint src --ext .js,.ts,.json",
+    "test": "npm run build && jest dist"
   }
 }

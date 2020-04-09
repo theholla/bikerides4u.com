@@ -1,52 +1,26 @@
-# Shift2Bikes Ride Map
+# BikeRides4U Backend
 
-This web app pings the Shift2Bikes calendar API and displays bike rides on an interactive map. Users can apply filters to find rides that are relevant to them.
-
-## Current UI
-
-![screen capture of app](/screencap.png)
-
-## MVP
-
-Complete:
-
-- [x] Fetch bike fun data from Shift2Bikes API
-- [x] Center map on lat/long from user's geo-location
-- [x] Display rides in list and on map (poc: use random location data)
-- [x] Add ride filters: start date, end date, day of week
-- [x] Implement blank state, loaders, and cancelled event behavior
-- [x] Separate concerns of frontend and backend
-
-TODO:
-
-- [~] Fire map marker click when user clicks on ride in list
-- [] Display actual ride locations on map (need to implement backend for location service)
-- [] Cache response from Shift2Bikes API based on "start" query param
-
-## Cool ideas for later
-
-1. Add button: report a problem
-1. Add toggle: sort by distance vs date
-1. Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), duration, time of day
-1. Add filter to map: expandable radius
-1. Add link to original event on shift2bikes.org
-1. Make center of map draggable; currently defaults to user location if allowed
-1. Improve mobile-friendliness
-1. Allow users to export filtered rides and/or individual ride in .ics format
-1. Display weather icon next to ride for expected weather
+This is the backend for the BikeRides4U ride map.
 
 ## Local development
 
+Initial setup:
+
 ```bash
+npm run setup
 npm i
 npm start
 ```
 
-App will be visible on http://localhost:3000/
+Visit http://localhost:8080/shift-events in your browser or run `curl http://localhost:8080/shift-events` in your terminal to see the response.
 
 ### Live Data
 
-The local app reads test data from a file by default because I don't want to be a jerk and overload Shift's servers with all my refreshing. To enable live data, set `REACT_APP_USE_LIVE_DATA` in the `.env` file to `true` and restart the app.
+The local server reads test data from a file while in development mode. To enable live data, set `NODE_ENV` to `production` in the `.env` file and restart the server. Use this mode sparingly; please do not be a jerk and pummel the Shift2Bikes API.
+
+## Companion Frontend
+
+See the code for the companion web app on [GitHub](https://github.com/theholla/shift2bikes-ride-map).
 
 ## About Shift2Bikes
 
