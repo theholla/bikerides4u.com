@@ -48,10 +48,11 @@ export function getFriendlyDate(date: YYYYMMDD): MDYYYY {
 // hhmmss = hh:mm:ss, ie 18:30:00
 export function transformTime(hhmmss: string): string {
   const [hour, minute] = hhmmss.substring(0, 5).split(':');
-  const period = parseInt(hour) >= 12 ? 'PM' : 'AM';
+  const hrInt = parseInt(hour);
+  const period = hrInt > 11 && hrInt < 24 ? 'PM' : 'AM';
   let hr = null;
-  if (parseInt(hour) > 12) {
-    hr = -(12 - parseInt(hour)); // help the americans
+  if (hrInt > 12) {
+    hr = hrInt === 24 ? 12 : -(12 - hrInt); // help the americans
   } else {
     hr = parseInt(hour, 10); // remove trailing 0 from AM times
   }

@@ -8,10 +8,12 @@ test('transformTime transforms AM times as expected', () => {
   expect(transformTime('01:01:59')).toEqual('1:01 AM');
   expect(transformTime('09:00:00')).toEqual('9:00 AM');
   expect(transformTime('11:00:00')).toEqual('11:00 AM');
+  expect(transformTime('24:15:00')).toEqual('12:15 AM');
 });
 
 test('transformTime transforms PM times as expected', () => {
   expect(transformTime('12:00:00')).toEqual('12:00 PM');
+  expect(transformTime('12:15:00')).toEqual('12:15 PM');
   expect(transformTime('13:00:00')).toEqual('1:00 PM');
   expect(transformTime('23:59:01')).toEqual('11:59 PM');
   expect(transformTime('23:59:59')).toEqual('11:59 PM');
