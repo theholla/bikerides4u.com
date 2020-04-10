@@ -20,7 +20,7 @@ Complete:
 TODO:
 
 - [~] Fire map marker click when user clicks on ride in list
-- [] Display actual ride locations on map (need to implement backend for location service)
+- [] Display actual ride locations on map (need to complete backend for location service)
 - [] Cache response from Shift2Bikes API based on "start" query param
 
 ## Cool ideas for later
@@ -37,7 +37,15 @@ TODO:
 
 ## Local development
 
-Initial setup:
+### Initial clone:
+
+First, checkout type definitions from their submodule:
+
+```bash
+git submodule update --init
+```
+
+Then set up project, install dependencies, and start the app:
 
 ```bash
 npm run setup
@@ -46,6 +54,12 @@ npm start
 ```
 
 App will be visible on http://localhost:3000/
+
+### Staying up to date with the remote
+
+```bash
+git pull --recurse-submodules
+```
 
 ### Live Data
 

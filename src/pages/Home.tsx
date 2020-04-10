@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { EventList, Controls, Map } from '../components';
-import { Coordinate } from '../shared-types/types';
+import { Coordinate } from '../../br4u';
 import { getISODate, FormattedEvent } from '../helpers/format-events';
 import { requestEvents } from '../helpers/request-events';
 import { formatEvents } from '../helpers/format-events';

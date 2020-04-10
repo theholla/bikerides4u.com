@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
-import { BikeRides4UEvent } from '../shared-types/types';
+import { BikeRides4UEvent } from '../../br4u';
 import testData from '../test-data.json';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_RIDES4U_BASE_URL;
 const SHOULD_USE_LIVE_DATA = process.env.REACT_APP_USE_LIVE_DATA === 'true';
 
 /**

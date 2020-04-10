@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
-import { Coordinate } from '../shared-types/types';
+import { Coordinate } from '../../br4u';
 import { FormattedEvent } from '../helpers/format-events';
 import './Map.css';
 

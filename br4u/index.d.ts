@@ -1,4 +1,6 @@
-// these types are used in both backend and frontend
+// Type definitions for BikeRides4U
+// Project: BikeRides4U
+// Definitions by: Diana Holland
 
 export type RawEventDesc = {
   id: string;
