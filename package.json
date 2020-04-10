@@ -54,6 +54,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "setup": "cp .env.template .env",
     "test": "react-scripts test",
     "test:ci": "CI=true react-scripts test",
     "lint": "eslint . --ext .js,.ts,.json",

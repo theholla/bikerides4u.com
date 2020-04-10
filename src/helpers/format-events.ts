@@ -1,5 +1,5 @@
 import { getDistance } from 'geolib';
-import { BikeRides4UEvent, RawEventDesc, Coordinate } from './shared-types';
+import { BikeRides4UEvent, RawEventDesc, Coordinate } from '../shared-types/types';
 
 // these date types do not enforce; they just help me recall what the dates (hopefully) look like
 type YYYYMMDD = string; // date already in PST in format yyyy-mm-dd

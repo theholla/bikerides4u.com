@@ -1,10 +1,10 @@
-# Shift2Bikes Ride Map
+# BikeRides4U Ride Map
 
 This web app pings the Shift2Bikes calendar API and displays bike rides on an interactive map. Users can apply filters to find rides that are relevant to them.
 
 ## Current UI
 
-![screen capture of app](/misc/screencap.png)
+![screen capture of app](/screencap.png)
 
 ## MVP
 
@@ -15,7 +15,7 @@ Complete:
 - [x] Display rides in list and on map (poc: use random location data)
 - [x] Add ride filters: start date, end date, day of week
 - [x] Implement blank state, loaders, and cancelled event behavior
-- [x] Separate concerns of frontend and backend
+- [x] Separate concerns of frontend and backend; create simple server
 
 TODO:
 
@@ -37,7 +37,10 @@ TODO:
 
 ## Local development
 
+Initial setup:
+
 ```bash
+npm run setup
 npm i
 npm start
 ```
@@ -46,7 +49,9 @@ App will be visible on http://localhost:3000/
 
 ### Live Data
 
-The local app reads test data from a file by default because I don't want to be a jerk and overload Shift's servers with all my refreshing. To enable live data, set `REACT_APP_USE_LIVE_DATA` in the `.env` file to `true` and restart the app.
+The local app reads static test data from a file by default, so there's no need to spin up the server if you are just concerned with its frontend.
+
+To enable live data, run the server by following instructions on [its GitHub repo](https://github.com/theholla/br4u-backend). Then, back in this app, set `REACT_APP_USE_LIVE_DATA` to `true` in the `.env` file and restart the app.
 
 ## About Shift2Bikes
 

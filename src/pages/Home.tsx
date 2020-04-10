@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { EventList, Controls, Map } from '../components';
-import { Coordinate } from '../helpers/shared-types';
+import { Coordinate } from '../shared-types/types';
 import { getISODate, FormattedEvent } from '../helpers/format-events';
-import { requestEventsFromBikeRides4UAPI } from '../helpers/get-events';
+import { requestEvents } from '../helpers/request-events';
 import { formatEvents } from '../helpers/format-events';
 import './Home.css';
-
-const SHOULD_USE_LIVE_DATA = process.env.REACT_APP_USE_LIVE_DATA === 'true';
 
 const defaultCoords = {
   latitude: 45.522723,
@@ -76,15 +74,14 @@ export class Home extends Component<{}, HomeState> {
 
   getSortedEvents(): Promise<void> {
     this.setState({ loading: true });
-    return requestEventsFromBikeRides4UAPI(SHOULD_USE_LIVE_DATA, this.state.data.start, this.state.data.end)
-      .then(events => formatEvents(events, this.state.mapCenter))
-      .then(events =>
-        this.setState({
-          data: { ...this.state.data, events },
-          filteredEvents: events,
-          loading: false,
-        })
-      );
+    return requestEvents(this.state.data.start, this.state.data.end).then(response => {
+      const events = formatEvents(response.data, this.state.mapCenter);
+      this.setState({
+        data: { ...this.state.data, events },
+        filteredEvents: events,
+        loading: false,
+      });
+    });
   }
 
   render(): JSX.Element {
