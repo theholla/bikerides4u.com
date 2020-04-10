@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
+import { RawEvent, Coordinate, BikeRides4UEvent } from '../../br4u';
 import testData from '../test-data/shift-events.json';
-import { RawEvent, Coordinate, BikeRides4UEvent } from '../shared-types/types';
 
 function getCoordsFromAddress(address: string): Coordinate {
   // FIXME: add handler for "can't parse address for coords" error, list those events separately?

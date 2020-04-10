@@ -4,7 +4,15 @@ This is the backend for the BikeRides4U ride map.
 
 ## Local development
 
-Initial setup:
+### Initial clone:
+
+First, checkout type definitions from their submodule:
+
+```bash
+git submodule update --init
+```
+
+Then set up project, install dependencies, and start the server:
 
 ```bash
 npm run setup
@@ -13,6 +21,12 @@ npm start
 ```
 
 Visit http://localhost:8080/shift-events in your browser or run `curl http://localhost:8080/shift-events` in your terminal to see the response.
+
+### Staying up to date with the remote
+
+```bash
+git pull --recurse-submodules
+```
 
 ### Live Data
 
