@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedEvent } from '../helpers/format-events';
+import { Error } from './Error';
 
 interface EventProps {
   event: FormattedEvent;
@@ -7,7 +8,19 @@ interface EventProps {
 }
 export function Event(props: EventProps): JSX.Element {
   const {
-    event: { id, cancelled, title, newsflash, venue, times, friendlyDate, distance, freshAsOf },
+    event: {
+      id,
+      cancelled,
+      title,
+      newsflash,
+      venue,
+      times,
+      address,
+      geoLookupAddress,
+      friendlyDate,
+      distance,
+      freshAsOf,
+    },
     handleListItemClick,
   } = props;
   return (
@@ -17,18 +30,24 @@ export function Event(props: EventProps): JSX.Element {
           {cancelled ? (
             <div>
               <span className="cancelled">{title}</span>
-              <span className="newsflash banner"> Cancelled</span>
+              <span className="cancelled-banner"> Cancelled</span>
             </div>
           ) : (
             <div>{title}</div>
           )}
         </div>
-        <div className="newsflash">{newsflash}</div>
+        {newsflash && <div className="newsflash">Newsflash: {newsflash}</div>}
         <div className="event-venue">{venue}</div>
         <div className="event-times">{times}</div>
         <div className="event-date">{friendlyDate}</div>
-        <div className="event-distance-to push">{distance} miles</div>
-        <div className="refreshed">accurate as of {freshAsOf}</div>
+        <div className="refreshed">data last refreshed {freshAsOf}</div>
+        <div className="event-distance-to push">
+          {geoLookupAddress ? (
+            <span>{distance} miles</span>
+          ) : (
+            <Error className="geoLookupError" error={`Could not get coordinates from address "${address}"`} />
+          )}
+        </div>
       </div>
     </div>
   );

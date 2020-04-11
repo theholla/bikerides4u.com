@@ -12,16 +12,15 @@ Complete:
 
 - [x] Fetch bike fun data from Shift2Bikes API
 - [x] Center map on lat/long from user's geo-location
-- [x] Display rides in list and on map (poc: use random location data)
+- [x] Display rides in list and actual ride location on map
 - [x] Add ride filters: start date, end date, day of week
 - [x] Implement blank state, loaders, and cancelled event behavior
 - [x] Separate concerns of frontend and backend; create simple server
+- [x] Cache response from Shift2Bikes API in frontend, geocoding API service in backend
 
 TODO:
 
 - [~] Fire map marker click when user clicks on ride in list
-- [] Display actual ride locations on map (need to complete backend for location service)
-- [] Cache response from Shift2Bikes API based on "start" query param
 
 ## Cool ideas for later
 

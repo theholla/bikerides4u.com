@@ -14,15 +14,5 @@ export function requestEvents(start: string, end: string): Promise<AxiosResponse
     return Promise.resolve({ data: testData }) as any;
   }
 
-  return axios.get(`${BASE_URL}/shift-events?start=${start}&end=${end}`).catch(err => {
-    console.error('Error retrieving events for date', { start, end, err });
-    // FIXME: better error handling
-    return {
-      data: [],
-      status: 400,
-      statusText: 'error',
-      headers: {},
-      config: {},
-    };
-  });
+  return axios.get(`${BASE_URL}/shift-events?start=${start}&end=${end}`);
 }

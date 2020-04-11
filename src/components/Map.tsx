@@ -30,11 +30,18 @@ export class Map extends Component<MapProps, {}> {
                 {/** FIXME: need to set some property...not isOpen..not sure what */}
                 <Popup isOpen={selectedEventId === point.id}>
                   <div>{point.title}</div>
-                  <div>{point.venue}</div>
-                  <div>{point.address}</div>
-                  <div>{point.times}</div>
                   <div>{point.friendlyDate}</div>
+                  <div>{point.times}</div>
+                  <div>{point.venue}</div>
                   <p>{point.details}</p>
+                  <p>
+                    <strong>Listed address:</strong>
+                    <div>{point.address}</div>
+                  </p>
+                  <p>
+                    <strong>Displaying location for:</strong>
+                    <div>{point.geoLookupAddress}</div>
+                  </p>
                 </Popup>
               </Marker>
             </div>

@@ -21,6 +21,7 @@ interface HomeState {
   selectedEventId?: string;
   mapCenter: Coordinate;
   loading: boolean;
+  error: string | null;
 }
 export class Home extends Component<{}, HomeState> {
   timerID?: NodeJS.Timeout;
@@ -36,6 +37,7 @@ export class Home extends Component<{}, HomeState> {
       },
       filteredEvents: [],
       mapCenter: defaultCoords,
+      error: null,
     };
 
     this.setMapCenter();
@@ -74,23 +76,44 @@ export class Home extends Component<{}, HomeState> {
 
   getSortedEvents(): Promise<void> {
     this.setState({ loading: true });
-    return requestEvents(this.state.data.start, this.state.data.end).then(response => {
-      const events = formatEvents(response.data, this.state.mapCenter);
-      this.setState({
-        data: { ...this.state.data, events },
-        filteredEvents: events,
-        loading: false,
+    return requestEvents(this.state.data.start, this.state.data.end)
+      .then(response => {
+        const events = formatEvents(response.data, this.state.mapCenter);
+        this.setState({
+          data: { ...this.state.data, events },
+          filteredEvents: events,
+          loading: false,
+        });
+      })
+      .catch(err => {
+        let errMsg = 'Error retrieving events for date';
+
+        // FIXME: handle additional error states
+        if (!err.response) {
+          errMsg = 'No response from BR4U API';
+        }
+
+        console.error(errMsg, { start: this.state.data.start, end: this.state.data.end, err });
+
+        this.setState({
+          loading: false,
+          error: errMsg,
+        });
       });
-    });
   }
 
   render(): JSX.Element {
-    const { data, loading, filteredEvents, mapCenter, selectedEventId } = this.state;
+    const { data, loading, filteredEvents, mapCenter, selectedEventId, error } = this.state;
     return (
       <div className="content">
         <div className="control-panel">
           <Controls data={data} handleEventsFiltered={this.handleEventsFiltered} />
-          <EventList loading={loading} events={filteredEvents} handleListItemClick={this.handleEventListItemClick} />
+          <EventList
+            error={error}
+            loading={loading}
+            events={filteredEvents}
+            handleListItemClick={this.handleEventListItemClick}
+          />
         </div>
         <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
       </div>

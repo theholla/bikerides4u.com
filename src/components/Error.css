@@ -1,0 +1,11 @@
+.error {
+  color: red;
+  text-transform: uppercase;
+  font-size: 14px;
+  border: 1px solid red;
+  padding: 5px;
+}
+.geoLookupError {
+  color: black;
+  border: 1px solid #ff8d00;
+}

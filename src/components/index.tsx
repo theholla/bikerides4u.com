@@ -1,4 +1,5 @@
 export * from './Controls';
+export * from './Error';
 export * from './Event';
 export * from './EventList';
 export * from './FormDateField';

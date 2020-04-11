@@ -38,21 +38,27 @@
 .event-distance-to {
   color: #ff8d00;
 }
+.event-distance-to .not-found {
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+}
 .refreshed {
   font-size: 14px;
 }
 .cancelled {
   text-decoration: line-through;
 }
-.newsflash {
+.cancelled-banner {
   text-transform: uppercase;
-  color: red;
-  font-size: 14px;
-}
-.newsflash.banner {
-  font-size: 12px;
+  font-weight: 600;
   color: white;
   background-color: red;
+  font-size: 12px;
   padding: 3px;
   border-radius: 5px;
+}
+.newsflash {
+  font-weight: 600;
 }

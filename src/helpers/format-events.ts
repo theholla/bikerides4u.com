@@ -22,6 +22,7 @@ export type FormattedEvent = RawEventDesc & {
   times: string;
   distance: number;
   latLng: Coordinate;
+  geoLookupAddress: string;
   date: YYYYMMDD;
   friendlyDate: MDYYYY;
   freshAsOf: MDYYYYHMMSSSS;
@@ -109,12 +110,13 @@ export function formatEvents(events: BikeRides4UEvent[], userLoc: Coordinate): F
     .map(event => {
       return {
         key: getEventKey(event.date, event.id),
-        freshAsOf: new Date().toLocaleString(),
-        distance: formatNumber(getDistance(userLoc, event.latLng, 0.1)),
+        freshAsOf: new Date(event.updated).toLocaleString(),
+        distance: formatNumber(getDistance(userLoc, event.geoLookup.latLng, 0.1)),
         friendlyDate: getFriendlyDate(event.date),
         dayOfWeek: getDayOfWeek(event.date),
         times: getTimeForDesc(event.time, event.endtime),
-        latLng: event.latLng,
+        latLng: event.geoLookup.latLng,
+        geoLookupAddress: event.geoLookup.formattedAddress,
         id: event.id,
         title: event.title,
         details: event.details,
