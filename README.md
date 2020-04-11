@@ -8,8 +8,6 @@ This web app pings the Shift2Bikes calendar API and displays bike rides on an in
 
 ## MVP
 
-Complete:
-
 - [x] Fetch bike fun data from Shift2Bikes API
 - [x] Center map on lat/long from user's geo-location
 - [x] Display rides in list and actual ride location on map
@@ -17,12 +15,9 @@ Complete:
 - [x] Implement blank state, loaders, and cancelled event behavior
 - [x] Separate concerns of frontend and backend; create simple server
 - [x] Cache response from Shift2Bikes API in frontend, geocoding API service in backend
+- [x] Fire map marker click when user clicks on ride in list
 
-TODO:
-
-- [~] Fire map marker click when user clicks on ride in list
-
-## Cool ideas for later
+## Cool ideas for later / Possible Next Steps
 
 1. Add button: report a problem
 1. Add toggle: sort by distance vs date
@@ -64,7 +59,7 @@ git pull --recurse-submodules
 
 The local app reads static test data from a file by default, so there's no need to spin up the server if you are just concerned with its frontend.
 
-To enable live data, run the server by following instructions on [its GitHub repo](https://github.com/theholla/br4u-backend). Then, back in this app, set `REACT_APP_USE_LIVE_DATA` to `true` in the `.env` file and restart the app.
+To enable live data, run the [companion backend server](https://github.com/theholla/br4u-backend) by following instructions on its GitHub repo. Then, back in this app, set `REACT_APP_USE_LIVE_DATA` to `true` in the `.env` file and restart the app.
 
 ## About Shift2Bikes
 

@@ -52,7 +52,6 @@ export class Home extends Component<{}, HomeState> {
   }
 
   handleEventListItemClick = (id: string): void => {
-    console.log('click ', id);
     return this.setState({ selectedEventId: id });
   };
 

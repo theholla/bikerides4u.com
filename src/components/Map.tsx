@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Map as LeafletMap, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
+import { Map as LeafletMap, TileLayer, Circle } from 'react-leaflet';
+import { Marker } from '.';
 import { Coordinate } from '../../br4u';
 import { FormattedEvent } from '../helpers/format-events';
 import './Map.css';
@@ -11,7 +12,7 @@ interface MapProps {
   selectedEventId?: string;
   points: FormattedEvent[];
 }
-export class Map extends Component<MapProps, {}> {
+export class Map extends Component<MapProps> {
   render(): JSX.Element {
     const { mapCenter, points, selectedEventId } = this.props;
     const position = [mapCenter.latitude, mapCenter.longitude] as LatLngTuple;
@@ -25,26 +26,7 @@ export class Map extends Component<MapProps, {}> {
           ></TileLayer>
           <Circle center={position} radius={400} />
           {points.map((point: FormattedEvent) => (
-            <div key={point.key}>
-              <Marker position={[point.latLng.latitude, point.latLng.longitude] as LatLngTuple}>
-                {/** FIXME: need to set some property...not isOpen..not sure what */}
-                <Popup isOpen={selectedEventId === point.id}>
-                  <div>{point.title}</div>
-                  <div>{point.friendlyDate}</div>
-                  <div>{point.times}</div>
-                  <div>{point.venue}</div>
-                  <p>{point.details}</p>
-                  <p>
-                    <strong>Listed address:</strong>
-                    <div>{point.address}</div>
-                  </p>
-                  <p>
-                    <strong>Displaying location for:</strong>
-                    <div>{point.geoLookupAddress}</div>
-                  </p>
-                </Popup>
-              </Marker>
-            </div>
+            <Marker isSelected={selectedEventId === point.id} point={point} key={point.key} />
           ))}
         </LeafletMap>
       </div>
