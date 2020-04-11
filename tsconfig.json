@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "types": ["node", "jest"],
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },

@@ -1,11 +1,12 @@
 {
   "name": "bike-rides-4u-backend",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Bike Rides 4U backend",
   "main": "index.js",
   "author": "Diana Holland",
   "license": "MIT",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^2.5.0",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
