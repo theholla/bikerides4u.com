@@ -1,6 +1,17 @@
 # BikeRides4U Ride Map
 
-This web app pings the Shift2Bikes calendar API and displays bike rides on an interactive map. Users can apply filters to find rides that are relevant to them.
+Most bikey folks in Portland have used the [Shift2Bikes calendar](https://www.shift2bikes.org/calendar/) to discover upcoming rides... most famously every summer during [Pedalpalooza](https://www.shift2bikes.org/pedalpalooza-calendar/). BikeRides4U is a passion project that aims to complement the Shift cal by providing a filterable, interactive map view of the same ride data.
+
+Specifically, this app loads bike fun events onto a map that users can filter to find rides that are relevant to them.
+
+For the event data, this app pings a custom backend server which:
+
+- pulls ride data from the Shift2Bikes Calendar API for a given start date
+- hydrates the ride data with lat/lng coordinates using a geocoding service and the event's `address` field
+- caches the hydrated event data indefinitely for use later (since coordinates don't move)
+- allows responses to be cached by the client for a short interval, reducing potential load on the Shift2Bikes API
+
+Code for the backend is open-source and visible on [Github](https://github.com/theholla/br4u-backend).
 
 ## Current UI
 
@@ -8,7 +19,7 @@ This web app pings the Shift2Bikes calendar API and displays bike rides on an in
 
 ## MVP
 
-- [x] Fetch bike fun data from Shift2Bikes API
+- [x] Fetch bike fun data from Shift2Bikes Calendar API
 - [x] Center map on lat/long from user's geo-location
 - [x] Display rides in list and actual ride location on map
 - [x] Add ride filters: start date, end date, day of week
@@ -17,13 +28,15 @@ This web app pings the Shift2Bikes calendar API and displays bike rides on an in
 - [x] Cache response from Shift2Bikes API in frontend, geocoding API service in backend
 - [x] Fire map marker click when user clicks on ride in list
 
-## Cool ideas for later / Possible Next Steps
+## Cool ideas for later
 
+1. Run through the [a11y project checklist](https://a11yproject.com/checklist/) and improve accessibility
 1. Add button: report a problem
 1. Add toggle: sort by distance vs date
-1. Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), duration, time of day
+1. Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
 1. Add filter to map: expandable radius
 1. Add link to original event on shift2bikes.org
+1. Merge duplicates (TNR every thursday)
 1. Make center of map draggable; currently defaults to user location if allowed
 1. Improve mobile-friendliness
 1. Allow users to export filtered rides and/or individual ride in .ics format
@@ -31,7 +44,7 @@ This web app pings the Shift2Bikes calendar API and displays bike rides on an in
 
 ## Local development
 
-### Initial clone:
+### Initial clone
 
 First, checkout type definitions from their submodule:
 

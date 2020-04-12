@@ -6,9 +6,12 @@ export function NavBar(): JSX.Element {
   return (
     <div className="nav-bar">
       <Link to="/" className="nav-bar-item link" id="logo">
-        Bike Rides 4U
+        BikeRides4U.com (beta)
       </Link>
-      <Link to="/about" className="nav-bar-item link push">
+      <Link to="/paq" className="nav-bar-item link push">
+        PAQ
+      </Link>
+      <Link to="/about" className="nav-bar-item link">
         About
       </Link>
     </div>
