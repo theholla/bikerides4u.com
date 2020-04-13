@@ -1,6 +1,6 @@
-# BikeRides4U Ride Map
+# BikeRides4U.com Ride Map
 
-Most bikey folks in Portland have used the [Shift2Bikes calendar](https://www.shift2bikes.org/calendar/) to discover upcoming rides... most famously every summer during [Pedalpalooza](https://www.shift2bikes.org/pedalpalooza-calendar/). BikeRides4U is a passion project that aims to complement the Shift cal by providing a filterable, interactive map view of the same ride data.
+Most bikey folks in Portland have used the [Shift2Bikes calendar](https://www.shift2bikes.org/calendar/) to discover upcoming rides... most famously every summer during [Pedalpalooza](https://www.shift2bikes.org/pedalpalooza-calendar/). BikeRides4U.com is a passion project that aims to complement the Shift cal by providing a filterable, interactive map view of the same ride data.
 
 Specifically, this app loads bike fun events onto a map that users can filter to find rides that are relevant to them.
 
@@ -22,22 +22,26 @@ Code for the backend is open-source and visible on [Github](https://github.com/t
 - [x] Fetch bike fun data from Shift2Bikes Calendar API
 - [x] Center map on lat/long from user's geo-location
 - [x] Display rides in list and actual ride location on map
+- [x] Fire map marker click when user clicks on ride in list
 - [x] Add ride filters: start date, end date, day of week
 - [x] Implement blank state, loaders, and cancelled event behavior
 - [x] Separate concerns of frontend and backend; create simple server
-- [x] Cache response from Shift2Bikes API in frontend, geocoding API service in backend
-- [x] Fire map marker click when user clicks on ride in list
+- [x] Cache ride data in client, cache geo-coded event data in backend
+
+## Next Steps
+
+- [] Run through the [a11y project checklist](https://a11yproject.com/checklist/) and improve accessibility
+- [] Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
+- [] XS: Add toggle: sort by distance vs date
+- [] XS: Make center of map draggable; currently defaults to user location if allowed
+- [] S: Add filter to map: expandable radius
+- [] XS: Add button: report a problem
+- [] XS: Merge duplicates (repeating rides, example: TNR every thursday)
 
 ## Cool ideas for later
 
-1. Run through the [a11y project checklist](https://a11yproject.com/checklist/) and improve accessibility
-1. Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
-1. Add toggle: sort by distance vs date
-1. Add filter to map: expandable radius
-1. Add button: report a problem
-1. Merge duplicates (TNR every thursday)
-1. Make center of map draggable; currently defaults to user location if allowed
-1. Improve mobile-friendliness
+1. Add support for maps on small devices (currently supports 1024px and up)
+1. Allow user to request additional data besides 45 upcoming days; requires caching shift2bikes cal api response through server or CDN (want to reduce potential load on shift2bikes cal API)
 1. Allow users to export filtered rides and/or individual ride in .ics format
 1. Display weather icon next to ride for expected weather
 

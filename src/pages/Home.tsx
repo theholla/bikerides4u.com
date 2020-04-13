@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { EventList, Controls, Map } from '../components';
+import { EventList, Controls, Map, Error } from '../components';
 import { Coordinate } from '../../br4u';
 import { getISODate, FormattedEvent } from '../helpers/format-events';
 import { requestEvents } from '../helpers/request-events';
@@ -95,8 +95,11 @@ export class Home extends Component<{}, HomeState> {
   render(): JSX.Element {
     const { data, loading, filteredEvents, mapCenter, selectedEventId, error } = this.state;
     return (
-      <div className="content">
-        <div className="control-panel">
+      <div id="site-content">
+        <div id="sidebar">
+          <div id="map-disclaimer">
+            <Error error="Wider screen required to display map. Distance is from Thai Champa if location is not enabled." />
+          </div>
           <Controls data={data} handleEventsFiltered={this.handleEventsFiltered} />
           <EventList
             error={error}
@@ -105,7 +108,9 @@ export class Home extends Component<{}, HomeState> {
             handleListItemClick={this.handleEventListItemClick}
           />
         </div>
-        <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
+        <div id="map">
+          <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
+        </div>
       </div>
     );
   }

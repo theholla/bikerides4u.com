@@ -6,7 +6,7 @@
 .event-list-meta {
   display: flex;
   background-color: #f7f7f7;
-  color: #888;
+  opacity: 0.7;
   padding: 7px 10px;
 }
 .event-list {

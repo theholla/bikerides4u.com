@@ -1,7 +1,44 @@
-.content {
+#site-content {
   display: flex;
   height: 93vh;
 }
-.control-panel {
-  width: 25vw;
+#sidebar {
+  width: 100%;
+}
+#map-disclaimer {
+  display: block;
+}
+#map {
+  display: none;
+}
+
+.clickable {
+  cursor: unset;
+}
+.clickable:active {
+  color: unset;
+}
+
+@media only screen and (min-width: 760px) {
+  #sidebar {
+    width: 50vw;
+  }
+  #map-disclaimer {
+    display: none;
+  }
+  #map {
+    display: block;
+    flex-grow: 9;
+  }
+  .clickable {
+    cursor: pointer;
+  }
+  .clickable:active {
+    color: #b95eae;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #sidebar {
+    width: 25vw;
+  }
 }

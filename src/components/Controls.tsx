@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Controls.css';
 import { FormDateField } from '.';
-import { FormattedEvent, Day, getFriendlyDate } from '../helpers/format-events';
+import { FormattedEvent, Day } from '../helpers/format-events';
 import { FormCheckbox } from './FormCheckbox';
 
 const allDaysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
@@ -71,9 +71,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
     return (
       <form className="controls-form">
         <section>
-          <h2 className="controls-header">
-            Fetched events from {getFriendlyDate(data.start)} to {getFriendlyDate(data.end)}
-          </h2>
+          <h2 className="controls-header">Upcoming bike fun (showing next 45 days)</h2>
           <div className="filters">
             <h3 className="filters-header">Apply additional filters:</h3>
             <div className="date-input-group">

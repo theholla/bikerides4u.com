@@ -7,20 +7,18 @@ import './App.css';
 function App(): JSX.Element {
   return (
     <Router>
-      <div className="root">
-        <NavBar />
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/paq">
-            <PAQ />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
+      <NavBar />
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/paq">
+          <PAQ />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
     </Router>
   );
 }

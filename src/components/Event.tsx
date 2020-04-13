@@ -61,10 +61,12 @@ export function Event(props: EventProps): JSX.Element {
             </div>
           </div>
         </div>
-        <ExternalLink href={shareable}>
-          <img className="icon" src={shiftIcon} />
-          <span className="event-detail">shift2bikes.org</span>
-        </ExternalLink>
+        <span>
+          <ExternalLink href={shareable}>
+            <img className="icon" alt="shift2bikes icon" src={shiftIcon} />
+            <span className="event-detail">shift2bikes.org</span>
+          </ExternalLink>
+        </span>
         <div className="refreshed">data last refreshed {freshAsOf}</div>
         <div className="event-distance-to">
           <span className="push">

@@ -2,7 +2,7 @@ body {
   line-height: 22px;
 }
 
-.root {
+#root {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -29,16 +29,13 @@ a:active {
   color: #b95eae;
 }
 
-.page-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .page-content {
   display: flex;
   flex-direction: column;
+  align-self: center;
+  align-items: center;
+  width: 800px;
+  max-width: 99%;
 }
 .page-content h1,
 h2,
@@ -46,6 +43,5 @@ h3 {
   text-align: center;
 }
 .page-content div {
-  max-width: 800px;
-  padding: 5px;
+  padding: 10px;
 }

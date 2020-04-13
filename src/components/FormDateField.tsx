@@ -25,6 +25,7 @@ export function FormDateField({
       </label>
       <input
         type="date"
+        placeholder="yyyy-mm-dd"
         id={id}
         name={name}
         value={formValue}
