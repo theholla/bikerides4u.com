@@ -22,9 +22,11 @@ a {
   text-decoration: none;
   color: #b95eae;
 }
-
-.link {
-  text-decoration: none;
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: #b95eae;
 }
 
 .page-container {

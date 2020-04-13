@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../components';
+import { ExternalLink } from '../components';
 import { Link as RouterLink } from 'react-router-dom';
 
 export function About(): JSX.Element {
@@ -10,9 +10,9 @@ export function About(): JSX.Element {
           <h1>About BikeRides4U</h1>
           <p>
             Most bikey folks in Portland have used the{' '}
-            <Link href="https://www.shift2bikes.org/calendar/" text="Shift2Bikes calendar" /> to discover upcoming
-            rides... most famously every summer during{' '}
-            <Link href="https://www.shift2bikes.org/pedalpalooza-calendar/" text="Pedalpalooza" />.
+            <ExternalLink href="https://www.shift2bikes.org/calendar/" text="Shift2Bikes calendar" /> to discover
+            upcoming rides... most famously every summer during{' '}
+            <ExternalLink href="https://www.shift2bikes.org/pedalpalooza-calendar/" text="Pedalpalooza" />.
           </p>
           <p>
             BikeRides4U is a passion project that aims to complement the Shift cal by providing a filterable,
@@ -31,8 +31,8 @@ export function About(): JSX.Element {
             raise awareness about cyclist injuries or deaths, information-sharing events, art-bike parades and more.
           </p>
           <p>
-            See <Link href="http://shift2bikes.org/" text="Shift2Bikes.org" /> for more information about bike fun in
-            Portland.
+            See <ExternalLink href="http://shift2bikes.org/" text="Shift2Bikes.org" /> for more information about bike
+            fun in Portland.
           </p>
         </div>
         <div>

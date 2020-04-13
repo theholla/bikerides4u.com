@@ -24,8 +24,6 @@ interface HomeState {
   error: string | null;
 }
 export class Home extends Component<{}, HomeState> {
-  timerID?: NodeJS.Timeout;
-
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -47,12 +45,8 @@ export class Home extends Component<{}, HomeState> {
     this.getSortedEvents();
   }
 
-  componentWillUnmount(): void {
-    clearInterval(this.timerID as any);
-  }
-
-  handleEventListItemClick = (id: string): void => {
-    return this.setState({ selectedEventId: id });
+  handleEventListItemClick = (selectedEventId: string): void => {
+    return this.setState({ selectedEventId });
   };
 
   handleEventsFiltered = (filteredEvents: FormattedEvent[]): void => {
@@ -66,20 +60,17 @@ export class Home extends Component<{}, HomeState> {
           mapCenter: { latitude: coords.latitude, longitude: coords.longitude },
         });
       });
-    } else {
-      this.setState({
-        mapCenter: defaultCoords,
-      });
     }
   }
 
   getSortedEvents(): Promise<void> {
+    const { data, mapCenter } = this.state;
     this.setState({ loading: true });
-    return requestEvents(this.state.data.start, this.state.data.end)
+    return requestEvents(data.start, data.end)
       .then(response => {
-        const events = formatEvents(response.data, this.state.mapCenter);
+        const events = formatEvents(response.data, mapCenter);
         this.setState({
-          data: { ...this.state.data, events },
+          data: { ...data, events },
           filteredEvents: events,
           loading: false,
         });
@@ -92,7 +83,7 @@ export class Home extends Component<{}, HomeState> {
           errMsg = 'No response from BR4U API';
         }
 
-        console.error(errMsg, { start: this.state.data.start, end: this.state.data.end, err });
+        console.error(errMsg, { start: data.start, end: data.end, err });
 
         this.setState({
           loading: false,

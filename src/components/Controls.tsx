@@ -4,7 +4,7 @@ import { FormDateField } from '.';
 import { FormattedEvent, Day, getFriendlyDate } from '../helpers/format-events';
 import { FormCheckbox } from './FormCheckbox';
 
-const daysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
+const allDaysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
 
 interface ControlsProps {
   data: {
@@ -46,7 +46,8 @@ export class Controls extends Component<ControlsProps, ControlsState> {
   };
 
   handleSelectDay = (e: React.ChangeEvent<any>): void => {
-    this.setState({ daysOfWeek: { ...this.state.daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
+    const { daysOfWeek } = this.state;
+    this.setState({ daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
   };
 
   applyFilters = (): void => {
@@ -66,6 +67,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
   // TODO: improve form's accessibility
   render(): JSX.Element {
     const { data } = this.props;
+    const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
     return (
       <form className="controls-form">
         <section>
@@ -78,7 +80,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
               <FormDateField
                 id="start-date"
                 handleChange={this.handleSelectRidesFrom}
-                formValue={this.state.ridesFrom || ''}
+                formValue={ridesFrom || ''}
                 labelText="From"
                 name="start date"
                 min={data.start}
@@ -87,7 +89,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
               <FormDateField
                 id="end-date"
                 handleChange={this.handleSelectRidesUntil}
-                formValue={this.state.ridesUntil || ''}
+                formValue={ridesUntil || ''}
                 labelText="Until"
                 name="end date"
                 min={data.start}
@@ -95,12 +97,12 @@ export class Controls extends Component<ControlsProps, ControlsState> {
               />
             </div>
             <div className="checkbox-group">
-              {daysOfWeek.map(day => (
+              {allDaysOfWeek.map(day => (
                 <FormCheckbox
                   key={day}
                   id={day}
                   handleChange={this.handleSelectDay}
-                  checked={!!this.state.daysOfWeek[day]}
+                  checked={!!daysOfWeek[day]}
                   labelText={day}
                   name={day}
                 />

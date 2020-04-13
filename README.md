@@ -31,11 +31,10 @@ Code for the backend is open-source and visible on [Github](https://github.com/t
 ## Cool ideas for later
 
 1. Run through the [a11y project checklist](https://a11yproject.com/checklist/) and improve accessibility
-1. Add button: report a problem
-1. Add toggle: sort by distance vs date
 1. Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
+1. Add toggle: sort by distance vs date
 1. Add filter to map: expandable radius
-1. Add link to original event on shift2bikes.org
+1. Add button: report a problem
 1. Merge duplicates (TNR every thursday)
 1. Make center of map draggable; currently defaults to user location if allowed
 1. Improve mobile-friendliness

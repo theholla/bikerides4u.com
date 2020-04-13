@@ -8,4 +8,4 @@ export * from './Marker';
 export * from './NavBar';
 export * from './Spinner';
 export * from './BlankState';
-export * from './Link';
+export * from './ExternalLink';

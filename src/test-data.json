@@ -34,7 +34,14 @@
     "cancelled": true,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.47431281006013, "longitude": -122.64550649971848 }
+    "updated": 1586731239745,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5463651,
+        "longitude": -122.658555
+      },
+      "formattedAddress": "NE Fargo St & NE 7th Ave, Portland, OR 97212, USA"
+    }
   },
   {
     "id": "7860",
@@ -71,7 +78,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.52195107917716, "longitude": -122.63041960655468 }
+    "updated": 1586731239735,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "8031",
@@ -108,7 +122,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": "19:15:00",
-    "latLng": { "latitude": 45.482000590772714, "longitude": -122.6322498939163 }
+    "updated": 1586731239779,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5122018,
+        "longitude": -122.6506321
+      },
+      "formattedAddress": "1501 SE Hawthorne Blvd, Portland, OR 97214, USA"
+    }
   },
   {
     "id": "8010",
@@ -145,7 +166,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.476541187599636, "longitude": -122.58756233573065 }
+    "updated": 1586731240022,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "7963",
@@ -182,7 +210,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.51035935061815, "longitude": -122.6055185692021 }
+    "updated": 1586731239756,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.4862614,
+        "longitude": -122.5873755
+      },
+      "formattedAddress": "7337 SE Foster Rd, Portland, OR 97206, USA"
+    }
   },
   {
     "id": "7860",
@@ -219,7 +254,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.50372762614045, "longitude": -122.60877656290938 }
+    "updated": 1586731239736,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "6726",
@@ -256,7 +298,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.52037417316631, "longitude": -122.63905747822695 }
+    "updated": 1586731239695,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.566415,
+        "longitude": -122.6749299
+      },
+      "formattedAddress": "N Ainsworth St & N Albina Ave, Portland, OR 97217, USA"
+    }
   },
   {
     "id": "6756",
@@ -293,7 +342,14 @@
     "cancelled": true,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.505919250246144, "longitude": -122.61380102294903 }
+    "updated": 1586731239746,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5463651,
+        "longitude": -122.658555
+      },
+      "formattedAddress": "NE Fargo St & NE 7th Ave, Portland, OR 97212, USA"
+    }
   },
   {
     "id": "7860",
@@ -330,7 +386,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.51882834982583, "longitude": -122.64426318807584 }
+    "updated": 1586731239736,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "7978",
@@ -367,7 +430,14 @@
     "cancelled": true,
     "newsflash": "Cancelled due to current world situation. I plan on doing a ride in October.",
     "endtime": "16:00:00",
-    "latLng": { "latitude": 45.50628194432122, "longitude": -122.64166812148584 }
+    "updated": 1586731240070,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 25,
+        "longitude": -71
+      },
+      "formattedAddress": ""
+    }
   },
   {
     "id": "8032",
@@ -404,7 +474,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.48713322253712, "longitude": -122.6111545404663 }
+    "updated": 1586731239712,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5040734,
+        "longitude": -122.6140293
+      },
+      "formattedAddress": "SE 47th Ave & SE Ivon St, Portland, OR 97206, USA"
+    }
   },
   {
     "id": "7998",
@@ -441,7 +518,14 @@
     "cancelled": false,
     "newsflash": "Tracklocross",
     "endtime": "00:18:00",
-    "latLng": { "latitude": 45.49223723552207, "longitude": -122.60232218012897 }
+    "updated": 1586731240171,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 25,
+        "longitude": -71
+      },
+      "formattedAddress": ""
+    }
   },
   {
     "id": "7963",
@@ -478,7 +562,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.52152755511858, "longitude": -122.64581508216132 }
+    "updated": 1586731239756,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.4862614,
+        "longitude": -122.5873755
+      },
+      "formattedAddress": "7337 SE Foster Rd, Portland, OR 97206, USA"
+    }
   },
   {
     "id": "7860",
@@ -515,7 +606,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.49138526485517, "longitude": -122.59283062946112 }
+    "updated": 1586731239736,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "6756",
@@ -552,7 +650,14 @@
     "cancelled": true,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.490278326942274, "longitude": -122.64679551610007 }
+    "updated": 1586731239745,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5463651,
+        "longitude": -122.658555
+      },
+      "formattedAddress": "NE Fargo St & NE 7th Ave, Portland, OR 97212, USA"
+    }
   },
   {
     "id": "7860",
@@ -589,7 +694,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.479173293330824, "longitude": -122.63638240796205 }
+    "updated": 1586731239736,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "7946",
@@ -626,7 +738,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.510964382434416, "longitude": -122.61050291779932 }
+    "updated": 1586731239757,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5266973,
+        "longitude": -122.6921834
+      },
+      "formattedAddress": "1961 NW Glisan St, Portland, OR 97209, USA"
+    }
   },
   {
     "id": "7963",
@@ -663,7 +782,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.489692089491875, "longitude": -122.63411411783306 }
+    "updated": 1586731239757,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.4862614,
+        "longitude": -122.5873755
+      },
+      "formattedAddress": "7337 SE Foster Rd, Portland, OR 97206, USA"
+    }
   },
   {
     "id": "7860",
@@ -700,7 +826,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.473138170083196, "longitude": -122.6441678012908 }
+    "updated": 1586731239736,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "8010",
@@ -737,7 +870,14 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.48763010736816, "longitude": -122.63761442754789 }
+    "updated": 1586731240025,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.5154568,
+        "longitude": -122.673581
+      },
+      "formattedAddress": "SW Salmon St & SW Naito Pkwy, Portland, OR 97204, USA"
+    }
   },
   {
     "id": "6726",
@@ -774,6 +914,13 @@
     "cancelled": false,
     "newsflash": null,
     "endtime": null,
-    "latLng": { "latitude": 45.47724209245813, "longitude": -122.6422946769967 }
+    "updated": 1586731239695,
+    "geoLookup": {
+      "latLng": {
+        "latitude": 45.566415,
+        "longitude": -122.6749299
+      },
+      "formattedAddress": "N Ainsworth St & N Albina Ave, Portland, OR 97217, USA"
+    }
   }
 ]

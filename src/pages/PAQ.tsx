@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '../components';
+import { ExternalLink } from '../components';
 
 export function PAQ(): JSX.Element {
   return (
@@ -12,14 +12,14 @@ export function PAQ(): JSX.Element {
           <p>
             Before submitting feedback, please take a look at the &quot;Cool Ideas for Later&quot; section of this
             project&apos;s{' '}
-            <Link href="https://github.com/theholla/shift2bikes-ride-map/blob/master/README.md" text="README" />. The
-            feature you&apos;re thinking of may already be on the roadmap.
+            <ExternalLink href="https://github.com/theholla/shift2bikes-ride-map/blob/master/README.md" text="README" />
+            . The feature you&apos;re thinking of may already be on the roadmap.
           </p>
           <p>
             If the feature isn&apos;t listed, please either{' '}
-            <Link href="https://github.com/theholla/shift2bikes-ride-map/issues" text="submit an issue" /> on Github or
-            reach out to bikerides4u@gmail.com with your suggestion. It would be extremely valuable to learn how this
-            web app could be more useful for more people.
+            <ExternalLink href="https://github.com/theholla/shift2bikes-ride-map/issues" text="submit an issue" /> on
+            Github or reach out to bikerides4u@gmail.com with your suggestion. It would be extremely valuable to learn
+            how this web app could be more useful for more people.
           </p>
           <div>
             <h2>Why is ___ broken or wrong?</h2>
@@ -28,8 +28,8 @@ export function PAQ(): JSX.Element {
             </p>
             <p>
               If something is broken or wrong, please help improve this project by{' '}
-              <Link href="https://github.com/theholla/shift2bikes-ride-map/issues" text="submitting an issue" /> on
-              Github, or reaching out to bikerides4u@gmail.com with your suggestion.
+              <ExternalLink href="https://github.com/theholla/shift2bikes-ride-map/issues" text="submitting an issue" />{' '}
+              on Github, or reaching out to bikerides4u@gmail.com with your suggestion.
             </p>
             <p>
               It&apos;s helpful if you include specific details, such as:
@@ -49,8 +49,10 @@ export function PAQ(): JSX.Element {
             <p>
               If you have Node.js/React.js skills, you can also contribute to the codebase. This project is open source.
               If you would like to collaborate, take a look at any open issues on Github. You can submit a pull request
-              to either its <Link href="https://github.com/theholla/shift2bikes-ride-map/issues" text="frontend" /> or{' '}
-              <Link href="https://github.com/theholla/br4u-backend/issues" text="backend" /> Github repositories.
+              to either its{' '}
+              <ExternalLink href="https://github.com/theholla/shift2bikes-ride-map/issues" text="frontend" /> or{' '}
+              <ExternalLink href="https://github.com/theholla/br4u-backend/issues" text="backend" /> Github
+              repositories.
             </p>
           </div>
         </div>

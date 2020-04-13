@@ -2,6 +2,7 @@ import React, { createRef } from 'react';
 import { Marker as LeafletMarker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import { FormattedEvent } from '../helpers/format-events';
+import './Event.css';
 
 interface MarkerProps {
   isSelected: boolean;
@@ -19,28 +20,31 @@ export class Marker extends React.Component<MarkerProps, {}> {
   }
 
   render(): JSX.Element {
-    const { point } = this.props;
+    const {
+      point: { address, cancelled, details, friendlyDate, geoLookupAddress, latLng, times, title, venue, key },
+    } = this.props;
+    if (!geoLookupAddress) return <div></div>;
     return (
-      <LeafletMarker
-        ref={this.markerRef}
-        position={[point.latLng.latitude, point.latLng.longitude] as LatLngTuple}
-        key={point.key}
-      >
+      <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
         <Popup>
-          <div>{point.title}</div>
-          <div>{point.friendlyDate}</div>
-          <div>{point.times}</div>
-          <div>{point.venue}</div>
-          <p>{point.details}</p>
+          <div className={cancelled ? 'cancelled' : ''}>
+            <div>
+              {title} {cancelled && <span className="cancelled-banner"> Cancelled</span>}
+            </div>
+            <div>{friendlyDate}</div>
+            <div>{times}</div>
+            <div>{venue}</div>
+            <p>{details}</p>
+          </div>
           <p>
             <strong>Listed address:</strong>
             <br />
-            {point.address}
+            {address}
           </p>
           <p>
             <strong>Displaying location for:</strong>
             <br />
-            {point.geoLookupAddress}
+            {geoLookupAddress}
           </p>
         </Popup>
       </LeafletMarker>
