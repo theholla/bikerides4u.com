@@ -7,13 +7,23 @@ type EventListProps = {
   loading: boolean;
   events: FormattedEvent[];
   error: string | null;
+  handleFiltersButtonClick: () => void;
   handleListItemClick: (id: string) => void;
 };
-export function EventList({ loading, events, handleListItemClick, error }: EventListProps): JSX.Element {
+export function EventList(props: EventListProps): JSX.Element {
+  const { loading, events, handleFiltersButtonClick, handleListItemClick, error } = props;
   return (
     <div className="events-content-area">
-      <div className="event-list-meta">
-        <div className="ride-count">{events.length} rides</div>
+      <div className="event-list-header">
+        <div className="event-list-title">
+          <h2>Upcoming bike fun (showing next 45 days)</h2>
+        </div>
+        <div className="event-list-meta">
+          <div className="ride-count">{events.length} rides</div>
+          <div className="filters push" onClick={handleFiltersButtonClick}>
+            Filters
+          </div>
+        </div>
       </div>
       <div className="event-list">
         {error ? (

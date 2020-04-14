@@ -10,7 +10,7 @@ interface FormCheckboxProps {
 export function FormCheckbox({ handleChange, labelText, checked, name, id }: FormCheckboxProps): JSX.Element {
   return (
     <div className="form-checkbox">
-      <label htmlFor={id} className="form-label">
+      <label htmlFor={id} className="form-label checkbox-label">
         {labelText}
       </label>
       <input

@@ -1,15 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
 import { faMapMarkerAlt, faCalendar, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormattedEvent } from '../helpers/format-events';
 import { ExternalLink } from './ExternalLink';
 import shiftIcon from '../images/shift-logo.png';
 import './Event.css';
-
-library.add(faMapMarkerAlt);
-library.add(faCalendar);
-library.add(faInfoCircle);
 
 interface EventProps {
   event: FormattedEvent;

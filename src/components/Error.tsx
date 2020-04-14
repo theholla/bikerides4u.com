@@ -7,5 +7,5 @@ type ErrorProps = {
 };
 export function Error(props: ErrorProps): JSX.Element {
   const { className, error } = props;
-  return <div className={`error ${className}`}>{error}</div>;
+  return <div className={`error ${className || ''}`}>{error}</div>;
 }

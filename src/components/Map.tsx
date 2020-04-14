@@ -20,7 +20,7 @@ export class Map extends Component<MapProps> {
     return (
       <LeafletMap center={position} zoom={zoom} className="map">
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright" rel="noreferrer" target="_blank">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" rel="noreferrer" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" rel="noreferrer" target="_blank">OpenStreetMap France</a>'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         ></TileLayer>
         <Circle center={position} radius={400} />

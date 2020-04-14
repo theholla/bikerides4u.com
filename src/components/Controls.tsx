@@ -64,48 +64,45 @@ export class Controls extends Component<ControlsProps, ControlsState> {
     return handleEventsFiltered(filtered);
   };
 
-  // TODO: improve form's accessibility
   render(): JSX.Element {
     const { data } = this.props;
     const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
     return (
       <form className="controls-form">
         <section>
-          <h2 className="controls-header">Upcoming bike fun (showing next 45 days)</h2>
-          <div className="filters">
-            <h3 className="filters-header">Apply additional filters:</h3>
-            <div className="date-input-group">
-              <FormDateField
-                id="start-date"
-                handleChange={this.handleSelectRidesFrom}
-                formValue={ridesFrom || ''}
-                labelText="From"
-                name="start date"
-                min={data.start}
-                max={data.end}
+          <div className="date-input-group">
+            <FormDateField
+              id="start-date"
+              handleChange={this.handleSelectRidesFrom}
+              formValue={ridesFrom || ''}
+              labelText="From"
+              name="start date"
+              min={data.start}
+              max={data.end}
+            />
+            <FormDateField
+              id="end-date"
+              handleChange={this.handleSelectRidesUntil}
+              formValue={ridesUntil || ''}
+              labelText="Until"
+              name="end date"
+              min={data.start}
+              max={data.end}
+            />
+          </div>
+        </section>
+        <section>
+          <div className="checkbox-group">
+            {allDaysOfWeek.map(day => (
+              <FormCheckbox
+                key={day}
+                id={day}
+                handleChange={this.handleSelectDay}
+                checked={!!daysOfWeek[day]}
+                labelText={day}
+                name={day}
               />
-              <FormDateField
-                id="end-date"
-                handleChange={this.handleSelectRidesUntil}
-                formValue={ridesUntil || ''}
-                labelText="Until"
-                name="end date"
-                min={data.start}
-                max={data.end}
-              />
-            </div>
-            <div className="checkbox-group">
-              {allDaysOfWeek.map(day => (
-                <FormCheckbox
-                  key={day}
-                  id={day}
-                  handleChange={this.handleSelectDay}
-                  checked={!!daysOfWeek[day]}
-                  labelText={day}
-                  name={day}
-                />
-              ))}
-            </div>
+            ))}
           </div>
         </section>
       </form>

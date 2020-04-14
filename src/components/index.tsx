@@ -5,6 +5,7 @@ export * from './EventList';
 export * from './FormDateField';
 export * from './Map';
 export * from './Marker';
+export * from './Modal';
 export * from './NavBar';
 export * from './Spinner';
 export * from './BlankState';

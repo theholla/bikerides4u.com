@@ -1,49 +1,17 @@
 .controls-form {
-  background-color: #f7f7f7;
-  border-right: 1px solid #c3c3c3;
-  border-bottom: 1px solid #c3c3c3;
-  font-size: 14px;
-  padding: 0 10px 10px 10px;
   display: flex;
   flex-direction: column;
 }
-.controls-header {
-  border-bottom: 1px solid #c3c3c3;
-  padding: 0 10px 10px 10px;
-  font-size: 15px;
-  margin-bottom: 0;
-  text-align: left;
-}
-.location {
-  padding: 0 10px 10px 10px;
-  margin-top: 10px;
-}
-.location-input {
-  font-size: 14px;
-  width: 100%;
-}
-.filters {
-  font-size: 14px;
-  padding: 0 10px;
-  display: flex;
-  flex-direction: column;
-}
-.filters-header {
-  font-size: 14px;
-  text-align: left;
-}
-.form-label {
-  display: block;
+section {
+  padding: 10px 0;
+  border-top: 1px solid #c3c3c3;
 }
 .form-input {
-  display: block;
 }
 .field {
   line-height: 3;
 }
 .date-input-group {
-  font-size: 14px;
-  padding: 0 10px 10px 10px;
   display: flex;
 }
 .date-field {
@@ -51,6 +19,9 @@
 }
 .checkbox-group {
   display: flex;
+}
+.checkbox-label {
+  display: block;
 }
 .form-checkbox {
   flex-grow: 1;
