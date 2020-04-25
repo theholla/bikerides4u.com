@@ -33,7 +33,7 @@ Code for the backend is open-source and visible on [Github](https://github.com/t
 - [] Run through [a11y project checklist](https://a11yproject.com/checklist/) to identify/address gaps in accessibility (Lighthouse audit score is 94)
 - [] Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
 - [] XS: Add toggle: sort by distance vs date
-- [] XS: Add "use my location" toggle instead of asking for location on page load
+- [x] S: Add "use my location" toggle instead of asking for location on page load
 - [] XS: Make center of map draggable; currently defaults to user location if allowed
 - [] S: Add filter to map: expandable radius
 - [] XS: Add button: report a problem

@@ -3,14 +3,14 @@ import { LatLngTuple } from 'leaflet';
 import { Map as LeafletMap, TileLayer, Circle } from 'react-leaflet';
 import { Marker } from '.';
 import { Coordinate } from '../../br4u';
-import { FormattedEvent } from '../helpers/format-events';
+import { BikeRide } from '../helpers/format-events';
 import './Map.css';
 
 const zoom = 13;
 interface MapProps {
   mapCenter: Coordinate;
   selectedEventId?: string;
-  points: FormattedEvent[];
+  points: BikeRide[];
 }
 export class Map extends Component<MapProps> {
   render(): JSX.Element {
@@ -24,7 +24,7 @@ export class Map extends Component<MapProps> {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         ></TileLayer>
         <Circle center={position} radius={400} />
-        {points.map((point: FormattedEvent) => (
+        {points.map((point: BikeRide) => (
           <Marker isSelected={selectedEventId === point.id} point={point} key={point.key} />
         ))}
       </LeafletMap>

@@ -28,7 +28,6 @@ a .event-detail {
 }
 .event-distance-to {
   display: flex;
-  color: #ff8d00;
 }
 .event-distance-to .not-found {
   color: black;

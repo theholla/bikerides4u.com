@@ -1,4 +1,3 @@
-import { getDistance } from 'geolib';
 import { BikeRides4UEvent, RawEventDesc, Coordinate } from '../../br4u';
 
 // these date types do not enforce; they just help me recall what the dates (hopefully) look like
@@ -20,12 +19,15 @@ export type FormattedEvent = RawEventDesc & {
   key: string;
   dayOfWeek: Day;
   times: string;
-  distance: number;
   latLng: Coordinate;
   geoLookupAddress: string;
   date: YYYYMMDD;
   friendlyDate: MDYYYY;
   freshAsOf: MDYYYYHMMSSSS;
+};
+
+export type BikeRide = FormattedEvent & {
+  distanceTo: number;
 };
 
 export function getISODate(date: Date, plusMilliseconds?: number): YYYYMMDD {
@@ -68,8 +70,9 @@ export function getTimeForDesc(start: string, end: string | null): string {
   return time;
 }
 
-export function getDayOfWeek(date: YYYYMMDD): Day {
-  const day = new Date(`${date} PST`).getDay();
+// TODO: compute on backend to avoid browser-specific date math
+export function getDayOfWeek(date: YYYYMMDD, time?: string): Day {
+  const day = new Date(`${date} ${time || '00:00:00'}`).getDay();
   // FIXME: this is a bummer.. can I get from idx instead?
   switch (day) {
     case 0:
@@ -91,29 +94,19 @@ export function getDayOfWeek(date: YYYYMMDD): Day {
   return Day.Sun;
 }
 
-const convert = {
-  metersToMiles: (meters: number): number => meters * 0.00062137,
-  metersToFeet: (meters: number): number => meters * 3.2808,
-};
-
-function formatNumber(number: number): number {
-  return Number(convert.metersToMiles(number).toFixed(2));
-}
-
 function getEventKey(date: YYYYMMDD, id: string): string {
   // repeating events have the same id so we must store them with additional meta
   return `${date}-${id}`;
 }
 
-export function formatEvents(events: BikeRides4UEvent[], userLoc: Coordinate): FormattedEvent[] {
+export function formatEvents(events: BikeRides4UEvent[]): FormattedEvent[] {
   return events
     .map(event => {
       return {
         key: getEventKey(event.date, event.id),
         freshAsOf: new Date(event.updated).toLocaleString(),
-        distance: formatNumber(getDistance(userLoc, event.geoLookup.latLng, 0.1)),
         friendlyDate: getFriendlyDate(event.date),
-        dayOfWeek: getDayOfWeek(event.date),
+        dayOfWeek: getDayOfWeek(event.date, event.time),
         times: getTimeForDesc(event.time, event.endtime),
         latLng: event.geoLookup.latLng,
         geoLookupAddress: event.geoLookup.formattedAddress,
@@ -130,5 +123,5 @@ export function formatEvents(events: BikeRides4UEvent[], userLoc: Coordinate): F
         date: event.date,
       };
     })
-    .sort((a, b) => a.distance - b.distance);
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }

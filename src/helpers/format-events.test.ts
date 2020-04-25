@@ -40,7 +40,7 @@ test('getTimeForDesc returns expected duration for PM start, AM end', () => {
 });
 
 test('getDayOfWeek returns expected day for given ride date', () => {
-  expect(getDayOfWeek('2020-04-05 00:00:01')).toEqual(Day.Sun);
+  expect(getDayOfWeek('2020-04-05', '00:00:01')).toEqual(Day.Sun);
   expect(getDayOfWeek('2020-04-05')).toEqual(Day.Sun);
   expect(getDayOfWeek('2020-04-06')).toEqual(Day.Mon);
   expect(getDayOfWeek('2020-04-07')).toEqual(Day.Tu);
@@ -48,7 +48,7 @@ test('getDayOfWeek returns expected day for given ride date', () => {
   expect(getDayOfWeek('2020-04-09')).toEqual(Day.Thu);
   expect(getDayOfWeek('2020-04-10')).toEqual(Day.Fri);
   expect(getDayOfWeek('2020-04-11')).toEqual(Day.Sat);
-  expect(getDayOfWeek('2020-03-13 23:59:59')).toEqual(Day.Sat);
+  expect(getDayOfWeek('2020-03-13', '23:59:59')).toEqual(Day.Fri);
 });
 
 test('getISODate returns ISO date with no time', () => {

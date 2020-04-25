@@ -1,12 +1,12 @@
 import React, { createRef } from 'react';
 import { Marker as LeafletMarker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
-import { FormattedEvent } from '../helpers/format-events';
+import { BikeRide } from '../helpers/format-events';
 import './Event.css';
 
 interface MarkerProps {
   isSelected: boolean;
-  point: FormattedEvent;
+  point: BikeRide;
   key: string;
 }
 export class Marker extends React.Component<MarkerProps, {}> {

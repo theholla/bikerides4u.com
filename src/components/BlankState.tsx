@@ -12,9 +12,16 @@ type BlankStateProps = {
 };
 export function BlankState(props: BlankStateProps): JSX.Element {
   const { loading, mainText, details, href } = props;
-  return loading ? (
-    <Spinner />
-  ) : (
+
+  if (loading) {
+    return (
+      <div className="empty">
+        <Spinner />
+      </div>
+    );
+  }
+
+  return (
     <div className="empty">
       {mainText}
       {href ? (

@@ -3,15 +3,15 @@ import React from 'react';
 interface FormCheckboxProps {
   handleChange: (event: React.ChangeEvent<any>) => void;
   checked: boolean;
-  labelText: string;
+  label: string;
   id: string;
   name: string;
 }
-export function FormCheckbox({ handleChange, labelText, checked, name, id }: FormCheckboxProps): JSX.Element {
+export function FormCheckbox({ handleChange, label, checked, name, id }: FormCheckboxProps): JSX.Element {
   return (
     <div className="form-checkbox">
       <label htmlFor={id} className="form-label checkbox-label">
-        {labelText}
+        {label}
       </label>
       <input
         type="checkbox"

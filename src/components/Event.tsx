@@ -1,13 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faCalendar, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { FormattedEvent } from '../helpers/format-events';
+import { faMapMarkerAlt, faCalendar, faClock, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { BikeRide } from '../helpers/format-events';
 import { ExternalLink } from './ExternalLink';
-import shiftIcon from '../images/shift-logo.png';
 import './Event.css';
 
 interface EventProps {
-  event: FormattedEvent;
+  event: BikeRide;
   handleListItemClick: (id: string) => void;
 }
 export function Event(props: EventProps): JSX.Element {
@@ -23,7 +22,7 @@ export function Event(props: EventProps): JSX.Element {
       times,
       address,
       friendlyDate,
-      distance,
+      distanceTo,
       freshAsOf,
     },
     handleListItemClick,
@@ -45,30 +44,48 @@ export function Event(props: EventProps): JSX.Element {
               <span className="event-detail">Newsflash: {newsflash}</span>
             </div>
             <div>
+              <FontAwesomeIcon icon={faCalendar} />
+              <span className="event-detail">{friendlyDate}</span>
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faClock} />
+              <span className="event-detail">{times}</span>
+            </div>
+            <div>
               <FontAwesomeIcon icon={faMapMarkerAlt} />
               <span className="event-detail">{venue}</span>
             </div>
-            <div>
-              <FontAwesomeIcon icon={faCalendar} />
-              <span className="event-detail">
-                {times} on {friendlyDate}
-              </span>
+            <div className="event-distance-to">
+              <DistanceTo distanceTo={distanceTo} geoLookupAddress={geoLookupAddress} address={address} />
             </div>
           </div>
         </div>
-        <span>
-          <ExternalLink href={shareable}>
-            <img className="icon" alt="shift2bikes icon" src={shiftIcon} />
-            <span className="event-detail">shift2bikes.org</span>
-          </ExternalLink>
-        </span>
-        <div className="refreshed">data last refreshed {freshAsOf}</div>
-        <div className="event-distance-to">
-          <span className="push">
-            {geoLookupAddress ? `${distance} miles` : `Coordinates not found for address: ${address}`}
+        <div className="refreshed">
+          fetched {freshAsOf}{' '}
+          <span>
+            <ExternalLink href={shareable} text="(see original)" />
           </span>
         </div>
       </div>
     </div>
   );
+}
+
+type DistanceToProps = {
+  distanceTo: number | null;
+  geoLookupAddress: string | null;
+  address: string | null;
+};
+function DistanceTo(props: DistanceToProps): JSX.Element {
+  const { distanceTo, geoLookupAddress, address } = props;
+
+  let message = '';
+  if (geoLookupAddress && distanceTo) {
+    // geocoding service found address, display distance
+    message = `${distanceTo} miles`;
+  } else {
+    // geocoding service could not find address
+    message = `Coordinates not found for address: ${address}`;
+  }
+  return <span className="push">{message}</span>;
 }

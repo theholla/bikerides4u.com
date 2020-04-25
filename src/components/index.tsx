@@ -1,12 +1,16 @@
 export * from './Controls';
-export * from './Error';
 export * from './Event';
 export * from './EventList';
-export * from './FormDateField';
+export * from './ExternalLink';
 export * from './Map';
 export * from './Marker';
-export * from './Modal';
 export * from './NavBar';
-export * from './Spinner';
+
+export * from './FormCheckbox';
+export * from './FormDateField';
+export * from './Toggle';
+
 export * from './BlankState';
-export * from './ExternalLink';
+export * from './Error';
+export * from './Modal';
+export * from './Spinner';

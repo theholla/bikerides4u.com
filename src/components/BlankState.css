@@ -2,6 +2,9 @@
   text-align: center;
   padding: 15px;
 }
+.empty .loader {
+  display: inline-block;
+}
 .empty img {
   max-width: 100%;
 }

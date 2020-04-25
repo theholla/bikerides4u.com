@@ -34,7 +34,7 @@
     cursor: pointer;
   }
   .clickable:active {
-    color: #b95eae;
+    opacity: 0.8;
   }
 }
 @media only screen and (min-width: 1024px) {

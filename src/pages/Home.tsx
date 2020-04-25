@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { EventList, Controls, Map, Modal, Error } from '../components';
+import { getDistance } from 'geolib';
+import { EventListHeader, EventListContent, Controls, Map, Modal, Error } from '../components';
 import { Coordinate } from '../../br4u';
-import { getISODate, FormattedEvent } from '../helpers/format-events';
+import { getISODate, BikeRide, FormattedEvent } from '../helpers/format-events';
 import { requestEvents } from '../helpers/request-events';
 import { formatEvents } from '../helpers/format-events';
 import './Home.css';
@@ -15,10 +16,10 @@ interface HomeState {
   data: {
     start: string;
     end: string;
-    events: FormattedEvent[];
+    events: BikeRide[];
   };
   isModalOpen: boolean;
-  filteredEvents: FormattedEvent[];
+  filteredEvents: BikeRide[];
   selectedEventId?: string;
   mapCenter: Coordinate;
   loading: boolean;
@@ -39,35 +40,45 @@ export class Home extends Component<{}, HomeState> {
       mapCenter: defaultCoords,
       error: null,
     };
-
-    this.setMapCenter();
   }
 
   componentDidMount(): void {
-    this.getSortedEvents();
+    this.fetchEvents();
   }
 
   openModal = (): void => this.setState({ isModalOpen: true });
   closeModal = (): void => this.setState({ isModalOpen: false });
   handleEventListItemClick = (selectedEventId: string): void => this.setState({ selectedEventId });
-  handleEventsFiltered = (filteredEvents: FormattedEvent[]): void => this.setState({ filteredEvents });
+  handleEventsFiltered = (filteredEvents: BikeRide[]): void => this.setState({ filteredEvents });
 
-  setMapCenter(): void {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        this.setState({
-          mapCenter: { latitude: coords.latitude, longitude: coords.longitude },
-        });
-      });
-    }
+  updateMapCenter = (userLocation?: Coordinate): void => {
+    const { data, filteredEvents } = this.state;
+    const mapCenter = userLocation || defaultCoords;
+    this.setState({
+      mapCenter,
+      data: {
+        ...data,
+        events: data.events.map(event => this.addDistanceTo(event, mapCenter)),
+      },
+      filteredEvents: filteredEvents.map(event => this.addDistanceTo(event, mapCenter)),
+    });
+  };
+
+  addDistanceTo(ride: FormattedEvent, mapCenter: Coordinate): BikeRide {
+    const METERS_TO_MILES = 0.00062137;
+    const distance = getDistance(mapCenter, ride.latLng, 0.1);
+    return {
+      ...ride,
+      distanceTo: Number((distance * METERS_TO_MILES).toFixed(1)),
+    };
   }
 
-  getSortedEvents(): Promise<void> {
+  fetchEvents(): Promise<void> {
     const { data, mapCenter } = this.state;
     this.setState({ loading: true });
     return requestEvents(data.start, data.end)
       .then(response => {
-        const events = formatEvents(response.data, mapCenter);
+        const events = formatEvents(response.data).map(event => this.addDistanceTo(event, mapCenter));
         this.setState({
           data: { ...data, events },
           filteredEvents: events,
@@ -99,19 +110,27 @@ export class Home extends Component<{}, HomeState> {
           <div id="map-disclaimer">
             <Error error="Wider screen required to display map. Distance is from Thai Champa if location is not enabled." />
           </div>
-          <EventList
-            error={error}
-            loading={loading}
-            events={filteredEvents}
-            handleFiltersButtonClick={this.openModal}
-            handleListItemClick={this.handleEventListItemClick}
-          />
+          <div>
+            <EventListHeader events={filteredEvents} handleFiltersButtonClick={this.openModal} />
+            <div className="event-list">
+              <EventListContent
+                error={error}
+                loading={loading}
+                events={filteredEvents}
+                handleListItemClick={this.handleEventListItemClick}
+              />
+            </div>
+          </div>
         </div>
         <div id="map">
           <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
         </div>
         <Modal id="event-list-modal" title={'Filters'} isOpen={isModalOpen} handleCloseButtonClick={this.closeModal}>
-          <Controls data={data} handleEventsFiltered={this.handleEventsFiltered} />
+          <Controls
+            data={data}
+            handleEventsFiltered={this.handleEventsFiltered}
+            updateMapCenter={this.updateMapCenter}
+          />
         </Modal>
       </div>
     );

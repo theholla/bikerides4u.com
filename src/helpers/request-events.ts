@@ -11,7 +11,8 @@ const SHOULD_USE_LIVE_DATA = process.env.REACT_APP_USE_LIVE_DATA === 'true';
  */
 export function requestEvents(start: string, end: string): Promise<AxiosResponse<BikeRides4UEvent[]>> {
   if (!SHOULD_USE_LIVE_DATA) {
-    return Promise.resolve({ data: testData }) as any;
+    const testDataResponse = ({ data: testData } as unknown) as AxiosResponse<BikeRides4UEvent[]>;
+    return Promise.resolve(testDataResponse);
   }
 
   return axios.get(`${BASE_URL}/shift-events?start=${start}&end=${end}`);
