@@ -1,0 +1,44 @@
+body {
+  line-height: 22px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #333333;
+}
+
+a {
+  text-decoration: none;
+  color: #b95eae;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  opacity: 0.8;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  width: 800px;
+  max-width: 99%;
+}
+.page-content h1,
+h2,
+h3 {
+  text-align: center;
+}

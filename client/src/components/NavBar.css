@@ -1,0 +1,32 @@
+.nav-bar {
+  background-color: #333;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.nav-bar-item {
+  font-family: 'Greycliff', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: white;
+  padding: 5px;
+}
+.push {
+  margin-left: auto;
+}
+#logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#logo img {
+  width: 200px;
+  max-width: 100%;
+}
+#logo .beta {
+  margin-left: 5px;
+}
+
+@media only screen and (min-width: 760px) {
+  .nav-bar-item {
+    padding: 15px;
+  }
+}

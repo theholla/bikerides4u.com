@@ -1,0 +1,28 @@
+.controls-form {
+  display: flex;
+  flex-direction: column;
+}
+section {
+  padding: 10px 0;
+  border-top: 1px solid #c3c3c3;
+}
+.form-input {
+}
+.field {
+  line-height: 3;
+}
+.date-input-group {
+  display: flex;
+}
+.date-field {
+  flex-grow: 1;
+}
+.checkbox-group {
+  display: flex;
+}
+.checkbox-label {
+  display: block;
+}
+.form-checkbox {
+  flex-grow: 1;
+}

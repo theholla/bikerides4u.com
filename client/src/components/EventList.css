@@ -1,0 +1,29 @@
+.events-content-area {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #c3c3c3;
+}
+.event-list-header {
+  background-color: #f7f7f7;
+}
+.event-list-title h2 {
+  padding: 10px;
+  font-size: 1rem;
+}
+.event-list-header h2 {
+  border-bottom: 1px solid #c3c3c3;
+  margin: 0;
+  text-align: left;
+}
+.event-list-meta {
+  display: flex;
+  opacity: 0.9;
+  padding: 10px;
+}
+.event-list {
+  border-top: 1px solid #c3c3c3;
+  height: 83vh;
+  overflow: auto;
+  position: relative;
+  background: white;
+}
