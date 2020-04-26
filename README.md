@@ -9,7 +9,7 @@ TODO:
 
 ## Local development
 
-### Initial clone:
+### Initial clone
 
 First, checkout type definitions from their submodule:
 
@@ -25,7 +25,7 @@ npm i
 npm start
 ```
 
-Visit http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD> in your browser or run `curl http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD>` in your terminal to see the response.
+Visit `http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD>` in your browser or run `curl http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD>` in your terminal to see the response.
 
 ### Staying up to date with the remote
 
@@ -51,7 +51,7 @@ See the code for the BikeRides4U web app on [GitHub](https://github.com/theholla
 
 ## About Shift2Bikes
 
-This web app is not affiliated with Shift2Bikes.org. But I do think they're awesome!
+This project is not affiliated with Shift2Bikes.org. But I do think they're awesome!
 
 Shift's mission is to promote inclusive bike fun. Shift also facilitates lots of events. Examples of Shift-related activities include breakfast give aways, social rides, educational bike tours, actions to raise awareness about cyclist injuries or deaths, information-sharing events, art-bike parades and more.
 

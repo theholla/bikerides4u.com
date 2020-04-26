@@ -211,7 +211,7 @@
     "date": "2020-04-09",
     "caldaily_id": "12566",
     "shareable": "https://shift2bikes.org/calendar/event-12566",
-    "cancelled": false,
+    "cancelled": true,
     "newsflash": null,
     "endtime": null
   },

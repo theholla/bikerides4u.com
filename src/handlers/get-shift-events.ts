@@ -57,12 +57,10 @@ const geocache = {} as GeoLookupCache;
 
 function hydrateFromCache(event: RawEvent): BikeRides4UEvent {
   const { latLng, formattedAddress } = geocache[event.address];
-  console.log('attemping to hydrate from in-memory cache', event.address);
   return formatEvent(event, latLng, formattedAddress);
 }
 
 function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> {
-  console.log('attempting to hydrate with google data', event.address);
   const client = new Client({});
   const options = {
     params: {

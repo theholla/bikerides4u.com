@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { getShiftEvents } from './handlers';
 import dotenv from 'dotenv';
+import { getShiftEvents } from './handlers';
 
 dotenv.config();
 
