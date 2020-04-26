@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { Client } from '@googlemaps/google-maps-services-js';
-import { RawEvent, Coordinate, BikeRides4UEvent } from '../../br4u';
+import { RawEvent, Coordinate, BikeRides4UEvent } from '../../types';
 import testData from '../test-data/shift-events.json';
 
 // WIP first working implementation, lots of dev code/branching in here that needs cleanup for prod

@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import cors from 'cors';
+import path from 'path';
 import dotenv from 'dotenv';
 import { getShiftEvents } from './handlers';
 
@@ -8,19 +8,15 @@ dotenv.config();
 const config = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
-  ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN,
   SHOULD_USE_LIVE_DATA: process.env.NODE_ENV === 'production',
   SHOULD_USE_LIVE_GEOCODING: process.env.GOOGLE_MAPS_API_KEY !== '<-YOUR_API_KEY_HERE>',
 };
 
-const server = express();
+const app = express();
 
-const corsConfig = {
-  origin: config.ALLOWED_ORIGIN,
-  optionsSuccessStatus: 200,
-};
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-server.get('/shift-events', cors(corsConfig), (req, res, next) => {
+app.get('/api/shift-events', (req, res, next) => {
   const { start, end } = req.query as { start: string; end: string };
 
   const SECS_30_MINS = 1800;
@@ -36,12 +32,16 @@ server.get('/shift-events', cors(corsConfig), (req, res, next) => {
     });
 });
 
-server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong');
 });
 
-server.listen(config.PORT, () => {
+app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`);
   console.log({ config });
 });

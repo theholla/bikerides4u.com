@@ -1,6 +1,6 @@
-# BikeRides4U Backend
+# BikeRides4U
 
-This is the backend for the BikeRides4U ride map.
+Webserver that serves up the BikeRides4U ride map.
 
 TODO:
 
@@ -11,13 +11,7 @@ TODO:
 
 ### Initial clone
 
-First, checkout type definitions from their submodule:
-
-```bash
-git submodule update --init
-```
-
-Then set up project, install dependencies, and start the server:
+Set up project, install dependencies, and start the app:
 
 ```bash
 npm run setup
@@ -25,17 +19,13 @@ npm i
 npm start
 ```
 
-Visit `http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD>` in your browser or run `curl http://localhost:8080/shift-events?start=<YYYY-MM-DD>&end=<YYYY-MM-DD>` in your terminal to see the response.
+Visit `http://localhost:8080` in your browser to see the app.
 
-### Staying up to date with the remote
-
-```bash
-git pull --recurse-submodules
-```
+Sample request to API: `curl -X GET "http://localhost:8080/api/shift-events?start=2020-05-01&end=2020-06-01"`.
 
 ### Live Data
 
-The local server reads test data from a file while in development mode. To enable live data, set `NODE_ENV` to `production` in the `.env` file and restart the server. Use this mode sparingly; please do not be a jerk and pummel the Shift2Bikes API.
+The local project reads test data from a file while in development mode. To enable live data, set `NODE_ENV` to `production` in the `.env` file and restart the app. Use this mode sparingly; please do not be a jerk and pummel the Shift2Bikes API.
 
 ### Enable Geocoding
 
@@ -45,13 +35,9 @@ To enable geocoding, you'll need an active [Google Maps Geocoding API](https://d
 
 Note on geocoder: the current address data on events is mostly intersections and very free-flowing (not validated). Only the super robust Google Maps API was able to infer lat/lng from the hand-typed addresses with any accuracy. If the address data were to be validated when users add new events, it would probably be fine to use a smaller/cheaper geocoding service such as [LocationIQ](https://locationiq.com/).
 
-## Companion Frontend
-
-See the code for the BikeRides4U web app on [GitHub](https://github.com/theholla/shift2bikes-ride-map).
-
 ## About Shift2Bikes
 
-This project is not affiliated with Shift2Bikes.org. But I do think they're awesome!
+This web app is not affiliated with Shift2Bikes.org. But I do think they're awesome!
 
 Shift's mission is to promote inclusive bike fun. Shift also facilitates lots of events. Examples of Shift-related activities include breakfast give aways, social rides, educational bike tours, actions to raise awareness about cyclist injuries or deaths, information-sharing events, art-bike parades and more.
 
