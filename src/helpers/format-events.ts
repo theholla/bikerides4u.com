@@ -1,4 +1,4 @@
-import { BikeRides4UEvent, RawEventDesc, Coordinate } from '../../br4u';
+import { BikeRides4UEvent, RawEventDesc, Coordinate } from '../../types';
 
 // these date types do not enforce; they just help me recall what the dates (hopefully) look like
 type YYYYMMDD = string; // date already in PST in format yyyy-mm-dd

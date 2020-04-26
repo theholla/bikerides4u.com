@@ -11,8 +11,6 @@ For the event data, this app pings a custom backend server which:
 - caches the hydrated event data indefinitely for use later (since coordinates don't move)
 - allows responses to be cached by the client for a short interval, reducing potential load on the Shift2Bikes API
 
-Code for the backend is open-source and visible on [Github](https://github.com/theholla/br4u-backend).
-
 ## Current UI
 
 ![screen capture of app](/screencap.png)
@@ -33,7 +31,7 @@ Code for the backend is open-source and visible on [Github](https://github.com/t
 - [] Run through [a11y project checklist](https://a11yproject.com/checklist/) to identify/address gaps in accessibility (Lighthouse audit score is 94)
 - [] Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
 - [] XS: Add toggle: sort by distance vs date
-- [x] S: Add "use my location" toggle instead of asking for location on page load
+- [x] Add "use my location" toggle instead of asking for location on page load
 - [] XS: Make center of map draggable; currently defaults to user location if allowed
 - [] S: Add filter to map: expandable radius
 - [] XS: Add button: report a problem
@@ -50,33 +48,14 @@ Code for the backend is open-source and visible on [Github](https://github.com/t
 
 ### Initial clone
 
-First, checkout type definitions from their submodule:
+Install dependencies, and start the app:
 
 ```bash
-git submodule update --init
-```
-
-Then set up project, install dependencies, and start the app:
-
-```bash
-npm run setup
 npm i
 npm start
 ```
 
 App will be visible on http://localhost:3000/
-
-### Staying up to date with the remote
-
-```bash
-git pull --recurse-submodules
-```
-
-### Live Data
-
-The local app reads static test data from a file by default, so there's no need to spin up the server if you are just concerned with its frontend.
-
-To enable live data, run the [companion backend server](https://github.com/theholla/br4u-backend) by following instructions on its GitHub repo. Then, back in this app, set `REACT_APP_USE_LIVE_DATA` to `true` in the `.env` file and restart the app.
 
 ## About Shift2Bikes
 
