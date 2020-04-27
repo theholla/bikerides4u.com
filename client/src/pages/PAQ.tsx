@@ -9,13 +9,16 @@ export function PAQ(): JSX.Element {
         <h2>Where is ___ useful feature?</h2>
         <p>This project is in beta and many useful features have not yet been implemented.</p>
         <p>
-          Before submitting feedback, please take a look at the &quot;Next Steps&quot; section of this project&apos;s{' '}
-          <ExternalLink href="https://github.com/theholla/BikeRides4U/blob/master/README.md#roadmap" text="README" />.
-          The feature you&apos;re thinking of may already be on the roadmap.
+          Before submitting feedback, please see this project&apos;s{' '}
+          <ExternalLink
+            href="https://github.com/theholla/bikerides4u/blob/master/ROADMAP.md#next-steps"
+            text="Next Steps"
+          />
+          . The feature you&apos;re thinking of may already be on the roadmap.
         </p>
         <p>
           If the feature isn&apos;t listed, please either{' '}
-          <ExternalLink href="https://github.com/theholla/BikeRides4U/issues" text="submit an issue" /> on Github or
+          <ExternalLink href="https://github.com/theholla/bikerides4u/issues" text="submit an issue" /> on Github or
           reach out to BikeRides4U@gmail.com with your suggestion. It would be extremely valuable to learn how this web
           app could be more useful for more people.
         </p>
@@ -26,7 +29,7 @@ export function PAQ(): JSX.Element {
           </p>
           <p>
             If something is broken or wrong, please help improve this project by{' '}
-            <ExternalLink href="https://github.com/theholla/BikeRides4U/issues" text="submitting an issue" /> on Github,
+            <ExternalLink href="https://github.com/theholla/bikerides4u/issues" text="submitting an issue" /> on Github,
             or reaching out to BikeRides4U@gmail.com with your suggestion.
           </p>
           <p>It&apos;s helpful if you include specific details, such as:</p>
@@ -45,7 +48,7 @@ export function PAQ(): JSX.Element {
           <p>
             You can also contribute to the codebase. This project is open source. If you would like to collaborate, take
             a look at any open issues on Github. You can{' '}
-            <ExternalLink href="https://github.com/theholla/BikeRides4U/issues" text="submit a pull request" /> on
+            <ExternalLink href="https://github.com/theholla/bikerides4u/issues" text="submit a pull request" /> on
             Github.
           </p>
         </div>

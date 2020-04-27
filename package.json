@@ -46,7 +46,7 @@
     "start": "node dist/server.js",
     "start:server:dev": "nodemon",
     "start:client:dev": "cd client && npm run start:dev",
-    "setup:dev": "cp .env.template .env",
+    "setup:dev": "cp .env.template .env && npm i && (cd client && npm i)",
     "lint": "eslint . --ext .js,.ts,.json",
     "pretest": "tsc",
     "test": "jest dist"
