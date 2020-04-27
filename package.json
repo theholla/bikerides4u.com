@@ -24,9 +24,11 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
-    "jest": "^25.3.0",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.3",
     "pre-commit": "^1.2.2",
     "prettier": "1.19.1",
+    "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   },
   "pre-commit": [
@@ -34,11 +36,15 @@
     "test"
   ],
   "scripts": {
-    "prestart": "npm run build:server",
-    "start": "node dist/server.js",
+    "build:client": "cd client && npm i && npm run build",
     "build:server": "tsc",
-    "setup": "cp .env.template .env",
+    "prestart": "npm run build:client && npm run build:server",
+    "start": "node dist/server.js",
+    "start:server:dev": "nodemon",
+    "start:client:dev": "cd client && npm run start:dev",
+    "setup:dev": "cp .env.template .env",
     "lint": "eslint . --ext .js,.ts,.json",
-    "test": "npm run build:server && jest dist"
+    "pretest": "tsc",
+    "test": "jest dist"
   }
 }

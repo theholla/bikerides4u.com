@@ -8,8 +8,8 @@ dotenv.config();
 const config = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT,
-  SHOULD_USE_LIVE_DATA: process.env.NODE_ENV === 'production',
-  SHOULD_USE_LIVE_GEOCODING: process.env.GOOGLE_MAPS_API_KEY !== '<-YOUR_API_KEY_HERE>',
+  USE_LIVE_DATA: process.env.NODE_ENV === 'production',
+  USE_GEOCODING_SERVICE: process.env.GOOGLE_MAPS_API_KEY !== '<YOUR_API_KEY_HERE>',
 };
 
 const app = express();
@@ -20,7 +20,7 @@ app.get('/api/shift-events', (req, res, next) => {
   const { start, end } = req.query as { start: string; end: string };
 
   const SECS_30_MINS = 1800;
-  return getShiftEvents(config.SHOULD_USE_LIVE_DATA, config.SHOULD_USE_LIVE_GEOCODING, start, end)
+  return getShiftEvents(config.USE_LIVE_DATA, config.USE_GEOCODING_SERVICE, start, end)
     .then(events => {
       res.set('Cache-Control', `public, max-age=${SECS_30_MINS}`);
       return res.json(events);

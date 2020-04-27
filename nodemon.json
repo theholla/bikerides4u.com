@@ -1,0 +1,6 @@
+{
+  "ignore": ["**/*.test.ts", "node_modules"],
+  "watch": "src/**/*.ts",
+  "exec": "npx ts-node src/server.ts",
+  "ext": "ts"
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { getDistance } from 'geolib';
 import { EventListHeader, EventListContent, Controls, Map, Modal, Error } from '../components';
-import { Coordinate } from '../../types';
+import { Coordinate } from '../../../types';
 import { getISODate, BikeRide, FormattedEvent } from '../helpers/format-events';
 import { formatEvents } from '../helpers/format-events';
 import './Home.css';
@@ -58,9 +58,9 @@ export class Home extends Component<{}, HomeState> {
       mapCenter,
       data: {
         ...data,
-        events: data.events.map((event) => this.addDistanceTo(event, mapCenter)),
+        events: data.events.map(event => this.addDistanceTo(event, mapCenter)),
       },
-      filteredEvents: filteredEvents.map((event) => this.addDistanceTo(event, mapCenter)),
+      filteredEvents: filteredEvents.map(event => this.addDistanceTo(event, mapCenter)),
     });
   };
 
@@ -77,16 +77,16 @@ export class Home extends Component<{}, HomeState> {
     const { data, mapCenter } = this.state;
     this.setState({ loading: true });
     return axios
-      .get(`/api/shift-events?start=${data.start}&end=${data.end}`)
-      .then((response) => {
-        const events = formatEvents(response.data).map((event) => this.addDistanceTo(event, mapCenter));
+      .get(`api/shift-events?start=${data.start}&end=${data.end}`)
+      .then(response => {
+        const events = formatEvents(response.data).map(event => this.addDistanceTo(event, mapCenter));
         this.setState({
           data: { ...data, events },
           filteredEvents: events,
           loading: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         let errMsg = 'Error retrieving events for date';
 
         // FIXME: handle additional error states

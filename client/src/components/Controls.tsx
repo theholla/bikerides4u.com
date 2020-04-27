@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormCheckbox, FormDateField, Toggle } from '.';
 import { BikeRide, Day } from '../helpers/format-events';
-import { Coordinate } from '../../types';
+import { Coordinate } from '../../../types';
 import './Controls.css';
 
 const allDaysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];

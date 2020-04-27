@@ -99,13 +99,14 @@ function hydrateEventWithLatLng(event: RawEvent): Promise<BikeRides4UEvent> {
 }
 
 export function getShiftEvents(
-  shouldUseLiveData: boolean,
-  shouldUseLiveGeocoding: boolean,
+  useLiveData: boolean,
+  useGeocodingService: boolean,
   start: string, // in format YYYY-MM-DD
   end: string // in format YYYY-MM-DD
 ): Promise<BikeRides4UEvent[]> {
-  if (!shouldUseLiveData) {
-    if (shouldUseLiveGeocoding) {
+  // FIXME: dead code in prod and way too much branching
+  if (!useLiveData) {
+    if (useGeocodingService) {
       const events = testData.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS'));
       return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
     } else {
@@ -121,8 +122,13 @@ export function getShiftEvents(
           console.info('No events found for date range', { start, end });
           return Promise.resolve([]);
         }
+
         const events = response.data.events;
-        return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
+        if (useGeocodingService) {
+          return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
+        } else {
+          return Promise.resolve(events.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
+        }
       }
     )
     .catch(err => {
