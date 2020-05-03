@@ -1,11 +1,10 @@
 import React from 'react';
-import './Error.css';
+import { AlertBanner } from '.';
 
 type ErrorProps = {
-  error: string;
-  className?: string;
+  message: string;
 };
 export function Error(props: ErrorProps): JSX.Element {
-  const { className, error } = props;
-  return <div className={`error ${className || ''}`}>{error}</div>;
+  const { message } = props;
+  return <AlertBanner message={message} />;
 }

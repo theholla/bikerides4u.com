@@ -1,8 +1,27 @@
 body {
-  line-height: 22px;
+  font-size: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+:root {
+  --primary-text-color: #333;
+  --primary-text-light: #767676;
+  --primary-bg-color: #fff;
+  --primary-bg-darker: #f7f7f7;
+  --primary-bg-darkest: #eee;
+  --border-color: #767676;
+  --border-color-light: #c3c3c3;
+  --link-color: #b350a7;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --error-color: #d33032;
+  --alert-color: #d33032;
 }
 
 #root {
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -15,12 +34,22 @@ h4 {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-weight: 900;
   line-height: 1.1;
-  color: #333333;
+  color: var(--primary-text-color);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 1rem;
+}
+button svg.svg-inline--fa {
+  font-size: 1.3rem;
 }
 
 a {
   text-decoration: none;
-  color: #b95eae;
+  color: var(--link-color);
 }
 a:hover {
   text-decoration: underline;

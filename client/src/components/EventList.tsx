@@ -10,17 +10,15 @@ type EventListProps = {
 export function EventListHeader(props: EventListProps): JSX.Element {
   const { events, handleFiltersButtonClick } = props;
   return (
-    <div className="events-content-area">
-      <div className="event-list-header">
-        <div className="event-list-title">
-          <h2>Upcoming bike fun (showing next 45 days)</h2>
-        </div>
-        <div className="event-list-meta">
-          <div className="ride-count">{events.length} rides</div>
-          <div className="filters clickable push" onClick={handleFiltersButtonClick}>
-            Filters
-          </div>
-        </div>
+    <div className="event-list-header">
+      <div className="event-list-title">
+        <h2>Upcoming bike fun (showing next 45 days)</h2>
+      </div>
+      <div className="event-list-meta">
+        <div className="ride-count">{events.length} rides</div>
+        <button className="push" onClick={handleFiltersButtonClick}>
+          Filters
+        </button>
       </div>
     </div>
   );
@@ -35,7 +33,7 @@ type EventListContentProps = {
 export function EventListContent(props: EventListContentProps): JSX.Element {
   const { events, error, loading, handleListItemClick } = props;
   if (error) {
-    return <Error error={error} />;
+    return <Error message={error} />;
   }
   if (events.length) {
     return (

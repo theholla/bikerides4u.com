@@ -1,6 +1,7 @@
 import React, { createRef } from 'react';
 import { Marker as LeafletMarker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
+import { AlertBanner } from '.';
 import { BikeRide } from '../helpers/format-events';
 import './Event.css';
 
@@ -28,13 +29,16 @@ export class Marker extends React.Component<MarkerProps, {}> {
       <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
         <Popup>
           <div className={cancelled ? 'cancelled' : ''}>
-            <div>
-              {title} {cancelled && <span className="cancelled-banner"> Cancelled</span>}
+            <div className="event-title">
+              {title}
+              {cancelled && <AlertBanner message="Cancelled" />}
             </div>
-            <div>{friendlyDate}</div>
-            <div>{times}</div>
-            <div>{venue}</div>
-            <p>{details}</p>
+            <div className="event-details">
+              <div>{friendlyDate}</div>
+              <div>{times}</div>
+              <div>{venue}</div>
+              <p>{details}</p>
+            </div>
           </div>
           <p>
             <strong>Listed address:</strong>

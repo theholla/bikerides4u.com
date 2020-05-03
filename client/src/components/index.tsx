@@ -13,4 +13,6 @@ export * from './Toggle';
 export * from './BlankState';
 export * from './Error';
 export * from './Modal';
+export * from './CloseButton';
 export * from './Spinner';
+export * from './AlertBanner';

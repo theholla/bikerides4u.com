@@ -1,3 +1,12 @@
 .map {
   height: 100%;
 }
+.leaflet-popup-content-wrapper {
+  max-height: 65vh;
+  overflow: auto;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  top: 10px;
+  right: 20px;
+  color: var(--primary-text-light);
+}

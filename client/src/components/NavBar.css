@@ -1,12 +1,14 @@
 .nav-bar {
-  background-color: #333;
-  display: flex;
-  justify-content: flex-end;
+  top: 0;
+  background-color: var(--primary-text-color);
+}
+.nav-bar-content {
   align-items: center;
+  display: flex;
 }
 .nav-bar-item {
   font-family: 'Greycliff', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: white;
+  color: var(--primary-bg-color);
   padding: 5px;
 }
 .push {
@@ -14,8 +16,8 @@
 }
 #logo {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  min-height: 35px;
 }
 #logo img {
   width: 200px;

@@ -8,7 +8,7 @@
   display: none;
 }
 .event:hover {
-  background-color: #eeeeee;
+  background-color: var(--primary-bg-darkest);
 }
 .event-details {
   margin: 5px 0;
@@ -20,7 +20,7 @@
   width: 14px;
 }
 a .event-detail {
-  color: black;
+  color: var(--primary-text-color);
 }
 .event-datetime {
   display: flex;
@@ -30,27 +30,17 @@ a .event-detail {
   display: flex;
 }
 .event-distance-to .not-found {
-  color: black;
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 0.9rem;
 }
 .refreshed {
-  font-size: 14px;
+  font-size: 0.9rem;
 }
-.cancelled {
+.cancelled .event-title,
+.cancelled .event-details {
   text-decoration: line-through;
-  color: grey;
-}
-span.cancelled-banner {
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 600;
-  color: white;
-  background-color: red;
-  font-size: 12px;
-  padding: 3px;
-  border-radius: 5px;
+  color: var(--primary-text-light);
 }
 .newsflash {
   font-weight: 600;

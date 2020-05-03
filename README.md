@@ -73,7 +73,7 @@ To enable geocoding, you'll need an active [Google Maps Geocoding API](https://d
 
 ## About this Project
 
-Most bikey folks in Portland have used the [Shift2Bikes calendar](https://www.shift2bikes.org/calendar/) to discover upcoming rides... most famously every summer during [Pedalpalooza](https://www.shift2bikes.org/pedalpalooza-calendar/). BikeRides4U.com is a passion project that aims to complement the Shift cal by providing a filterable, interactive map view of the same ride data.
+If you ride a bike in Portland you have likely used the [Shift2Bikes calendar](https://www.shift2bikes.org/calendar/). BikeRides4U.com is a passion project that aims to complement the Shift cal by providing a filterable, interactive map view of the same ride data, plus geocoding and caching.
 
 For the event data, this app pings a custom webserver which:
 

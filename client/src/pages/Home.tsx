@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { getDistance } from 'geolib';
-import { EventListHeader, EventListContent, Controls, Map, Modal, Error } from '../components';
+import { EventListHeader, EventListContent, Controls, Map, Modal, AlertBanner } from '../components';
 import { Coordinate } from '../../../types';
 import { getISODate, BikeRide, FormattedEvent } from '../helpers/format-events';
 import { formatEvents } from '../helpers/format-events';
@@ -46,7 +46,10 @@ export class Home extends Component<{}, HomeState> {
     this.fetchEvents();
   }
 
-  openModal = (): void => this.setState({ isModalOpen: true });
+  toggleModalOpen = (): void =>
+    this.setState(prevState => ({
+      isModalOpen: !prevState.isModalOpen,
+    }));
   closeModal = (): void => this.setState({ isModalOpen: false });
   handleEventListItemClick = (selectedEventId: string): void => this.setState({ selectedEventId });
   handleEventsFiltered = (filteredEvents: BikeRide[]): void => this.setState({ filteredEvents });
@@ -106,13 +109,13 @@ export class Home extends Component<{}, HomeState> {
   render(): JSX.Element {
     const { data, loading, filteredEvents, mapCenter, selectedEventId, isModalOpen, error } = this.state;
     return (
-      <div id="site-content">
-        <div id="sidebar">
-          <div id="map-disclaimer">
-            <Error error="Wider screen required to display map. Distance is from Thai Champa if location is not enabled." />
-          </div>
-          <div>
-            <EventListHeader events={filteredEvents} handleFiltersButtonClick={this.openModal} />
+      <div>
+        <div id="map-disclaimer">
+          <AlertBanner classes="map-disclaimer" message="Wider screen required to use filters; try rotating device." />
+        </div>
+        <div id="site-content">
+          <div id="sidebar">
+            <EventListHeader events={filteredEvents} handleFiltersButtonClick={this.toggleModalOpen} />
             <div className="event-list">
               <EventListContent
                 error={error}
@@ -122,17 +125,17 @@ export class Home extends Component<{}, HomeState> {
               />
             </div>
           </div>
+          <div id="map">
+            <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
+          </div>
+          <Modal id="event-list-modal" title={'Filters'} isOpen={isModalOpen} handleCloseButtonClick={this.closeModal}>
+            <Controls
+              data={data}
+              handleEventsFiltered={this.handleEventsFiltered}
+              updateMapCenter={this.updateMapCenter}
+            />
+          </Modal>
         </div>
-        <div id="map">
-          <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
-        </div>
-        <Modal id="event-list-modal" title={'Filters'} isOpen={isModalOpen} handleCloseButtonClick={this.closeModal}>
-          <Controls
-            data={data}
-            handleEventsFiltered={this.handleEventsFiltered}
-            updateMapCenter={this.updateMapCenter}
-          />
-        </Modal>
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { CloseButton } from '.';
 import './Modal.css';
 
 type ModalProps = {
@@ -16,9 +15,7 @@ export function Modal(props: ModalProps): JSX.Element {
     <div>
       <div className={`modal-overlay ${isOpen ? '' : 'closed'}`} id={id + '-overlay'}></div>
       <div className={`modal ${isOpen ? '' : 'closed'}`} id={id}>
-        <button className="close-button" onClick={handleCloseButtonClick}>
-          <FontAwesomeIcon icon={faWindowClose} />
-        </button>
+        <CloseButton handleClick={handleCloseButtonClick} />
         <div className="modal-content">
           <h1>{title}</h1>
           <div>{children}</div>

@@ -4,6 +4,7 @@ import { faMapMarkerAlt, faCalendar, faClock, faInfoCircle } from '@fortawesome/
 import { BikeRide } from '../helpers/format-events';
 import { ExternalLink } from './ExternalLink';
 import './Event.css';
+import { AlertBanner } from './AlertBanner';
 
 interface EventProps {
   event: BikeRide;
@@ -36,7 +37,7 @@ export function Event(props: EventProps): JSX.Element {
       <div className={eventClassName}>
         <div className={geoLookupAddress ? 'clickable' : ''}>
           <div className="event-title">
-            {title} {cancelled && <span className="cancelled-banner">Cancelled</span>}
+            {title} {cancelled && <AlertBanner message="Cancelled" />}
           </div>
           <div className="event-details">
             <div className={newsflash ? 'newsflash' : 'hidden'}>

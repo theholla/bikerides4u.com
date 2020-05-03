@@ -1,17 +1,22 @@
 #site-content {
   display: flex;
-  height: 93vh;
+  height: 91vh;
 }
 #sidebar {
-  width: 100%;
+  display: none;
+  border-right: 1px solid var(--border-color-light);
 }
 #map-disclaimer {
   display: block;
 }
 #map {
-  display: none;
+  display: block;
+  width: 100%;
 }
-
+span.alert-banner.map-disclaimer {
+  width: 100%;
+  padding: 5px;
+}
 .clickable {
   cursor: unset;
 }
@@ -21,14 +26,13 @@
 
 @media only screen and (min-width: 760px) {
   #sidebar {
-    width: 50vw;
+    display: block;
+    width: 60vw;
   }
   #map-disclaimer {
     display: none;
   }
   #map {
-    display: block;
-    flex-grow: 9;
   }
   .clickable {
     cursor: pointer;
@@ -39,6 +43,6 @@
 }
 @media only screen and (min-width: 1024px) {
   #sidebar {
-    width: 25vw;
+    width: 35vw;
   }
 }
