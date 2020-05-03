@@ -6,10 +6,10 @@ import { ExternalLink } from './ExternalLink';
 import './Event.css';
 import { AlertBanner } from './AlertBanner';
 
-interface EventProps {
+type EventProps = {
   event: BikeRide;
-  handleListItemClick: (id: string) => void;
-}
+  handleListItemClick?: (id: string) => void;
+};
 export function Event(props: EventProps): JSX.Element {
   const {
     event: {
@@ -20,6 +20,7 @@ export function Event(props: EventProps): JSX.Element {
       geoLookupAddress,
       newsflash,
       venue,
+      details,
       times,
       address,
       friendlyDate,
@@ -33,9 +34,9 @@ export function Event(props: EventProps): JSX.Element {
   if (cancelled) eventClassName += ' cancelled';
 
   return (
-    <div onClick={(): void => handleListItemClick(id)}>
+    <div onClick={handleListItemClick ? (): void => handleListItemClick(id) : undefined}>
       <div className={eventClassName}>
-        <div className={geoLookupAddress ? 'clickable' : ''}>
+        <div className={geoLookupAddress && handleListItemClick ? 'clickable' : ''}>
           <div className="event-title">
             {title} {cancelled && <AlertBanner message="Cancelled" />}
           </div>
@@ -55,6 +56,17 @@ export function Event(props: EventProps): JSX.Element {
             <div>
               <FontAwesomeIcon icon={faMapMarkerAlt} />
               <span className="event-detail">{venue}</span>
+            </div>
+            <div className="map-details">
+              <div className="map-detail">{details}</div>
+              <div className="map-detail">
+                <strong>Listed address:</strong>
+                <div>{address}</div>
+              </div>
+              <div className="map-detail">
+                <strong>Displaying location for:</strong>
+                <div>{geoLookupAddress}</div>
+              </div>
             </div>
             <div className="event-distance-to">
               <DistanceTo distanceTo={distanceTo} geoLookupAddress={geoLookupAddress} address={address} />
@@ -83,7 +95,7 @@ function DistanceTo(props: DistanceToProps): JSX.Element {
   let message = '';
   if (geoLookupAddress && distanceTo) {
     // geocoding service found address, display distance
-    message = `${distanceTo} miles`;
+    message = `${distanceTo} ${distanceTo === 1 ? 'mile' : 'miles'}`;
   } else {
     // geocoding service could not find address
     message = `Coordinates not found for address: ${address}`;

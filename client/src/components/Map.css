@@ -5,8 +5,12 @@
   max-height: 65vh;
   overflow: auto;
 }
-.leaflet-container a.leaflet-popup-close-button {
+.map a.leaflet-popup-close-button {
   top: 10px;
   right: 20px;
+  font-size: 1.3rem;
   color: var(--primary-text-light);
+}
+.map .event a {
+  color: var(--link-color);
 }

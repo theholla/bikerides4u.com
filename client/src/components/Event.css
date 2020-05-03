@@ -7,7 +7,7 @@
 .hidden {
   display: none;
 }
-.event:hover {
+.event-list .event:hover {
   background-color: var(--primary-bg-darkest);
 }
 .event-details {
@@ -44,4 +44,19 @@ a .event-detail {
 }
 .newsflash {
   font-weight: 600;
+}
+
+.map-details {
+  display: none;
+}
+
+.map .event,
+.map .refreshed {
+  font-size: 0.8rem;
+}
+.map .map-details {
+  display: block;
+}
+.map .map-detail {
+  margin: 18px 0;
 }
