@@ -8,6 +8,7 @@ import './Event.css';
 interface MarkerProps {
   isSelected: boolean;
   point: BikeRide;
+  locationEnabled: boolean;
   key: string;
 }
 export class Marker extends React.Component<MarkerProps, {}> {
@@ -21,13 +22,13 @@ export class Marker extends React.Component<MarkerProps, {}> {
   }
 
   render(): JSX.Element {
-    const { point } = this.props;
+    const { point, locationEnabled } = this.props;
     const { latLng, geoLookupAddress, key } = point;
     if (!geoLookupAddress) return <div></div>;
     return (
       <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
         <Popup>
-          <Event event={point} />
+          <Event locationEnabled={locationEnabled} event={point} />
         </Popup>
       </LeafletMarker>
     );

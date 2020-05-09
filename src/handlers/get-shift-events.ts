@@ -15,12 +15,6 @@ function getDummyCoords(): Coordinate {
 }
 
 function formatEvent(event: RawEvent, latLng: Coordinate, formattedAddress: string): BikeRides4UEvent {
-  // I don't understand why yet but Google Geocode API translates "TBA" to this address
-  // it might have to do with how its api handles map bounds
-  if (formattedAddress === '101 Mill plain, Vancouver, WA 98664, USA') {
-    formattedAddress = '';
-    latLng = BERMUDA_TRIANGLE;
-  }
   return {
     ...event,
     updated: new Date().getTime(),
@@ -61,7 +55,7 @@ function hydrateFromCache(event: RawEvent): BikeRides4UEvent {
 }
 
 function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> {
-  const client = new Client({});
+  const googleMapsClient = new Client({});
   const options = {
     params: {
       address: event.address,
@@ -71,7 +65,7 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
     timeout: 1000,
   };
 
-  return client.geocode(options).then(response => {
+  return googleMapsClient.geocode(options).then(response => {
     if (hasError(response)) {
       logError(response, event.address);
       // return event anyways, using fake coords
@@ -94,6 +88,8 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
 function hydrateEventWithLatLng(event: RawEvent): Promise<BikeRides4UEvent> {
   if (geocache[event.address]) {
     return Promise.resolve(hydrateFromCache(event));
+  } else if (['TBD', 'TBA'].includes(event.address)) {
+    return Promise.resolve(formatEvent(event, BERMUDA_TRIANGLE, ''));
   }
   return hydrateFromLocationService(event);
 }

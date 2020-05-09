@@ -22,6 +22,7 @@ interface HomeState {
   filteredEvents: BikeRide[];
   selectedEventId?: string;
   mapCenter: Coordinate;
+  locationEnabled: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -38,6 +39,7 @@ export class Home extends Component<{}, HomeState> {
       isModalOpen: false,
       filteredEvents: [],
       mapCenter: defaultCoords,
+      locationEnabled: false,
       error: null,
     };
   }
@@ -59,6 +61,7 @@ export class Home extends Component<{}, HomeState> {
     const mapCenter = userLocation || defaultCoords;
     this.setState({
       mapCenter,
+      locationEnabled: !!userLocation,
       data: {
         ...data,
         events: data.events.map(event => this.addDistanceTo(event, mapCenter)),
@@ -107,7 +110,16 @@ export class Home extends Component<{}, HomeState> {
   }
 
   render(): JSX.Element {
-    const { data, loading, filteredEvents, mapCenter, selectedEventId, isModalOpen, error } = this.state;
+    const {
+      data,
+      loading,
+      filteredEvents,
+      mapCenter,
+      selectedEventId,
+      locationEnabled,
+      isModalOpen,
+      error,
+    } = this.state;
     return (
       <div>
         <div id="map-disclaimer">
@@ -121,12 +133,18 @@ export class Home extends Component<{}, HomeState> {
                 error={error}
                 loading={loading}
                 events={filteredEvents}
+                locationEnabled={locationEnabled}
                 handleListItemClick={this.handleEventListItemClick}
               />
             </div>
           </div>
           <div id="map">
-            <Map mapCenter={mapCenter} points={filteredEvents} selectedEventId={selectedEventId} />
+            <Map
+              locationEnabled={locationEnabled}
+              mapCenter={mapCenter}
+              points={filteredEvents}
+              selectedEventId={selectedEventId}
+            />
           </div>
           <Modal id="event-list-modal" title={'Filters'} isOpen={isModalOpen} handleCloseButtonClick={this.closeModal}>
             <Controls

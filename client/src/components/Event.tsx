@@ -8,6 +8,7 @@ import { AlertBanner } from './AlertBanner';
 
 type EventProps = {
   event: BikeRide;
+  locationEnabled: boolean;
   handleListItemClick?: (id: string) => void;
 };
 export function Event(props: EventProps): JSX.Element {
@@ -27,6 +28,7 @@ export function Event(props: EventProps): JSX.Element {
       distanceTo,
       freshAsOf,
     },
+    locationEnabled,
     handleListItemClick,
   } = props;
 
@@ -68,9 +70,11 @@ export function Event(props: EventProps): JSX.Element {
                 <div>{geoLookupAddress}</div>
               </div>
             </div>
-            <div className="event-distance-to">
-              <DistanceTo distanceTo={distanceTo} geoLookupAddress={geoLookupAddress} address={address} />
-            </div>
+            {locationEnabled && distanceTo && (
+              <div className="event-distance-to">
+                <DistanceTo distanceTo={distanceTo} geoLookupAddress={geoLookupAddress} address={address} />
+              </div>
+            )}
           </div>
         </div>
         <div className="refreshed">

@@ -16,8 +16,7 @@ export function About(): JSX.Element {
         <p>
           BikeRides4U.com is a passion project that aims to complement the Shift cal by providing a filterable,
           interactive map view of the same ride data. It pings the Shift2Bikes calendar API and displays bike fun events
-          on an interactive map. Rides are initially sorted according to distance from user, if the user allows location
-          sharing. Otherwise the events are sorted according to distance from Thai Champa, my favorite Thai food cart.
+          on an interactive map.
         </p>
       </div>
       <div>

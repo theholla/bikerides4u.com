@@ -28,10 +28,11 @@ type EventListContentProps = {
   loading: boolean;
   events: BikeRide[];
   error: string | null;
+  locationEnabled: boolean;
   handleListItemClick: (id: string) => void;
 };
 export function EventListContent(props: EventListContentProps): JSX.Element {
-  const { events, error, loading, handleListItemClick } = props;
+  const { events, error, loading, locationEnabled, handleListItemClick } = props;
   if (error) {
     return <Error message={error} />;
   }
@@ -39,7 +40,12 @@ export function EventListContent(props: EventListContentProps): JSX.Element {
     return (
       <div>
         {events.map(event => (
-          <Event key={event.key} event={event} handleListItemClick={handleListItemClick} />
+          <Event
+            key={event.key}
+            event={event}
+            locationEnabled={locationEnabled}
+            handleListItemClick={handleListItemClick}
+          />
         ))}
       </div>
     );

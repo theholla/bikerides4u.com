@@ -27,7 +27,7 @@ export type FormattedEvent = RawEventDesc & {
 };
 
 export type BikeRide = FormattedEvent & {
-  distanceTo: number;
+  distanceTo?: number;
 };
 
 export function getISODate(date: Date, plusMilliseconds?: number): YYYYMMDD {

@@ -12,7 +12,6 @@ enum LocationPermissions {
   UNKNOWN = 'unknown',
 }
 enum SortBy {
-  LOCATION = 'latLng',
   DATE = 'date',
 }
 
@@ -82,8 +81,8 @@ export class Controls extends Component<ControlsProps, ControlsState> {
   toggleLocationPermissions = (e: React.ChangeEvent<any>): Promise<void> => {
     const { updateMapCenter } = this.props;
 
-    const toggledOn = !!e.target.checked;
-    if (!toggledOn) {
+    const isToggledOn = !!e.target.checked;
+    if (!isToggledOn) {
       this.setState({ useLocation: false });
       return Promise.resolve(updateMapCenter());
     }
@@ -126,18 +125,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
 
   sortEvents = (): void => {
     const { data, handleEventsFiltered } = this.props;
-    const { sortBy } = this.state;
-    let sorted = null;
-    switch (sortBy) {
-      case SortBy.DATE: {
-        sorted = data.events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        break;
-      }
-      case SortBy.LOCATION: {
-        sorted = data.events.sort((a, b) => a.distanceTo - b.distanceTo);
-        break;
-      }
-    }
+    const sorted = data.events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return handleEventsFiltered(sorted);
   };
 
