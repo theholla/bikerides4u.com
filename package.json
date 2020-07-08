@@ -37,7 +37,7 @@
   },
   "pre-commit": [
     "lint",
-    "test:all"
+    "test"
   ],
   "scripts": {
     "build:client": "cd client && npm i && npm run build",
@@ -51,6 +51,6 @@
     "pretest": "tsc",
     "test:server": "jest dist",
     "test:client": "(cd client && npm run test:ci)",
-    "test:all": "npm run test:server && npm run test:client"
+    "test": "npm run test:server && npm run test:client"
   }
 }

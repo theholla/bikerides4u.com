@@ -88,7 +88,7 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
 function hydrateEventWithLatLng(event: RawEvent): Promise<BikeRides4UEvent> {
   if (geocache[event.address]) {
     return Promise.resolve(hydrateFromCache(event));
-  } else if (['TBD', 'TBA'].includes(event.address)) {
+  } else if (['TBD', 'TBA', '', null].includes(event.address)) {
     return Promise.resolve(formatEvent(event, BERMUDA_TRIANGLE, ''));
   }
   return hydrateFromLocationService(event);
