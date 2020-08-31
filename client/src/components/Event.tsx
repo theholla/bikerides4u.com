@@ -18,7 +18,7 @@ export function Event(props: EventProps): JSX.Element {
       shareable,
       cancelled,
       title,
-      geoLookupAddress,
+      formattedAddress,
       newsflash,
       venue,
       details,
@@ -38,7 +38,7 @@ export function Event(props: EventProps): JSX.Element {
   return (
     <div onClick={handleListItemClick ? (): void => handleListItemClick(id) : undefined}>
       <div className={eventClassName}>
-        <div className={geoLookupAddress && handleListItemClick ? 'clickable' : ''}>
+        <div className={formattedAddress && handleListItemClick ? 'clickable' : ''}>
           <div className="event-title">
             {title} {cancelled && <AlertBanner message="Cancelled" />}
           </div>
@@ -67,12 +67,12 @@ export function Event(props: EventProps): JSX.Element {
               </div>
               <div className="map-detail">
                 <strong>Displaying location for:</strong>
-                <div>{geoLookupAddress}</div>
+                <div>{formattedAddress}</div>
               </div>
             </div>
             {locationEnabled && distanceTo && (
               <div className="event-distance-to">
-                <DistanceTo distanceTo={distanceTo} geoLookupAddress={geoLookupAddress} address={address} />
+                <DistanceTo distanceTo={distanceTo} formattedAddress={formattedAddress} address={address} />
               </div>
             )}
           </div>
@@ -90,14 +90,14 @@ export function Event(props: EventProps): JSX.Element {
 
 type DistanceToProps = {
   distanceTo: number | null;
-  geoLookupAddress: string | null;
+  formattedAddress: string | null;
   address: string | null;
 };
 function DistanceTo(props: DistanceToProps): JSX.Element {
-  const { distanceTo, geoLookupAddress, address } = props;
+  const { distanceTo, formattedAddress, address } = props;
 
   let message = '';
-  if (geoLookupAddress && distanceTo) {
+  if (formattedAddress && distanceTo) {
     // geocoding service found address, display distance
     message = `${distanceTo} ${distanceTo === 1 ? 'mile' : 'miles'}`;
   } else {

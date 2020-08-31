@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { LatLngTuple } from 'leaflet';
 import { Map as LeafletMap, TileLayer, Circle } from 'react-leaflet';
 import { Marker } from '.';
-import { Coordinate } from '../../../types';
-import { BikeRide } from '../helpers/format-events';
+import { BikeRide, Coordinate } from '../helpers/format-events';
 import './Map.css';
 
 const zoom = 13;

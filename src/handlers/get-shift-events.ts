@@ -1,9 +1,43 @@
 import axios, { AxiosResponse } from 'axios';
 import { Client } from '@googlemaps/google-maps-services-js';
-import { RawEvent, Coordinate, BikeRides4UEvent } from '../../types';
 import testData from '../test-data/shift-events.json';
 
-// WIP first working implementation, lots of dev code/branching in here that needs cleanup for prod
+function getEventKey(date: string, id: string): string {
+  // repeating events have the same id so we must store them with additional meta
+  return `${date}-${id}`;
+}
+
+export enum Day {
+  Sun = 'Sun',
+  Mon = 'Mon',
+  Tu = 'Tu',
+  Wed = 'Wed',
+  Thu = 'Thu',
+  Fri = 'Fri',
+  Sat = 'Sat',
+}
+
+export function getDayOfWeek(date: string, time?: string): Day {
+  const day = new Date(`${date} ${time || '00:00:00'}`).getDay();
+  switch (day) {
+    case 0:
+      return Day.Sun;
+    case 1:
+      return Day.Mon;
+    case 2:
+      return Day.Tu;
+    case 3:
+      return Day.Wed;
+    case 4:
+      return Day.Thu;
+    case 5:
+      return Day.Fri;
+    case 6:
+      return Day.Sat;
+    default:
+      throw new Error(`Could not get day for date '${date}' time '${time}'`);
+  }
+}
 
 const BERMUDA_TRIANGLE = {
   latitude: 25.0,
@@ -11,17 +45,32 @@ const BERMUDA_TRIANGLE = {
 };
 
 function getDummyCoords(): Coordinate {
-  return { latitude: 45.522723 + Math.random() * -0.05, longitude: -122.656115 + Math.random() * 0.07 };
+  return {
+    latitude: 45.522723 + Math.random() * -0.05,
+    longitude: -122.656115 + Math.random() * 0.07,
+  };
 }
 
 function formatEvent(event: RawEvent, latLng: Coordinate, formattedAddress: string): BikeRides4UEvent {
   return {
-    ...event,
-    updated: new Date().getTime(),
-    geoLookup: {
-      latLng,
-      formattedAddress,
-    },
+    id: event.id,
+    title: event.title,
+    startTime: event.time,
+    endTime: event.endtime,
+    details: event.details,
+    date: event.date,
+    venue: event.venue,
+    address: event.address,
+    audience: event.audience,
+    organizer: event.organizer,
+    shareable: event.shareable,
+    cancelled: event.cancelled,
+    newsflash: event.newsflash,
+    latLng,
+    formattedAddress,
+    key: getEventKey(event.date, event.id),
+    dayOfWeek: getDayOfWeek(event.date, event.time),
+    fetched: new Date().getTime(),
   };
 }
 
@@ -48,6 +97,16 @@ interface GeoLookupCache {
   };
 }
 const geocache = {} as GeoLookupCache;
+
+export type BikeRides4UEvent = RawEventDesc & {
+  key: string;
+  dayOfWeek: Day;
+  latLng: Coordinate;
+  formattedAddress: string;
+  startTime: string;
+  endTime: string | null;
+  fetched: number;
+};
 
 function hydrateFromCache(event: RawEvent): BikeRides4UEvent {
   const { latLng, formattedAddress } = geocache[event.address];
@@ -103,8 +162,7 @@ export function getShiftEvents(
   // FIXME: dead code in prod and way too much branching
   if (!useLiveData) {
     if (useGeocodingService) {
-      const events = testData.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS'));
-      return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
+      return Promise.all(testData.map((event: RawEvent) => hydrateEventWithLatLng(event)));
     } else {
       return Promise.resolve(testData.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
     }
@@ -132,3 +190,47 @@ export function getShiftEvents(
       throw new Error(`Error retrieving data from Shift API`);
     });
 }
+
+type RawEventDesc = {
+  id: string;
+  title: string;
+  details: string;
+  address: string;
+  venue: string;
+  organizer: string;
+  cancelled: boolean;
+  date: string; // in format YYYY-MM-DD
+  audience: string; // enum
+  shareable: string; // shareable web link
+  newsflash: string | null;
+};
+
+interface RawEvent extends RawEventDesc {
+  caldaily_id: string; // stringified number
+  hideemail: string; // stringified number
+  datestype: string; // enum, stringified number
+  area: string; // enum
+  tinytitle: string;
+  printdescr: string;
+  featured: boolean;
+  printemail: boolean;
+  printphone: boolean;
+  printweburl: boolean;
+  printcontact: boolean;
+  time: string;
+  timedetails: string | null;
+  image: string | null;
+  locdetails: string | null;
+  endtime: string | null;
+  weburl: string | null;
+  eventduration: string | null; // stringified number
+  webname: string | null;
+  contact: string | null;
+  email: string | null;
+  phone: string | null;
+}
+
+type Coordinate = {
+  readonly latitude: number;
+  readonly longitude: number;
+};

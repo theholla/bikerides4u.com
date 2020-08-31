@@ -1,4 +1,4 @@
-import { transformTime, getTimeForDesc, getDayOfWeek, getISODate, Day } from './format-events';
+import { transformTime, getTimeForDesc, getISODate } from './format-events';
 
 // duplicated tests and algorithm from https://github.com/theholla/shift-ics-generator
 // TODO: share code using submodule or even better an npm package
@@ -37,18 +37,6 @@ test('getTimeForDesc returns expected duration for PM start/end', () => {
 
 test('getTimeForDesc returns expected duration for PM start, AM end', () => {
   expect(getTimeForDesc('23:59:00', '06:00:00')).toEqual('11:59 PM - 6:00 AM');
-});
-
-test('getDayOfWeek returns expected day for given ride date', () => {
-  expect(getDayOfWeek('2020-04-05', '00:00:01')).toEqual(Day.Sun);
-  expect(getDayOfWeek('2020-04-05')).toEqual(Day.Sun);
-  expect(getDayOfWeek('2020-04-06')).toEqual(Day.Mon);
-  expect(getDayOfWeek('2020-04-07')).toEqual(Day.Tu);
-  expect(getDayOfWeek('2020-04-08')).toEqual(Day.Wed);
-  expect(getDayOfWeek('2020-04-09')).toEqual(Day.Thu);
-  expect(getDayOfWeek('2020-04-10')).toEqual(Day.Fri);
-  expect(getDayOfWeek('2020-04-11')).toEqual(Day.Sat);
-  expect(getDayOfWeek('2020-03-13', '23:59:59')).toEqual(Day.Fri);
 });
 
 test('getISODate returns ISO date with no time', () => {

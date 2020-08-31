@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FormCheckbox, FormDateField, Toggle } from '.';
-import { BikeRide, Day } from '../helpers/format-events';
-import { Coordinate } from '../../../types';
+import { BikeRide, Coordinate, Day } from '../helpers/format-events';
 import './Controls.css';
 
 const allDaysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
@@ -120,12 +119,17 @@ export class Controls extends Component<ControlsProps, ControlsState> {
 
   handleSelectDay = (e: React.ChangeEvent<any>): void => {
     const { daysOfWeek } = this.state;
-    this.setState({ daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
+    this.setState(
+      { daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } },
+      this.applyFilters
+    );
   };
 
   sortEvents = (): void => {
     const { data, handleEventsFiltered } = this.props;
-    const sorted = data.events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sorted = data.events.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
     return handleEventsFiltered(sorted);
   };
 

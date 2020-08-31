@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { getDistance } from 'geolib';
 import { EventListHeader, EventListContent, Controls, Map, Modal, AlertBanner } from '../components';
-import { Coordinate } from '../../../types';
-import { getISODate, BikeRide, FormattedEvent } from '../helpers/format-events';
+import { Coordinate, BikeRide, FormattedEvent, getISODate } from '../helpers/format-events';
 import { formatEvents } from '../helpers/format-events';
 import './Home.css';
 

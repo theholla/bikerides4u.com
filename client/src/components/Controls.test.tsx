@@ -9,7 +9,7 @@ function mockFunc(): void {
 
 test('renders the start input field', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
   );
   const startDatePicker = getByLabelText(/from/i);
   expect(startDatePicker).toBeInTheDocument();
@@ -18,7 +18,7 @@ test('renders the start input field', () => {
 
 test('renders the end input field', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
   );
   const endDatePicker = getByLabelText(/until/i);
   expect(endDatePicker).toBeInTheDocument();
@@ -27,20 +27,13 @@ test('renders the end input field', () => {
 
 test('renders the day of week checkboxes', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
   );
-  const sunday = getByLabelText(Day.Sun);
-  expect(sunday).toBeInTheDocument();
-  const monday = getByLabelText(Day.Mon);
-  expect(monday).toBeInTheDocument();
-  const tuesday = getByLabelText(Day.Tu);
-  expect(tuesday).toBeInTheDocument();
-  const wednesday = getByLabelText(Day.Wed);
-  expect(wednesday).toBeInTheDocument();
-  const thursday = getByLabelText(Day.Thu);
-  expect(thursday).toBeInTheDocument();
-  const friday = getByLabelText(Day.Fri);
-  expect(friday).toBeInTheDocument();
-  const saturday = getByLabelText(Day.Sat);
-  expect(saturday).toBeInTheDocument();
+  expect(getByLabelText(Day.Sun)).toBeInTheDocument();
+  expect(getByLabelText(Day.Mon)).toBeInTheDocument();
+  expect(getByLabelText(Day.Tu)).toBeInTheDocument();
+  expect(getByLabelText(Day.Wed)).toBeInTheDocument();
+  expect(getByLabelText(Day.Thu)).toBeInTheDocument();
+  expect(getByLabelText(Day.Fri)).toBeInTheDocument();
+  expect(getByLabelText(Day.Sat)).toBeInTheDocument();
 });

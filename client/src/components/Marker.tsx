@@ -23,8 +23,8 @@ export class Marker extends React.Component<MarkerProps, {}> {
 
   render(): JSX.Element {
     const { point, locationEnabled } = this.props;
-    const { latLng, geoLookupAddress, key } = point;
-    if (!geoLookupAddress) return <div></div>;
+    const { latLng, formattedAddress, key } = point;
+    if (!formattedAddress) return <div></div>;
     return (
       <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
         <Popup>
