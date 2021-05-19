@@ -141,7 +141,7 @@ export class Home extends Component<{}, HomeState> {
             <Map
               locationEnabled={locationEnabled}
               mapCenter={mapCenter}
-              points={filteredEvents}
+              points={filteredEvents.concat().reverse()}
               selectedEventId={selectedEventId}
             />
           </div>
