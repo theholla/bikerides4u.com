@@ -1,6 +1,6 @@
 import axios from 'axios';
 import googleMapsApi from '@googlemaps/google-maps-services-js';
-import { Day, getShiftEvents, getDayOfWeek } from './get-shift-events';
+import { Day, getShiftEvents, getDayOfWeek } from './getShiftEvents';
 
 jest.mock('axios', () => ({ get: jest.fn(() => Promise.resolve()) }));
 jest.mock('@googlemaps/google-maps-services-js', () => jest.fn());

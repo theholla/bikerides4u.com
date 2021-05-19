@@ -12,7 +12,7 @@ export function EventListHeader(props: EventListProps): JSX.Element {
   return (
     <div className="event-list-header">
       <div className="event-list-title">
-        <h2>Upcoming bike fun (showing next 45 days)</h2>
+        <h2>Upcoming bike fun (showing next 90 days)</h2>
       </div>
       <div className="event-list-meta">
         <div className="ride-count">{events.length} rides</div>

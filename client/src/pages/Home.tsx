@@ -33,7 +33,7 @@ export class Home extends Component<{}, HomeState> {
       data: {
         events: [],
         start: getISODate(new Date()),
-        end: getISODate(new Date(), 3.888e9), // 45 days in milliseconds
+        end: getISODate(new Date(), 7776000000), // 90 days in milliseconds
       },
       isModalOpen: false,
       filteredEvents: [],

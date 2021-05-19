@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
-import { getShiftEvents } from './handlers';
+import { getShiftEvents, getEventGeoJSON } from './routes';
 
 dotenv.config();
 
@@ -25,6 +25,16 @@ app.get('/api/shift-events', (req, res, next) => {
       res.set('Cache-Control', `public, max-age=${SECS_30_MINS}`);
       return res.json(events);
     })
+    .catch(err => {
+      if (err) {
+        next(err);
+      }
+    });
+});
+
+app.get('/api/shift-events-geo-json', (req, res, next) => {
+  return getEventGeoJSON(config.USE_LIVE_DATA, config.USE_GEOCODING_SERVICE)
+    .then(geoJSON => res.json(geoJSON))
     .catch(err => {
       if (err) {
         next(err);

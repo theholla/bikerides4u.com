@@ -177,7 +177,7 @@ export function getShiftEvents(
           return Promise.resolve([]);
         }
 
-        const events = response.data.events;
+        const events = response.data.events.filter(event => event.id); // events with no id also have no other meta
         if (useGeocodingService) {
           return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
         } else {
