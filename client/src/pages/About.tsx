@@ -8,7 +8,7 @@ export function About(): JSX.Element {
       <h1>About BikeRides4U.com</h1>
       <div>
         <p>
-          Most bikey folks in Portland have used the{' '}
+          Bikey folks in Portland may have used the{' '}
           <ExternalLink href="https://www.shift2bikes.org/calendar/" text="Shift2Bikes calendar" /> to discover upcoming
           rides... most famously every summer during{' '}
           <ExternalLink href="https://www.shift2bikes.org/pedalpalooza-calendar/" text="Pedalpalooza" />.
@@ -21,7 +21,6 @@ export function About(): JSX.Element {
       </div>
       <div>
         <h2>About Shift2Bikes</h2>
-        <p>This website is not affiliated with Shift2Bikes.org. But we do think they&apos;re awesome!</p>
         <p>
           Shift&apos;s mission is to promote inclusive bike fun. Shift also facilitates lots of events. Examples of
           Shift-related activities include breakfast give aways, social rides, educational bike tours, actions to raise
@@ -40,8 +39,7 @@ export function About(): JSX.Element {
             Shift2Bikes
           </li>
           <li>
-            <strong>Data Integrity:</strong> This project is in beta and ride data and locations are not guaranteed to
-            be accurate
+            <strong>Data Integrity:</strong> This project is in beta. Ride data and locations may not be accurate
           </li>
         </ol>
       </div>

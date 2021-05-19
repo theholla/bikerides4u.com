@@ -43,10 +43,6 @@ export type FormattedEvent = BikeRides4UEvent & {
   freshAsOf: string;
 };
 
-export type BikeRide = FormattedEvent & {
-  distanceTo?: number;
-};
-
 export function getISODate(date: Date, plusMilliseconds?: number): string {
   if (plusMilliseconds) {
     return getISODate(new Date(new Date().getTime() + plusMilliseconds));

@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
-import { FormCheckbox, FormDateField, Toggle } from '.';
-import { BikeRide, Coordinate, Day } from '../helpers/format-events';
+import { FormCheckbox, FormDateField } from '.';
+import { FormattedEvent, Day } from '../helpers/format-events';
 import './Controls.css';
 
 const allDaysOfWeek = [Day.Sun, Day.Mon, Day.Tu, Day.Wed, Day.Thu, Day.Fri, Day.Sat];
-enum LocationPermissions {
-  GRANTED = 'granted',
-  DENIED = 'denied',
-  PROMPT = 'prompt',
-  UNKNOWN = 'unknown',
-}
+
 enum SortBy {
-  DATE = 'date',
+  Date,
 }
 
 interface ControlsProps {
   data: {
     start: string;
     end: string;
-    events: BikeRide[];
+    events: FormattedEvent[];
   };
-  handleEventsFiltered: (filtered: BikeRide[]) => void;
-  updateMapCenter: (userLocation?: Coordinate) => void;
+  handleEventsFiltered: (filtered: FormattedEvent[]) => void;
 }
 interface ControlsState {
   ridesFrom?: string;
   ridesUntil?: string;
   daysOfWeek: { [key in Day]: boolean };
   sortBy: SortBy;
-  useLocation: boolean;
-  browserGeoPerms: LocationPermissions;
   loading: boolean;
 }
 export class Controls extends Component<ControlsProps, ControlsState> {
@@ -47,66 +39,11 @@ export class Controls extends Component<ControlsProps, ControlsState> {
         [Day.Fri]: true,
         [Day.Sat]: true,
       },
-      sortBy: SortBy.DATE, // TODO: implement toggle sort
-      useLocation: false,
-      browserGeoPerms: LocationPermissions.UNKNOWN,
+      sortBy: SortBy.Date, // TODO: implement toggle sort
       loading: false,
     };
 
-    this.checkBrowserPermissions();
     this.sortEvents();
-  }
-
-  checkBrowserPermissions(): Promise<LocationPermissions> {
-    if (!navigator.permissions) {
-      return Promise.resolve(LocationPermissions.UNKNOWN);
-    }
-
-    return navigator.permissions.query({ name: 'geolocation' }).then(permissions => {
-      const permission = permissions.state;
-      const browserGeoPerms =
-        permission === 'granted'
-          ? LocationPermissions.GRANTED
-          : permission === 'denied'
-          ? LocationPermissions.DENIED
-          : permission === 'prompt'
-          ? LocationPermissions.PROMPT
-          : LocationPermissions.UNKNOWN;
-
-      return browserGeoPerms;
-    });
-  }
-
-  toggleLocationPermissions = (e: React.ChangeEvent<any>): Promise<void> => {
-    const { updateMapCenter } = this.props;
-
-    const isToggledOn = !!e.target.checked;
-    if (!isToggledOn) {
-      this.setState({ useLocation: false });
-      return Promise.resolve(updateMapCenter());
-    }
-
-    return this.checkBrowserPermissions().then(() => this.useLocationFromBrowser());
-  };
-
-  useLocationFromBrowser(): void {
-    const { updateMapCenter } = this.props;
-
-    this.setState({ loading: true });
-    return navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        this.setState({ useLocation: true, loading: false });
-
-        return updateMapCenter({
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-        });
-      },
-      err => {
-        console.error(err.message);
-        this.setState({ browserGeoPerms: LocationPermissions.DENIED, loading: false });
-      }
-    );
   }
 
   handleSelectRidesFrom = (e: React.ChangeEvent<any>): void => {
@@ -119,17 +56,12 @@ export class Controls extends Component<ControlsProps, ControlsState> {
 
   handleSelectDay = (e: React.ChangeEvent<any>): void => {
     const { daysOfWeek } = this.state;
-    this.setState(
-      { daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } },
-      this.applyFilters
-    );
+    this.setState({ daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
   };
 
   sortEvents = (): void => {
     const { data, handleEventsFiltered } = this.props;
-    const sorted = data.events.sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
+    const sorted = data.events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     return handleEventsFiltered(sorted);
   };
 
@@ -149,7 +81,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
 
   render(): JSX.Element {
     const { data } = this.props;
-    const { ridesFrom, ridesUntil, daysOfWeek, useLocation, browserGeoPerms, loading } = this.state;
+    const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
     return (
       <form className="controls-form">
         <section>
@@ -187,17 +119,6 @@ export class Controls extends Component<ControlsProps, ControlsState> {
               />
             ))}
           </div>
-        </section>
-        <section>
-          <Toggle
-            label="Use my location"
-            id={'location-toggle'}
-            checked={!!useLocation}
-            toggleValue={this.toggleLocationPermissions}
-            disabled={browserGeoPerms === LocationPermissions.DENIED}
-            disabledMsg={'User denied Geolocation; check your browser location settings'}
-            loading={loading}
-          />
         </section>
       </form>
     );

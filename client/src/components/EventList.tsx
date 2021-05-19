@@ -1,10 +1,10 @@
 import React from 'react';
 import { Event, BlankState, Error } from '.';
-import { BikeRide } from '../helpers/format-events';
+import { FormattedEvent } from '../helpers/format-events';
 import './EventList.css';
 
 type EventListProps = {
-  events: BikeRide[];
+  events: FormattedEvent[];
   handleFiltersButtonClick: () => void;
 };
 export function EventListHeader(props: EventListProps): JSX.Element {
@@ -26,13 +26,12 @@ export function EventListHeader(props: EventListProps): JSX.Element {
 
 type EventListContentProps = {
   loading: boolean;
-  events: BikeRide[];
+  events: FormattedEvent[];
   error: string | null;
-  locationEnabled: boolean;
   handleListItemClick: (id: string) => void;
 };
 export function EventListContent(props: EventListContentProps): JSX.Element {
-  const { events, error, loading, locationEnabled, handleListItemClick } = props;
+  const { events, error, loading, handleListItemClick } = props;
   if (error) {
     return <Error message={error} />;
   }
@@ -40,12 +39,7 @@ export function EventListContent(props: EventListContentProps): JSX.Element {
     return (
       <div>
         {events.map(event => (
-          <Event
-            key={event.key}
-            event={event}
-            locationEnabled={locationEnabled}
-            handleListItemClick={handleListItemClick}
-          />
+          <Event key={event.key} event={event} handleListItemClick={handleListItemClick} />
         ))}
       </div>
     );

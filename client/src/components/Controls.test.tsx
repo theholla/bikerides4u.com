@@ -9,7 +9,7 @@ function mockFunc(): void {
 
 test('renders the start input field', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
   );
   const startDatePicker = getByLabelText(/from/i);
   expect(startDatePicker).toBeInTheDocument();
@@ -18,7 +18,7 @@ test('renders the start input field', () => {
 
 test('renders the end input field', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
   );
   const endDatePicker = getByLabelText(/until/i);
   expect(endDatePicker).toBeInTheDocument();
@@ -27,7 +27,7 @@ test('renders the end input field', () => {
 
 test('renders the day of week checkboxes', () => {
   const { getByLabelText } = render(
-    <Controls data={{ events: [], start: '', end: '' }} updateMapCenter={mockFunc} handleEventsFiltered={mockFunc} />
+    <Controls data={{ events: [], start: '', end: '' }} handleEventsFiltered={mockFunc} />
   );
   expect(getByLabelText(Day.Sun)).toBeInTheDocument();
   expect(getByLabelText(Day.Mon)).toBeInTheDocument();

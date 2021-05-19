@@ -1,14 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faCalendar, faClock, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { BikeRide } from '../helpers/format-events';
+import { FormattedEvent } from '../helpers/format-events';
 import { ExternalLink } from './ExternalLink';
 import './Event.css';
 import { AlertBanner } from './AlertBanner';
 
 type EventProps = {
-  event: BikeRide;
-  locationEnabled: boolean;
+  event: FormattedEvent;
   handleListItemClick?: (id: string) => void;
 };
 export function Event(props: EventProps): JSX.Element {
@@ -25,10 +24,8 @@ export function Event(props: EventProps): JSX.Element {
       times,
       address,
       friendlyDate,
-      distanceTo,
       freshAsOf,
     },
-    locationEnabled,
     handleListItemClick,
   } = props;
 
@@ -70,11 +67,6 @@ export function Event(props: EventProps): JSX.Element {
                 <div>{formattedAddress}</div>
               </div>
             </div>
-            {locationEnabled && distanceTo && (
-              <div className="event-distance-to">
-                <DistanceTo distanceTo={distanceTo} formattedAddress={formattedAddress} address={address} />
-              </div>
-            )}
           </div>
         </div>
         <div className="refreshed">
@@ -86,23 +78,4 @@ export function Event(props: EventProps): JSX.Element {
       </div>
     </div>
   );
-}
-
-type DistanceToProps = {
-  distanceTo: number | null;
-  formattedAddress: string | null;
-  address: string | null;
-};
-function DistanceTo(props: DistanceToProps): JSX.Element {
-  const { distanceTo, formattedAddress, address } = props;
-
-  let message = '';
-  if (formattedAddress && distanceTo) {
-    // geocoding service found address, display distance
-    message = `${distanceTo} ${distanceTo === 1 ? 'mile' : 'miles'}`;
-  } else {
-    // geocoding service could not find address
-    message = `Coordinates not found for address: ${address}`;
-  }
-  return <span className="push">{message}</span>;
 }

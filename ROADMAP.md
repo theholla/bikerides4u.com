@@ -11,7 +11,6 @@
 - Add "clear/reset" filters
 - Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
 - Add toggle: sort by distance vs date
-- Make mapCenter draggable and/or drag map to filter
 - Add filter to map: expandable radius
 - Add button: report a problem
 - Merge duplicates (repeating rides, example: TNR every thursday)

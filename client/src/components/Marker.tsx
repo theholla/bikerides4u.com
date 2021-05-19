@@ -2,13 +2,12 @@ import React, { createRef } from 'react';
 import { Marker as LeafletMarker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import { Event } from '.';
-import { BikeRide } from '../helpers/format-events';
+import { FormattedEvent } from '../helpers/format-events';
 import './Event.css';
 
 interface MarkerProps {
   isSelected: boolean;
-  point: BikeRide;
-  locationEnabled: boolean;
+  point: FormattedEvent;
   key: string;
 }
 export class Marker extends React.Component<MarkerProps, {}> {
@@ -22,13 +21,13 @@ export class Marker extends React.Component<MarkerProps, {}> {
   }
 
   render(): JSX.Element {
-    const { point, locationEnabled } = this.props;
+    const { point } = this.props;
     const { latLng, formattedAddress, key } = point;
     if (!formattedAddress) return <div></div>;
     return (
       <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
         <Popup>
-          <Event locationEnabled={locationEnabled} event={point} />
+          <Event event={point} />
         </Popup>
       </LeafletMarker>
     );
