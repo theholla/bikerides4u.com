@@ -44,7 +44,7 @@ If you plan to actively work on both the client and server, your best bet is to 
 
 ### Production build
 
-For a production build:
+To build and serve up a production version:
 
 1. In your `.env` file, change `NODE_ENV` to `production`
 1. In your `.env` file, change `GOOGLE_MAPS_API_KEY` to your key. Or not. If you leave the default config the geo coordinates for addresses will just be random points in Portland, no big deal.
@@ -67,7 +67,7 @@ The local project reads test data from a file while in development mode. To enab
 
 ### Geocoding Service
 
-By default the server will hydrate event data with random coordinates in Portland, OR as the event lat/lng.
+By default the development server will hydrate event data with random coordinates in Portland, OR as the event lat/lng, since that's free.
 
 To enable geocoding, you'll need an active [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start) account and API key. Set `GOOGLE_MAPS_API_KEY` in the `.env` file to your personal API key.
 

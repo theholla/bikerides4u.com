@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { Client } from '@googlemaps/google-maps-services-js';
+import { Client, GeocodeResponse } from '@googlemaps/google-maps-services-js';
 import testData from '../test-data/shift-events.json';
 
 function getEventKey(date: string, id: string): string {
@@ -74,11 +74,11 @@ function formatEvent(event: RawEvent, latLng: Coordinate, formattedAddress: stri
   };
 }
 
-function hasError(response: AxiosResponse): boolean {
+function hasError(response: GeocodeResponse): boolean {
   return !response || !response.data || !response.data.results || !response.data.results.length;
 }
 
-function logError(response: AxiosResponse, eventAddress?: string): void {
+function logError(response: GeocodeResponse, eventAddress?: string): void {
   if (!response || !response.data) {
     console.error(`Something went terribly wrong. No response from geocoder`);
   } else if (response.data.error_message) {
