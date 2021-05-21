@@ -89,7 +89,6 @@ function logError(response: GeocodeResponse, eventAddress?: string): void {
 }
 
 // in-memory cache for now
-// would like to eventually use Redis and also cache Shift2Bikes API response based on start param
 interface GeoLookupCache {
   [key: string]: {
     latLng: Coordinate;
@@ -127,7 +126,8 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
   return googleMapsClient.geocode(options).then(response => {
     if (hasError(response)) {
       logError(response, event.address);
-      // return event anyways, using fake coords
+      // event location could not be found from provided address
+      // return event anyways, using coords we'll filter out later
       return Promise.resolve(formatEvent(event, BERMUDA_TRIANGLE, ''));
     }
 
@@ -147,7 +147,7 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
 function hydrateEventWithLatLng(event: RawEvent): Promise<BikeRides4UEvent> {
   if (geocache[event.address]) {
     return Promise.resolve(hydrateFromCache(event));
-  } else if (['TBD', 'TBA', '', null].includes(event.address)) {
+  } else if (['TBD', 'TBA', 'Online', '', null].includes(event.address)) {
     return Promise.resolve(formatEvent(event, BERMUDA_TRIANGLE, ''));
   }
   return hydrateFromLocationService(event);
