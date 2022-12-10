@@ -28,7 +28,7 @@
     "react-leaflet": "^2.7.0",
     "react-leaflet-markercluster": "^2.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^5.0.1",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
