@@ -71,7 +71,7 @@ export function transformTime(hhmmss: string): string {
   if (hrInt > 12) {
     hr = hrInt === 24 ? 12 : -(12 - hrInt); // help the americans
   } else {
-    hr = parseInt(hour, 10); // remove trailing 0 from AM times
+    hr = parseInt(hour, 10); // remove leading 0 from AM times
   }
   return `${hr}:${minute} ${period}`;
 }

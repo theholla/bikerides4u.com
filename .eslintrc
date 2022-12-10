@@ -26,7 +26,8 @@
   "ignorePatterns": ["dist", "node_modules", "client/build", "client/node_modules"],
   "rules": {
     "prettier/prettier": "error",
-    "react/prop-types": ["warn"]
+    "react/prop-types": ["warn"],
+    "@typescript-eslint/ban-types": "warn"
   },
   "settings": {
     "react": {
