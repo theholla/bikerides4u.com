@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface FormCheckboxProps {
-  handleChange: (event: React.ChangeEvent<any>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
   label: string;
   id: string;

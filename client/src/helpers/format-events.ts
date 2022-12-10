@@ -86,7 +86,7 @@ export function getTimeForDesc(start: string, end: string | null): string {
 
 export function formatEvents(events: BikeRides4UEvent[]): FormattedEvent[] {
   return events
-    .map(event => ({
+    .map((event) => ({
       ...event,
       friendlyDate: getFriendlyDate(event.date),
       times: getTimeForDesc(event.startTime, event.endTime),

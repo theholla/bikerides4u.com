@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface FormDateFieldProps {
-  handleChange: (event: React.ChangeEvent<any>) => void;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formValue: string;
   label: string;
   id: string;

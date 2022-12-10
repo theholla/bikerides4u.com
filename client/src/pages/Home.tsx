@@ -38,7 +38,7 @@ export class Home extends Component<{}, HomeState> {
   }
 
   toggleModalOpen = (): void =>
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       isModalOpen: !prevState.isModalOpen,
     }));
   closeModal = (): void => this.setState({ isModalOpen: false });
@@ -50,7 +50,7 @@ export class Home extends Component<{}, HomeState> {
     this.setState({ loading: true });
     return axios
       .get(`api/shift-events?start=${data.start}&end=${data.end}`)
-      .then(response => {
+      .then((response) => {
         const events = formatEvents(response.data);
         this.setState({
           data: { ...data, events },
@@ -58,7 +58,7 @@ export class Home extends Component<{}, HomeState> {
           loading: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         let errMsg = 'Error retrieving events for date';
 
         // FIXME: handle additional error states

@@ -15,10 +15,10 @@
     "es6": true,
     "node": true
   },
-  "plugins": ["prettier", "react", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
+    "prettier",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
@@ -26,12 +26,12 @@
   "ignorePatterns": ["dist", "node_modules", "client/build", "client/node_modules"],
   "rules": {
     "prettier/prettier": "error",
-    "react/prop-types": ["warn"],
-    "@typescript-eslint/ban-types": "warn"
+    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-loss-of-precision": "warn",
+    "no-nonoctal-decimal-escape": "warn",
+    "no-unsafe-optional-chaining": "warn",
+    "no-useless-backreference": "warn"
   },
-  "settings": {
-    "react": {
-      "version": "16.13.1"
-    }
-  }
+  "settings": {}
 }

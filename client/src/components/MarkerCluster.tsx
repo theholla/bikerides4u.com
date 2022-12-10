@@ -19,7 +19,7 @@ export class MarkerCluster extends React.Component<MarkerClusterProps, {}> {
 
     const groupedPoints: GroupedPoints = {};
 
-    points.forEach(point => {
+    points.forEach((point) => {
       const key = point.latLng.latitude + ':' + point.latLng.longitude;
       if (!groupedPoints[key]) {
         groupedPoints[key] = [point];
@@ -32,7 +32,7 @@ export class MarkerCluster extends React.Component<MarkerClusterProps, {}> {
       <div>
         {Object.entries(groupedPoints).map(([key, pointGroup]) => (
           <MarkerClusterGroup key={key}>
-            {pointGroup.map(point => (
+            {pointGroup.map((point) => (
               <Marker isSelected={selectedEventId === point.id} point={point} key={point.key} />
             ))}
           </MarkerClusterGroup>

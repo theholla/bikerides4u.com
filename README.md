@@ -11,7 +11,6 @@ Simple webserver that serves up an interactive map of bike rides from the shift2
 ### MVP
 
 - [x] Fetch bike fun data from Shift2Bikes Calendar API
-- [x] Center map on lat/long from user's geo-location
 - [x] Display rides in list and actual ride location on map
 - [x] Fire map marker click when user clicks on ride in list
 - [x] Add ride filters: start date, end date, day of week

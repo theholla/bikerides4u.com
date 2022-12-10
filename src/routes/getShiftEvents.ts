@@ -123,7 +123,7 @@ function hydrateFromLocationService(event: RawEvent): Promise<BikeRides4UEvent> 
     timeout: 1000,
   };
 
-  return googleMapsClient.geocode(options).then(response => {
+  return googleMapsClient.geocode(options).then((response) => {
     if (hasError(response)) {
       logError(response, event.address);
       // event location could not be found from provided address
@@ -164,28 +164,26 @@ export function getShiftEvents(
     if (useGeocodingService) {
       return Promise.all(testData.map((event: RawEvent) => hydrateEventWithLatLng(event)));
     } else {
-      return Promise.resolve(testData.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
+      return Promise.resolve(testData.map((event) => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
     }
   }
 
   return axios
     .get(`https://www.shift2bikes.org/api/events.php?startdate=${start}&enddate=${end}`)
-    .then(
-      (response: AxiosResponse<{ events: RawEvent[] }>): Promise<BikeRides4UEvent[]> => {
-        if (!response || !response.data || !response.data.events) {
-          console.info('No events found for date range', { start, end });
-          return Promise.resolve([]);
-        }
-
-        const events = response.data.events.filter(event => event.id); // events with no id also have no other meta
-        if (useGeocodingService) {
-          return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
-        } else {
-          return Promise.resolve(events.map(event => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
-        }
+    .then((response: AxiosResponse<{ events: RawEvent[] }>): Promise<BikeRides4UEvent[]> => {
+      if (!response || !response.data || !response.data.events) {
+        console.info('No events found for date range', { start, end });
+        return Promise.resolve([]);
       }
-    )
-    .catch(err => {
+
+      const events = response.data.events.filter((event) => event.id); // events with no id also have no other meta
+      if (useGeocodingService) {
+        return Promise.all(events.map((event: RawEvent) => hydrateEventWithLatLng(event)));
+      } else {
+        return Promise.resolve(events.map((event) => formatEvent(event, getDummyCoords(), 'FAKE COORDS')));
+      }
+    })
+    .catch((err) => {
       console.error(err.stack);
       throw new Error(`Error retrieving data from Shift API`);
     });

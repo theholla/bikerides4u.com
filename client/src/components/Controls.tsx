@@ -46,15 +46,15 @@ export class Controls extends Component<ControlsProps, ControlsState> {
     this.sortEvents();
   }
 
-  handleSelectRidesFrom = (e: React.ChangeEvent<any>): void => {
+  handleSelectRidesFrom = (e: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ ridesFrom: e.target.value }, this.applyFilters);
   };
 
-  handleSelectRidesUntil = (e: React.ChangeEvent<any>): void => {
+  handleSelectRidesUntil = (e: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ ridesUntil: e.target.value }, this.applyFilters);
   };
 
-  handleSelectDay = (e: React.ChangeEvent<any>): void => {
+  handleSelectDay = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { daysOfWeek } = this.state;
     this.setState({ daysOfWeek: { ...daysOfWeek, [e.target.id]: !!e.target.checked } }, this.applyFilters);
   };
@@ -70,12 +70,12 @@ export class Controls extends Component<ControlsProps, ControlsState> {
     const { ridesFrom, ridesUntil, daysOfWeek } = this.state;
     let filtered = data.events;
     if (ridesFrom) {
-      filtered = filtered.filter(ride => ride.date.toLocaleString() >= ridesFrom);
+      filtered = filtered.filter((ride) => ride.date.toLocaleString() >= ridesFrom);
     }
     if (ridesUntil) {
-      filtered = filtered.filter(ride => ride.date.toLocaleString() <= ridesUntil);
+      filtered = filtered.filter((ride) => ride.date.toLocaleString() <= ridesUntil);
     }
-    filtered = filtered.filter(ride => !!daysOfWeek[ride.dayOfWeek]);
+    filtered = filtered.filter((ride) => !!daysOfWeek[ride.dayOfWeek]);
     return handleEventsFiltered(filtered);
   };
 
@@ -108,7 +108,7 @@ export class Controls extends Component<ControlsProps, ControlsState> {
         </section>
         <section>
           <div className="checkbox-group">
-            {allDaysOfWeek.map(day => (
+            {allDaysOfWeek.map((day) => (
               <FormCheckbox
                 key={day}
                 id={day}

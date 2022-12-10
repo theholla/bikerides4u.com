@@ -5,7 +5,7 @@ import { getShiftEvents } from './getShiftEvents';
 function toGeoJSON(events: Array<BikeRides4UEvent>): GeoJSON {
   return {
     type: 'FeatureCollection',
-    features: events.map(event => ({
+    features: events.map((event) => ({
       type: 'Feature',
       geometry: {
         type: 'Point',
@@ -25,5 +25,5 @@ export function getEventGeoJSON(useLiveData: boolean, useGeocodingService: boole
   const start = new Date().toISOString().split('T')[0];
   const end = new Date(new Date().getTime() + MS_90_DAYS).toISOString().split('T')[0];
 
-  return getShiftEvents(useLiveData, useGeocodingService, start, end).then(events => toGeoJSON(events));
+  return getShiftEvents(useLiveData, useGeocodingService, start, end).then((events) => toGeoJSON(events));
 }

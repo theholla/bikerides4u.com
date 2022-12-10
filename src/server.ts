@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import { getShiftEvents, getEventGeoJSON } from './routes';
@@ -16,33 +16,33 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.get('/api/shift-events', (req, res, next) => {
+app.get('/api/shift-events', (req: Request, res: Response, next: NextFunction) => {
   const { start, end } = req.query as { start: string; end: string };
 
   const SECS_30_MINS = 1800;
   return getShiftEvents(config.USE_LIVE_DATA, config.USE_GEOCODING_SERVICE, start, end)
-    .then(events => {
+    .then((events) => {
       res.set('Cache-Control', `public, max-age=${SECS_30_MINS}`);
       return res.json(events);
     })
-    .catch(err => {
+    .catch((err) => {
       if (err) {
         next(err);
       }
     });
 });
 
-app.get('/api/shift-events-geo-json', (req, res, next) => {
+app.get('/api/shift-events-geo-json', (req: Request, res: Response, next: NextFunction) => {
   return getEventGeoJSON(config.USE_LIVE_DATA, config.USE_GEOCODING_SERVICE)
-    .then(geoJSON => res.json(geoJSON))
-    .catch(err => {
+    .then((geoJSON) => res.json(geoJSON))
+    .catch((err) => {
       if (err) {
         next(err);
       }
     });
 });
 
-app.get('*', (req, res) => {
+app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 

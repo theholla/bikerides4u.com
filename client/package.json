@@ -29,7 +29,7 @@
     "react-leaflet": "^2.7.0",
     "react-leaflet-markercluster": "^2.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
+    "react-scripts": "5.0.0",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
@@ -41,6 +41,11 @@
     "@types/react-leaflet": "^2.5.2",
     "@types/react-leaflet-markercluster": "^2.0.0",
     "@types/react-router-dom": "^5.1.5"
+  },
+  "overrides": {
+    "react-scripts": {
+      "@svgr/webpack": "6.5.1"
+    }
   },
   "proxy": "http://127.0.0.1:8080",
   "scripts": {

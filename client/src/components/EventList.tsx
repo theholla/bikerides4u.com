@@ -38,7 +38,7 @@ export function EventListContent(props: EventListContentProps): JSX.Element {
   if (events.length) {
     return (
       <div>
-        {events.map(event => (
+        {events.map((event) => (
           <Event key={event.key} event={event} handleListItemClick={handleListItemClick} />
         ))}
       </div>
