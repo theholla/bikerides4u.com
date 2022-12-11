@@ -1,4 +1,4 @@
-export * from './Controls';
+export * from './Filters';
 export * from './Event';
 export * from './EventList';
 export * from './ExternalLink';

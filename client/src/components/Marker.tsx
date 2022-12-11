@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Marker as LeafletMarker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import { Event } from '.';
@@ -8,28 +8,27 @@ import './Event.css';
 interface MarkerProps {
   isSelected: boolean;
   point: FormattedEvent;
-  key: string;
+  clusterKey?: string;
 }
-export class Marker extends React.Component<MarkerProps, {}> {
-  markerRef = createRef<LeafletMarker>();
+export function Marker({ point, isSelected, clusterKey }: MarkerProps) {
+  const markerRef = createRef<LeafletMarker>();
 
-  componentDidUpdate(): void {
-    const { isSelected } = this.props;
-    if (this.markerRef.current && isSelected) {
-      this.markerRef.current.leafletElement.openPopup();
+  useEffect(() => {
+    if (markerRef.current && isSelected) {
+      markerRef.current.leafletElement.openPopup();
     }
+  });
+
+  const { latLng, formattedAddress, key } = point;
+  if (!formattedAddress) {
+    return <div></div>;
   }
 
-  render(): JSX.Element {
-    const { point } = this.props;
-    const { latLng, formattedAddress, key } = point;
-    if (!formattedAddress) return <div></div>;
-    return (
-      <LeafletMarker ref={this.markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
-        <Popup>
-          <Event event={point} />
-        </Popup>
-      </LeafletMarker>
-    );
-  }
+  return (
+    <LeafletMarker ref={markerRef} position={[latLng.latitude, latLng.longitude] as LatLngTuple} key={key}>
+      <Popup>
+        <Event event={point} />
+      </Popup>
+    </LeafletMarker>
+  );
 }

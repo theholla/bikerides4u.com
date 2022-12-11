@@ -1,16 +1,21 @@
 # Roadmap
 
+Completed:
+
+- [x] Migrate to hooks
+- [x] Improve map performance
+
 ## Next Steps
 
+- Fix bug: Open Marker from Cluster when tapped from event list
+- Fix UX issue: inform the user if an event can't be displayed on the map
 - Run through [Express best practices](http://expressjs.com/en/advanced/best-practice-performance.html) and implement other improvements for production server
 - Run through [a11y project checklist](https://a11yproject.com/checklist/) to identify/address gaps in accessibility (Lighthouse audit score is 92 mobile, 98 web)
 - Show day of week in event list to instill trust in filter
-- Improve map performance, it's too slow
-- Make navbar fixed at top of page
+- Add filters: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
+- Make navbar fixed at top of page for scrolling small screens
 - Scroll to event in list when click on map marker
 - Add "clear/reset" filters
-- Add filters to controls: organizer, audience, location name, area (PDX/Vancouver), cancelled, duration, time of day
-- Add toggle: sort by distance vs date
 - Add filter to map: expandable radius
 - Add button: report a problem
 - Merge duplicates (repeating rides, example: TNR every thursday)

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 type ExternalLinkProps = {
   href: string;
   text?: string;
-  children?: any;
+  children?: ReactNode;
 };
 export function ExternalLink(props: ExternalLinkProps): JSX.Element {
   const { href, text, children } = props;

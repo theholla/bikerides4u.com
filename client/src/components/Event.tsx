@@ -8,12 +8,12 @@ import { AlertBanner } from './AlertBanner';
 
 type EventProps = {
   event: FormattedEvent;
-  handleListItemClick?: (id: string) => void;
+  handleListItemClick?: (key: string) => void;
 };
 export function Event(props: EventProps): JSX.Element {
   const {
     event: {
-      id,
+      key,
       shareable,
       cancelled,
       title,
@@ -33,7 +33,7 @@ export function Event(props: EventProps): JSX.Element {
   if (cancelled) eventClassName += ' cancelled';
 
   return (
-    <div onClick={handleListItemClick ? (): void => handleListItemClick(id) : undefined}>
+    <div onClick={handleListItemClick ? (): void => handleListItemClick(key) : undefined}>
       <div className={eventClassName}>
         <div className={formattedAddress && handleListItemClick ? 'clickable' : ''}>
           <div className="event-title">

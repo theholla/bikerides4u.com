@@ -30,8 +30,7 @@ type EventListContentProps = {
   error: string | null;
   handleListItemClick: (id: string) => void;
 };
-export function EventListContent(props: EventListContentProps): JSX.Element {
-  const { events, error, loading, handleListItemClick } = props;
+export function EventListContent({ events, error, loading, handleListItemClick }: EventListContentProps): JSX.Element {
   if (error) {
     return <Error message={error} />;
   }

@@ -11,33 +11,29 @@ interface GroupedPoints {
 
 interface MarkerClusterProps {
   points: FormattedEvent[];
-  selectedEventId?: string;
+  selectedEventKey: string | null;
 }
-export class MarkerCluster extends React.Component<MarkerClusterProps, {}> {
-  render(): JSX.Element {
-    const { points, selectedEventId } = this.props;
+export function MarkerCluster({ points, selectedEventKey }: MarkerClusterProps) {
+  const groupedPoints: GroupedPoints = {};
 
-    const groupedPoints: GroupedPoints = {};
+  points.forEach((point) => {
+    const key = point.latLng.latitude + ':' + point.latLng.longitude;
+    if (!groupedPoints[key]) {
+      groupedPoints[key] = [point];
+    } else {
+      groupedPoints[key].push(point);
+    }
+  });
 
-    points.forEach((point) => {
-      const key = point.latLng.latitude + ':' + point.latLng.longitude;
-      if (!groupedPoints[key]) {
-        groupedPoints[key] = [point];
-      } else {
-        groupedPoints[key].push(point);
-      }
-    });
-
-    return (
-      <div>
-        {Object.entries(groupedPoints).map(([key, pointGroup]) => (
-          <MarkerClusterGroup key={key}>
-            {pointGroup.map((point) => (
-              <Marker isSelected={selectedEventId === point.id} point={point} key={point.key} />
-            ))}
-          </MarkerClusterGroup>
-        ))}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {Object.entries(groupedPoints).map(([key, pointGroup]) => (
+        <MarkerClusterGroup key={key}>
+          {pointGroup.map((point) => (
+            <Marker clusterKey={key} isSelected={selectedEventKey === point.key} point={point} />
+          ))}
+        </MarkerClusterGroup>
+      ))}
+    </div>
+  );
 }
